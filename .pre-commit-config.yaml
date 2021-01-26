@@ -1,0 +1,15 @@
+repos:
+  # eslint, react, jsx
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: "v7.17.0" # Use the sha / tag you want to point at
+    hooks:
+      - id: eslint
+        args: ["--max-warnings", "0"]
+        additional_dependencies:
+          - eslint@7.10.0
+          - eslint-config-google@0.14.0
+          - eslint-loader@4.0.2
+          - eslint-plugin-react@7.21.3
+          - babel-eslint@10.1.0
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
