@@ -25,7 +25,7 @@
     "space-in-parens": "error",
     "space-before-blocks": "error",
     "semi-style": "error",
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
 
   }
 }

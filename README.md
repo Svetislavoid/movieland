@@ -1,3 +1,14 @@
+# Movies app
+
+### Run app
+
+`npm run start`
+
+### Eslint auto fix
+
+`./node_modules/eslint/bin/eslint.js --fix src/`
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
