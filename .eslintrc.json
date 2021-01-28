@@ -1,0 +1,31 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": "error",
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "no-const-assign": "error",
+    "no-duplicate-imports": "error",
+    "no-var": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "prefer-destructuring": "error",
+    "prefer-rest-params": "warn",
+    "prefer-spread": "error",
+    "prefer-template": "error",
+    "switch-colon-spacing": "error",
+    "spaced-comment": "error",
+    "space-unary-ops": "error",
+    "space-in-parens": "error",
+    "space-before-blocks": "error",
+    "semi-style": "error",
+    "quotes": ["error", "single"]
+
+  }
+}
