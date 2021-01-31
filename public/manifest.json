@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Movieland",
+  "name": "Movieland - search for movies, tv shows and people",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,39 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo_16x16.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "16x16"
     },
     {
-      "src": "logo512.png",
+      "src": "logo_22x22.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "22x22"
+    },
+    {
+      "src": "logo_32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "logo_48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "logo_64x64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "logo_128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "logo_256x256.png",
+      "type": "image/png",
+      "sizes": "256x256"
     }
   ],
   "start_url": ".",

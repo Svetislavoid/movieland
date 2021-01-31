@@ -1,4 +1,4 @@
-# Movies app
+# Movieland
 
 ### Run app
 
