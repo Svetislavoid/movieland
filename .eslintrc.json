@@ -41,5 +41,13 @@
     "camelcase": "error",
     "no-unused-vars": "error",
     "yoda": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/services/index.js"],
+      "rules": {
+        "camelcase": "off"
+      }
+    }
+  ]
 }
