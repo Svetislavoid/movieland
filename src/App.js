@@ -1,13 +1,19 @@
+import React from 'react';
+
+// components
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
+// styles
 import '@/App.css';
-import tmdbLogo from '@/assets/tmdb_logo.svg';
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        Nothing here! Where could it be?
-        <img src={tmdbLogo} />
-      </header>
+    <div className='ml-app'>
+      <Header />
+      <div className='ml-main-content'>
+      </div>
+      <Footer />
     </div>
   );
 };

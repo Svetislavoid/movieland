@@ -1,0 +1,12 @@
+.ml-app {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1600px;
+}
+
+.ml-main-content {
+  padding-bottom: 4rem; /* footer height */
+}
