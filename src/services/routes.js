@@ -21,6 +21,9 @@ export const KEYWORD_SEARCH = '/search/keyword';
 // ####### GET ROUTES
 // ########################################
 
+// Get configuration
+export const GET_CONFIGURATION = '/configuration';
+
 // Get movie details
 export const GET_MOVIE = '/movie';
 

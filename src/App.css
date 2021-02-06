@@ -1,12 +1,14 @@
 .ml-app {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   margin: auto;
-  max-width: 1600px;
+  padding: 0 4rem;
+  max-width: var(--max-width);
 }
 
 .ml-main-content {
-  padding-bottom: 4rem; /* footer height */
+  flex: 1;
+  margin: 4rem 0;
 }

@@ -1,11 +1,18 @@
 import Api from '@/services/Api';
 import {
+  GET_CONFIGURATION,
   MULTI_SEARCH,
   MOVIE_SEARCH,
   TV_SEARCH,
   PERSON_SEARCH,
-  KEYWORD_SEARCH
+  KEYWORD_SEARCH,
+  GET_TRENDING
 } from '@/services/routes';
+
+export const getConfiguration = () => {
+
+  return Api().get(GET_CONFIGURATION);
+};
 
 export const searchMoviesTvShowsPeople = (searchTerm) => {
   const params = {
@@ -45,4 +52,9 @@ export const searchKeyword = (searchTerm) => {
   };
 
   return Api().get(KEYWORD_SEARCH, { params });
+};
+
+export const getTrending = (mediaType, timeWindow) => {
+
+  return Api().get(`${GET_TRENDING}/${mediaType}/${timeWindow}`);
 };

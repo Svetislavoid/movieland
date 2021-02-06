@@ -1,13 +1,18 @@
 .ml-footer {
   display: flex;
-  padding: 1rem;
-  justify-content: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 4rem;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  padding: 1rem 0 3rem 0;
 }
 
 .ml-tmdb-logo {
-  width: 25%;
+  width: 100%;
+  min-width: 13rem;
+  max-width: 25%;
+  padding: 1rem 1rem 0 0;
+}
+
+.ml-app-creator {
+  padding: 1rem 0 0 0;
+  color: var(--light-shadow-color);
 }

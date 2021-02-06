@@ -1,7 +1,7 @@
 .ml-header {
   display: flex;
-  padding: 1rem;
-  height: 4rem;
+  margin: 1rem 0;
+  height: var(--header-height);
   justify-content: center;
 }
 

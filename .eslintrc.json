@@ -11,7 +11,7 @@
     "react-app/jest"
   ],
   "rules": {
-    "semi": "error",
+    "semi": "warn",
     "arrow-parens": ["error", "always"],
     "arrow-spacing": ["error", { "before": true, "after": true }],
     "no-const-assign": "error",
@@ -28,8 +28,8 @@
     "space-unary-ops": "error",
     "space-in-parens": "error",
     "space-before-blocks": "error",
-    "semi-style": "error",
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "semi-style": "warn",
+    "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
     "object-curly-spacing": ["error", "always"],
     "no-whitespace-before-property": "error",
     "no-unneeded-ternary": "error",
@@ -42,8 +42,8 @@
     "no-lonely-if": "error",
     "indent": ["error", 2],
     "comma-spacing": ["error", { "before": false, "after": true }],
-    "camelcase": "error",
-    "no-unused-vars": "error",
+    "camelcase": "warn",
+    "no-unused-vars": "warn",
     "yoda": "error"
   },
   "overrides": [

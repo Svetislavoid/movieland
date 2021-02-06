@@ -4,6 +4,9 @@
   --light-shadow-color: #959794;
   --text-color: #FFFFFF;
   --contrast-color: #E9322E;
+  --max-width: 1400px;
+  --header-height: 4rem;
+  --footer-height: 4rem;
 }
 
 html {
