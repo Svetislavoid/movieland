@@ -9,13 +9,13 @@ import movieLandLogo from '@/assets/logo_128x128.png';
 const Header = () => {
   return (
     <header className='ml-header'>
-      <span className='ml-app-name'>MOVIE</span>
+      <h1 className='ml-app-name'>Movie</h1>
       <img
         className='ml-logo'
         src={movieLandLogo}
         alt='movieland logo'
       />
-      <span className='ml-app-name'>LAND</span>
+      <h1 className='ml-app-name'>land</h1>
       <div className='ml-login'>login</div>
     </header>
   );

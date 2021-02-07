@@ -12,6 +12,7 @@
   background-color: var(--contrast-color);
   padding: 0.5rem 1rem;
   margin: 0;
+  font-weight: 400;
 }
 
 .ml-card-release-year {
@@ -41,6 +42,7 @@ p {
 .ml-card-known-for-items {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .ml-card-known-for-item {

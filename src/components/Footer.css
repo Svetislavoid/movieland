@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap-reverse;
-  padding: 1rem 0 3rem 0;
+  padding: 1rem 1% 3rem 1%;
 }
 
 .ml-tmdb-logo {
