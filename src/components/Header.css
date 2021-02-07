@@ -23,3 +23,38 @@
   right: 1rem;
   top: 2.5rem;
 }
+
+@media (max-width: 1000px) {
+  .ml-header {
+    margin-bottom: 0;
+    height: 6rem;
+  }
+
+  .ml-logo {
+    margin: 0 1.5rem;
+  }
+
+  .ml-app-name {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .ml-header {
+    height: unset;
+    flex-direction: column;
+  }
+
+  .ml-logo {
+    order: -1;
+    width: min-content;
+    margin: 0 auto 1rem;
+  }
+
+  .ml-app-name {
+    text-align: center;
+    margin-right: 0;
+    letter-spacing: 1rem;
+    line-height: 1.2;
+  }
+}

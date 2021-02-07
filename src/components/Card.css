@@ -50,3 +50,9 @@ p {
   flex: 1 1 6rem;
   text-align: center;
 }
+
+@media (max-width: 600px) {
+  .ml-card {
+    margin-bottom: 10%;
+  }
+}

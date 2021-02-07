@@ -1,5 +1,5 @@
 .ml-section {
-  margin-bottom: 8rem;;
+  margin-bottom: 8rem;
 }
 
 .ml-section-title {
@@ -15,4 +15,14 @@
 .ml-section-content {
   display: flex;
   flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .ml-section {
+    margin-bottom: 4rem;
+  }
+
+  .ml-section-title {
+    font-size: 1.8rem;
+  }
 }

@@ -7,6 +7,9 @@
   --max-width: 1400px;
   --header-height: 4rem;
   --footer-height: 4rem;
+  --small-screen-breakpoint: 600px;
+  --medium-screen-breakpoint: 1000px;
+  --large-screen-breakpoint: 1400px;
 }
 
 html {
