@@ -5,11 +5,16 @@ import '@/index.css';
 import App from '@/App';
 import reportWebVitals from '@/reportWebVitals';
 
+// store
+import Store from '@/store/store';
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Store>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Store>
   </React.StrictMode>,
   document.getElementById('root')
 );

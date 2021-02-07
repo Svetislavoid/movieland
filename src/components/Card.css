@@ -1,4 +1,50 @@
 .ml-card {
   flex: 1 1 20rem;
+  margin: 2% 1%;
+  box-shadow: 0px 0px 5px 2px var(--dark-shadow-color)
+}
+
+.ml-card-poster {
+  width: 100%;
+}
+
+.ml-card-title {
+  background-color: var(--contrast-color);
+  padding: 0.5rem 1rem;
+  margin: 0;
+}
+
+.ml-card-release-year {
+  font-size: 1rem;
+}
+
+.ml-card-content {
+  padding: 1rem;
+  color: var(--light-shadow-color);
+}
+
+.ml-card-label {
+  color: var(--text-color);
+  margin-right: 0.5rem;
+  font-style: italic;
+  font-size: 0.8rem;;
+}
+
+p {
+  margin: 0.3rem 0;
+}
+
+.ml-card-overview {
+  margin: 2rem 0 1rem 0;
+}
+
+.ml-card-known-for-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ml-card-known-for-item {
   margin: 1%;
+  flex: 1 1 6rem;
+  text-align: center;
 }

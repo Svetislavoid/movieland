@@ -6,22 +6,21 @@ import Card from '@/components/Card';
 // styles
 import '@/components/Section.css';
 
-// third-party libraries
-import { isEmpty } from 'lodash';
-
-const TrendingSection = (props) => {
-  const { dataToShow } = props;
+const Section = (props) => {
+  const { title, dataToShow } = props;
 
   return (
-    <div className='ml-section'>
-      {
-        !isEmpty(dataToShow) &&
-        dataToShow.map((item) => {
-          return (<Card key={item.id} item={item} />);
-        })
-      }
-    </div>
+    <section className='ml-section'>
+      <h2 className='ml-section-title'>{ title }</h2>
+      <div className='ml-section-content'>
+        {
+          dataToShow.map((item) => {
+            return (<Card key={item.id} item={item} />);
+          })
+        }
+      </div>
+    </section>
   );
 };
 
-export default TrendingSection;
+export default Section;

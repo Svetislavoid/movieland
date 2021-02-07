@@ -1,17 +1,32 @@
 import Api from '@/services/Api';
 import {
-  GET_CONFIGURATION,
+  GET_API_CONFIGURATION,
+  GET_COUNTRIES,
+  GET_LANGUAGES,
   MULTI_SEARCH,
   MOVIE_SEARCH,
   TV_SEARCH,
   PERSON_SEARCH,
   KEYWORD_SEARCH,
-  GET_TRENDING
+  GET_TRENDING,
+  GET_MOVIE_GENRES,
+  GET_TV_GENRES
 } from '@/services/routes';
 
-export const getConfiguration = () => {
+export const getApiConfiguration = () => {
+  return Api().get(GET_API_CONFIGURATION);
+};
 
-  return Api().get(GET_CONFIGURATION);
+export const getCountries = () => {
+  return Api().get(GET_COUNTRIES);
+};
+
+export const getLanguages = () => {
+  return Api().get(GET_LANGUAGES);
+};
+
+export const getConfiguration = () => {
+  return Api().get(GET_API_CONFIGURATION);
 };
 
 export const searchMoviesTvShowsPeople = (searchTerm) => {
@@ -55,6 +70,13 @@ export const searchKeyword = (searchTerm) => {
 };
 
 export const getTrending = (mediaType, timeWindow) => {
-
   return Api().get(`${GET_TRENDING}/${mediaType}/${timeWindow}`);
+};
+
+export const getMovieGenres = () => {
+  return Api().get(GET_MOVIE_GENRES);
+};
+
+export const getTvGenres = () => {
+  return Api().get(GET_TV_GENRES);
 };

@@ -12,7 +12,14 @@ import { getTrending } from '@/services';
 // settings
 import { TRENDING_SETTINGS } from '@/common/settings';
 
-const { mediaTypes, timeWindow } = TRENDING_SETTINGS;
+// libraries
+import { take } from 'lodash';
+
+const {
+  mediaTypes,
+  timeWindow,
+  numberOfItemsToShowOnHomepage
+} = TRENDING_SETTINGS;
 
 const Home = () => {
   // state variables
@@ -26,14 +33,16 @@ const Home = () => {
     mediaTypes.forEach((type) => {
       getTrending(type, timeWindow)
         .then((r) => {
+          const items = take(r.data.results, numberOfItemsToShowOnHomepage);
+
           if (type === 'movie') {
-            setTrendingMovies(r.data.results);
+            setTrendingMovies(items);
           } else if (type === 'tv') {
-            setTrendingTvShows(r.data.results);
+            setTrendingTvShows(items);
           } else if (type === 'person') {
-            setTrendingPersons(r.data.results);
+            setTrendingPersons(items);
           } else if (type === 'all') {
-            setTrendingAll(r.data.results);
+            setTrendingAll(items);
           }
         });
     });
@@ -43,31 +52,31 @@ const Home = () => {
     <div className='ml-home'>
       {
         TRENDING_SETTINGS.mediaTypes.includes('all') &&
-        <section>
-          <h2>Trending:</h2>
-          <Section type='all' dataToShow={trendingAll} />
-        </section>
+        <Section
+          title='Trending'
+          dataToShow={trendingAll}
+        />
       }
       {
         TRENDING_SETTINGS.mediaTypes.includes('movie') &&
-        <section>
-          <h2>Trending movies:</h2>
-          <Section type='movie' dataToShow={trendingMovies} />
-        </section>
+        <Section
+          title='Trending movies'
+          dataToShow={trendingMovies}
+        />
       }
       {
         TRENDING_SETTINGS.mediaTypes.includes('tv') &&
-        <section>
-          <h2>Trending tv shows:</h2>
-          <Section type='tv' dataToShow={trendingTvShows} />
-        </section>
+        <Section
+          title='Trending TV shows'
+          dataToShow={trendingTvShows}
+        />
       }
       {
         TRENDING_SETTINGS.mediaTypes.includes('person') &&
-        <section>
-          <h2>Trending persons:</h2>
-          <Section type='person' dataToShow={trendingPersons} />
-        </section>
+        <Section
+          title='Trending persons'
+          dataToShow={trendingPersons}
+        />
       }
     </div>
   );
