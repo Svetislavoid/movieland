@@ -72,7 +72,7 @@ const Card = ({ item }) => {
     return {
       showReleaseYear,
       releaseYear
-    }
+    };
   };
 
   const displayOriginalName = (title, originalTitle, name, originalName) => {
@@ -90,7 +90,7 @@ const Card = ({ item }) => {
     return {
       showOriginalName,
       originalNameToDisplay
-    }
+    };
   };
 
   const displayGenres = (mediaType, genreIds) => {
@@ -112,7 +112,7 @@ const Card = ({ item }) => {
     return {
       showGenres,
       genres
-    }
+    };
   };
 
   const displayOriginalLaguage = (language) => {
@@ -127,7 +127,7 @@ const Card = ({ item }) => {
     return {
       showOriginalLanguage,
       originalLanguage
-    }
+    };
   };
 
   const displayOriginCountries = (countries) => {
@@ -144,7 +144,7 @@ const Card = ({ item }) => {
     return {
       showOriginCountries,
       originCountries
-    }
+    };
   };
 
   const displayKnownFor = (knownForItems) => {
@@ -159,14 +159,14 @@ const Card = ({ item }) => {
           title: item.title || item.name,
           releaseYear: item.release_date ? moment(item.release_date).year() : moment(item.first_air_date).year(),
           posterUrl: `${secure_base_url}${poster_sizes[1]}${item.poster_path}`
-        }
+        };
       });
     }
 
     return {
       showKnownFor,
       knownFor
-    }
+    };
   };
 
   return (

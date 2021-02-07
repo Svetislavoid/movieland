@@ -31,7 +31,7 @@ const App = () => {
     getApiConfiguration()
       .then((r) => {
         dispatch({
-          type: "SET_API_CONFIGURATION",
+          type: 'SET_API_CONFIGURATION',
           payload: r.data
         });
       });
@@ -39,7 +39,7 @@ const App = () => {
     getCountries()
       .then((r) => {
         dispatch({
-          type: "SET_COUNTRIES",
+          type: 'SET_COUNTRIES',
           payload: r.data
         });
       });
@@ -47,7 +47,7 @@ const App = () => {
     getLanguages()
       .then((r) => {
         dispatch({
-          type: "SET_LANGUAGES",
+          type: 'SET_LANGUAGES',
           payload: r.data
         });
       });
@@ -55,7 +55,7 @@ const App = () => {
     getMovieGenres()
       .then((r) => {
         dispatch({
-          type: "SET_MOVIE_GENRES",
+          type: 'SET_MOVIE_GENRES',
           payload: r.data
         });
       });
@@ -63,11 +63,11 @@ const App = () => {
     getTvGenres()
       .then((r) => {
         dispatch({
-          type: "SET_TV_GENRES",
+          type: 'SET_TV_GENRES',
           payload: r.data
         });
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='ml-app'>
