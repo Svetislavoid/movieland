@@ -1,5 +1,7 @@
 .ml-search {
   text-align: center;
+  height: 40vh;
+  margin-top: 10vh;
 }
 
 .ml-search-input {
@@ -15,6 +17,11 @@
 }
 
 @media (max-width: 1000px) {
+  .ml-search {
+    height: 30vh;
+    margin-top: 0;
+  }
+
   .ml-search-input {
     width: 85%;
   }
