@@ -1,6 +1,5 @@
 .ml-card {
-  flex: 1 1 20rem;
-  margin: 2% 1%;
+  margin: 4% 2%;
   box-shadow: 0px 0px 5px 2px var(--dark-shadow-color)
 }
 
@@ -42,14 +41,13 @@ p {
 }
 
 .ml-card-known-for-items {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
   margin-top: 1rem;
 }
 
 .ml-card-known-for-item {
-  margin: 1%;
-  flex: 1 1 6rem;
+  margin: 2%;
   text-align: center;
 }
 

@@ -23,6 +23,6 @@ const ServiceLink = (props) => {
       />
     </a>
   );
-}
+};
 
 export default ServiceLink;

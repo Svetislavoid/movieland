@@ -6,6 +6,9 @@ import '@/components/Card.css';
 // services & store
 import { Context } from '@/store/store';
 
+// settings
+import { POSTER_SIZES } from '@/common/settings';
+
 // libraries
 import { isUndefined, isEmpty, find } from 'lodash';
 import moment from 'moment';
@@ -43,10 +46,7 @@ const Card = ({ item }) => {
   // Context
   const [state] = useContext(Context);
 
-  const {
-    secure_base_url,
-    poster_sizes
-  } = state.apiConfiguration.images;
+  const { secure_base_url } = state.apiConfiguration.images;
   const {
     countriesList,
     languagesList,
@@ -54,7 +54,7 @@ const Card = ({ item }) => {
     tvGenresList
   } = state;
 
-  const posterUrl = `${secure_base_url}${poster_sizes[6]}${poster_path || profile_path}`;
+  const posterUrl = `${secure_base_url}${POSTER_SIZES.large}${poster_path || profile_path}`;
 
   const displayName = (title, name) => {
     return title ? title : name;
@@ -158,7 +158,7 @@ const Card = ({ item }) => {
           id: item.id,
           title: item.title || item.name,
           releaseYear: item.release_date ? moment(item.release_date).year() : moment(item.first_air_date).year(),
-          posterUrl: `${secure_base_url}${poster_sizes[1]}${item.poster_path}`
+          posterUrl: `${secure_base_url}${POSTER_SIZES.small}${item.poster_path}`
         };
       });
     }
