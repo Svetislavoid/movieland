@@ -8,7 +8,7 @@
   max-width: var(--max-width);
 }
 
-.ml-main-content {
+.ml-app-main-content {
   flex: 1;
   margin: 4rem 0;
 }
@@ -18,7 +18,7 @@
     padding: 0 2rem;
   }
 
-  .ml-main-content {
+  .ml-app-main-content {
     margin-bottom: 0;
   }
 }

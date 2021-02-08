@@ -78,7 +78,7 @@ const App = () => {
         !isEmpty(state.languagesList) &&
         !isEmpty(state.movieGenresList) &&
         !isEmpty(state.tvGenresList) &&
-        <div className='ml-main-content'>
+        <div className='ml-app-main-content'>
           <Switch>
             <Route exact path='/' component={Home} />
           </Switch>

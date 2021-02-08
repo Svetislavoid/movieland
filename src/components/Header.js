@@ -16,7 +16,6 @@ const Header = () => {
         alt='movieland logo'
       />
       <h1 className='ml-app-name'>land</h1>
-      <div className='ml-login'>login</div>
     </header>
   );
 };

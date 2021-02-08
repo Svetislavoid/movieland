@@ -3,6 +3,6 @@
 //   timeWindow: 'day', 'week'
 export const TRENDING_SETTINGS = {
   mediaTypes: ['movie', 'tv', 'person'],
-  timeWindow: 'week',
+  timeWindow: 'day',
   numberOfItemsToShowOnHomepage: 6
 };

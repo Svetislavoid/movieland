@@ -13,6 +13,7 @@
   padding: 0.5rem 1rem;
   margin: 0;
   font-weight: 400;
+  line-height: 1;
 }
 
 .ml-card-release-year {
@@ -37,6 +38,7 @@ p {
 
 .ml-card-overview {
   margin: 2rem 0 1rem 0;
+  text-align: justify;
 }
 
 .ml-card-known-for-items {

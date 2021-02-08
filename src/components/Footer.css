@@ -5,13 +5,28 @@
   padding: 1rem 1% 3rem 1%;
 }
 
-.ml-tmdb-logo {
+.ml-footer-tmdb-logo {
   width: 100%;
   max-width: 12rem;
-  padding: 1rem 1rem 0 0;
+  margin: 3rem 6rem 0 0;
+  align-self: flex-start;
 }
 
-.ml-app-creator {
+.ml-footer-app-author {
   padding: 1rem 0 0 0;
   color: var(--light-shadow-color);
+}
+
+.ml-footer-services {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.ml-footer-service-logo-link {
+  max-width: 1.2rem;
+  margin-right: 1rem;
+}
+
+.ml-footer-service-logo {
+  width: 100%;
 }
