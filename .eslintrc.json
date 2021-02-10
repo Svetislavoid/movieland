@@ -19,7 +19,7 @@
     "no-var": "error",
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
-    "prefer-destructuring": "warn",
+    "prefer-destructuring": "error",
     "prefer-rest-params": "warn",
     "prefer-spread": "error",
     "prefer-template": "error",

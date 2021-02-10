@@ -17,7 +17,7 @@ const Search = () => {
   // Search for a movie, tv show or person
   useEffect(() => {
     searchMoviesTvShowsPeople(searchTerm)
-      .then((r) => r);
+      .then((response) => response);
   }, [searchTerm]);
 
   return (

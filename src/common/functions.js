@@ -105,7 +105,11 @@ export const displayKnownFor = (knownForItems) => {
 
   if (!isUndefined(knownForItems) && !isEmpty(knownForItems)) {
     showKnownFor = true;
-    knownFor = knownForItems.map((item) => {
+
+    // Filter items that do not have all the needed data
+    const filteredKnownForItems = knownForItems.filter((item) => responseItemHasNeededData(item));
+
+    knownFor = filteredKnownForItems.map((item) => {
       return {
         id: item.id,
         title: item.title || item.name,
@@ -119,4 +123,18 @@ export const displayKnownFor = (knownForItems) => {
     showKnownFor,
     knownFor
   };
+};
+
+export const responseItemHasNeededData = (response) => {
+  const {
+    id,
+    poster_path,
+    title,
+    name,
+    profile_path
+  } = response;
+
+  return id &&
+        (poster_path || profile_path) &&
+        (title || name);
 };

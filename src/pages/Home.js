@@ -10,8 +10,11 @@ import '@/pages/Home.css';
 // services
 import { getTrending } from '@/services';
 
-// settings
+// settings & functions
 import { TRENDING_SETTINGS } from '@/common/settings';
+import {
+  responseItemHasNeededData
+} from '@/common/functions';
 
 // libraries
 import { take } from 'lodash';
@@ -33,8 +36,12 @@ const Home = () => {
   useEffect(() => {
     mediaTypes.forEach((type) => {
       getTrending(type, timeWindow)
-        .then((r) => {
-          const items = take(r.data.results, numberOfItemsToShowOnHomepage);
+        .then((response) => {
+          const { results } = response.data;
+
+          // Filter result items that do not have all the needed data
+          const filteredResponse = results.filter((item) => responseItemHasNeededData(item));
+          const items = take(filteredResponse, numberOfItemsToShowOnHomepage);
 
           if (type === 'movie') {
             setTrendingMovies(items);

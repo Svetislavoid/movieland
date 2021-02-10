@@ -30,42 +30,42 @@ const App = () => {
   // Get tmdb configuration and genres and store them
   useEffect(() => {
     getApiConfiguration()
-      .then((r) => {
+      .then((response) => {
         dispatch({
           type: 'SET_API_CONFIGURATION',
-          payload: r.data
+          payload: response.data
         });
       });
 
     getCountries()
-      .then((r) => {
+      .then((response) => {
         dispatch({
           type: 'SET_COUNTRIES',
-          payload: r.data
+          payload: response.data
         });
       });
 
     getLanguages()
-      .then((r) => {
+      .then((response) => {
         dispatch({
           type: 'SET_LANGUAGES',
-          payload: r.data
+          payload: response.data
         });
       });
 
     getMovieGenres()
-      .then((r) => {
+      .then((response) => {
         dispatch({
           type: 'SET_MOVIE_GENRES',
-          payload: r.data
+          payload: response.data
         });
       });
 
     getTvGenres()
-      .then((r) => {
+      .then((response) => {
         dispatch({
           type: 'SET_TV_GENRES',
-          payload: r.data
+          payload: response.data
         });
       });
   }, [dispatch]);

@@ -34,7 +34,7 @@ const InfoItem = (props) => {
   } = props;
 
   return show ? (
-    <p className={className}>
+    <div className={className}>
       {
         label &&
         (<span className='ml-card-label'>{ label }</span>)
@@ -44,7 +44,7 @@ const InfoItem = (props) => {
         (<span>{ dataToShow }</span>)
       }
       { children }
-    </p>
+    </div>
   ) : null;
 };
 
