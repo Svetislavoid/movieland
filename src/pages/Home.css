@@ -1,0 +1,12 @@
+.ml-home-search {
+  text-align: center;
+  height: 40vh;
+  margin-top: 10vh;
+}
+
+@media (max-width: 1000px) {
+  .ml-home-search {
+    height: 30vh;
+    margin-top: 0;
+  }
+}

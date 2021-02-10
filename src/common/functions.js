@@ -103,7 +103,7 @@ export const displayKnownFor = (knownForItems) => {
   let showKnownFor = false;
   let knownFor = [];
 
-  if (!isUndefined(knownForItems)) {
+  if (!isUndefined(knownForItems) && !isEmpty(knownForItems)) {
     showKnownFor = true;
     knownFor = knownForItems.map((item) => {
       return {

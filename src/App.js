@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Home from '@/pages/Home';
+import Search from '@/pages/Search';
 
 // styles
 import '@/App.css';
@@ -80,6 +81,7 @@ const App = () => {
         !isEmpty(state.tvGenresList) &&
         <div className='ml-app-main-content'>
           <Switch>
+            <Route exact path='/search/:searchTerm' component={Search} />
             <Route exact path='/' component={Home} />
           </Switch>
         </div>

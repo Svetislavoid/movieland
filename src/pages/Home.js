@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // components
 import Section from '@/components/Section';
-import Search from '@/components/Search';
+import SearchInput from '@/components/SearchInput';
 
 // styles
 import '@/pages/Home.css';
@@ -51,7 +51,9 @@ const Home = () => {
 
   return (
     <div className='ml-home'>
-      <Search />
+      <div className='ml-home-search'>
+        <SearchInput />
+      </div>
       {
         TRENDING_SETTINGS.mediaTypes.includes('all') &&
         <Section

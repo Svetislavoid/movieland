@@ -4,7 +4,13 @@
   justify-content: center;
 }
 
-.ml-app-name {
+.ml-header-app-logo {
+  display: flex;
+  color: unset;
+  text-decoration: none;
+}
+
+.ml-header-app-name {
   margin: auto 0;
   margin-right: -1.5rem;
   letter-spacing: 1.5rem;
@@ -13,7 +19,7 @@
   font-size: 3.5rem;
 }
 
-.ml-logo {
+.ml-header-logo {
   height: 100%;
   margin: 0 3rem;
 }
@@ -24,11 +30,11 @@
     height: 6rem;
   }
 
-  .ml-logo {
+  .ml-header-logo {
     margin: 0 1.5rem;
   }
 
-  .ml-app-name {
+  .ml-header-app-name {
     font-size: 1.8rem;
   }
 }
@@ -39,13 +45,13 @@
     flex-direction: column;
   }
 
-  .ml-logo {
+  .ml-header-logo {
     order: -1;
     width: min-content;
     margin: 0 auto 1rem;
   }
 
-  .ml-app-name {
+  .ml-header-app-name {
     text-align: center;
     margin-right: 0;
     letter-spacing: 1rem;

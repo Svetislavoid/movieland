@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // styles
 import '@/components/Header.css';
@@ -9,13 +10,18 @@ import movieLandLogo from '@/assets/logo_128x128.png';
 const Header = () => {
   return (
     <header className='ml-header'>
-      <h1 className='ml-app-name'>Movie</h1>
-      <img
-        className='ml-logo'
-        src={movieLandLogo}
-        alt='movieland logo'
-      />
-      <h1 className='ml-app-name'>land</h1>
+      <Link
+        className='ml-header-app-logo'
+        to='/'
+      >
+        <h1 className='ml-header-app-name'>Movie</h1>
+        <img
+          className='ml-header-logo'
+          src={movieLandLogo}
+          alt='movieland logo'
+        />
+        <h1 className='ml-header-app-name'>land</h1>
+      </Link>
     </header>
   );
 };
