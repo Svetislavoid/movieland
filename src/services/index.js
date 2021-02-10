@@ -1,3 +1,4 @@
+// services
 import Api from '@/services/Api';
 import {
   GET_API_CONFIGURATION,
@@ -12,6 +13,9 @@ import {
   GET_MOVIE_GENRES,
   GET_TV_GENRES
 } from '@/services/routes';
+
+// setiings
+import { INCLUDE_ADULT_CONTENT } from '@/common/settings';
 
 export const getApiConfiguration = () => {
   return Api().get(GET_API_CONFIGURATION);
@@ -29,48 +33,58 @@ export const getConfiguration = () => {
   return Api().get(GET_API_CONFIGURATION);
 };
 
-export const searchMoviesTvShowsPeople = (searchTerm) => {
+export const searchMoviesTvShowsPeople = (searchTerm, page) => {
   const params = {
-    query: searchTerm
+    query: searchTerm,
+    page,
+    include_adult: INCLUDE_ADULT_CONTENT
   };
 
   return Api().get(MULTI_SEARCH, { params });
 };
 
-export const searchMovies = (searchTerm) => {
+export const searchMovies = (searchTerm, page) => {
   const params = {
-    query: searchTerm
+    query: searchTerm,
+    page
   };
 
   return Api().get(MOVIE_SEARCH, { params });
 };
 
-export const searchTvShows = (searchTerm) => {
+export const searchTvShows = (searchTerm, page) => {
   const params = {
-    query: searchTerm
+    query: searchTerm,
+    page
   };
 
   return Api().get(TV_SEARCH, { params });
 };
 
-export const searchPeople = (searchTerm) => {
+export const searchPeople = (searchTerm, page) => {
   const params = {
-    query: searchTerm
+    query: searchTerm,
+    page
   };
 
   return Api().get(PERSON_SEARCH, { params });
 };
 
-export const searchKeyword = (searchTerm) => {
+export const searchKeyword = (searchTerm, page) => {
   const params = {
-    query: searchTerm
+    query: searchTerm,
+    page
   };
 
   return Api().get(KEYWORD_SEARCH, { params });
 };
 
-export const getTrending = (mediaType, timeWindow) => {
-  return Api().get(`${GET_TRENDING}/${mediaType}/${timeWindow}`);
+export const getTrending = (mediaType, timeWindow, page) => {
+  const params = {
+    page
+  };
+
+  return Api().get(`${GET_TRENDING}/${mediaType}/${timeWindow}`, { params });
 };
 
 export const getMovieGenres = () => {

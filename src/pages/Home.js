@@ -12,9 +12,7 @@ import { getTrending } from '@/services';
 
 // settings & functions
 import { TRENDING_SETTINGS } from '@/common/settings';
-import {
-  responseItemHasNeededData
-} from '@/common/functions';
+import { responseItemHasNeededData } from '@/common/functions';
 
 // libraries
 import { take } from 'lodash';
@@ -40,8 +38,8 @@ const Home = () => {
           const { results } = response.data;
 
           // Filter result items that do not have all the needed data
-          const filteredResponse = results.filter((item) => responseItemHasNeededData(item));
-          const items = take(filteredResponse, numberOfItemsToShowOnHomepage);
+          const filteredResults = results.filter((item) => responseItemHasNeededData(item));
+          const items = take(filteredResults, numberOfItemsToShowOnHomepage);
 
           if (type === 'movie') {
             setTrendingMovies(items);
@@ -52,6 +50,8 @@ const Home = () => {
           } else if (type === 'all') {
             setTrendingAll(items);
           }
+
+          return response;
         });
     });
   }, []);

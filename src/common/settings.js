@@ -16,3 +16,6 @@ export const POSTER_SIZES = {
 
 // url for getting images
 export const SECURE_BASE_URL = 'https://image.tmdb.org/t/p/';
+
+// whether to include adult content in multi search or not
+export const INCLUDE_ADULT_CONTENT = 'true';

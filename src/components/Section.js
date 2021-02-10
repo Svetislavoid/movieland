@@ -11,7 +11,10 @@ const Section = (props) => {
 
   return (
     <section className='ml-section'>
-      <h2 className='ml-section-title'>{ title }</h2>
+      {
+        title &&
+        <h2 className='ml-section-title'>{ title }</h2>
+      }
       <div className='ml-section-content'>
         {
           dataToShow.map((item) => {

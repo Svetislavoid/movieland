@@ -35,6 +35,8 @@ const App = () => {
           type: 'SET_API_CONFIGURATION',
           payload: response.data
         });
+
+        return response;
       });
 
     getCountries()
@@ -43,6 +45,8 @@ const App = () => {
           type: 'SET_COUNTRIES',
           payload: response.data
         });
+
+        return response;
       });
 
     getLanguages()
@@ -51,6 +55,8 @@ const App = () => {
           type: 'SET_LANGUAGES',
           payload: response.data
         });
+
+        return response;
       });
 
     getMovieGenres()
@@ -59,6 +65,8 @@ const App = () => {
           type: 'SET_MOVIE_GENRES',
           payload: response.data
         });
+
+        return response;
       });
 
     getTvGenres()
@@ -67,6 +75,8 @@ const App = () => {
           type: 'SET_TV_GENRES',
           payload: response.data
         });
+
+        return response;
       });
   }, [dispatch]);
 

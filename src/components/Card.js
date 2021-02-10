@@ -21,6 +21,9 @@ import {
   displayKnownFor
 } from '@/common/functions';
 
+// assets
+import noImageAvailable from '@/assets/no_image_available.png';
+
 // libraries
 import { isUndefined } from 'lodash';
 
@@ -68,7 +71,8 @@ const Card = ({ item }) => {
     origin_country,
     original_name,
     known_for,
-    profile_path
+    profile_path,
+    adult
   } = item;
 
   // Context
@@ -81,13 +85,14 @@ const Card = ({ item }) => {
     tvGenresList
   } = state;
 
-  const posterUrl = `${SECURE_BASE_URL}${POSTER_SIZES.large}${poster_path || profile_path}`;
+  const posterUrl = (poster_path || profile_path) &&
+                    `${SECURE_BASE_URL}${POSTER_SIZES.large}${poster_path || profile_path}`;
 
   return (
     <div className='ml-card'>
       <img
         className='ml-card-poster'
-        src={posterUrl}
+        src={posterUrl || noImageAvailable}
         alt={title || name}
       />
       <h4 className='ml-card-title'>
@@ -104,9 +109,19 @@ const Card = ({ item }) => {
           dataToShow={ displayOriginalName(title, original_title, name, original_name).originalNameToDisplay }
         />
         <InfoItem
+          show={ media_type }
+          label='Type:'
+          dataToShow={ media_type }
+        />
+        <InfoItem
           show={ displayGenres(media_type, genre_ids, movieGenresList, tvGenresList).showGenres }
           label='Genres:'
           dataToShow={ displayGenres(media_type, genre_ids, movieGenresList, tvGenresList).genres.join(', ') }
+        />
+        <InfoItem
+          show={ !isUndefined(adult) }
+          label='Adult content:'
+          dataToShow={ adult ? 'Yes' : 'No' }
         />
         <InfoItem
           show={ displayOriginalLanguage(original_language, languagesList).showOriginalLanguage }
@@ -139,7 +154,7 @@ const Card = ({ item }) => {
                 <div className='ml-card-known-for-item' key={item.id}>
                   <img
                     className='ml-card-poster'
-                    src={item.posterUrl}
+                    src={item.posterUrl || noImageAvailable}
                     alt={item.title}
                   />
                   <p>{item.title} ({item.releaseYear})</p>

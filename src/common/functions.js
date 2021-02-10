@@ -1,5 +1,5 @@
 // libraries
-import { isUndefined, isEmpty, find } from 'lodash';
+import { isUndefined, isEmpty, find, compact } from 'lodash';
 import moment from 'moment';
 
 // settings & functions
@@ -16,7 +16,7 @@ export const displayReleaseYear = (releaseDate, firstAirDate) => {
   let showReleaseYear = false;
   let releaseYear = '';
 
-  if (!isUndefined(releaseDate) || !isUndefined(firstAirDate)) {
+  if (releaseDate || firstAirDate) {
     showReleaseYear = true;
     releaseYear = releaseDate ? moment(releaseDate).year() : moment(firstAirDate).year();
   }
@@ -49,15 +49,25 @@ export const displayGenres = (mediaType, genreIds, movieGenresList, tvGenresList
   let showGenres = false;
   let genres = [];
 
+  const genresList = movieGenresList || tvGenresList;
+
   if (mediaType === 'movie') {
     genres = genreIds.map((id) => {
-      return find(movieGenresList.genres, { 'id': id }).name;
+      const genre = find(genresList.genres, { 'id': id });
+      return genre?.name;
     });
+    // remove all falsy values from genres array
+    genres = compact(genres);
+
     showGenres = !isEmpty(genres);
   } else if (mediaType === 'tv') {
     genres = genreIds.map((id) => {
-      return find(tvGenresList.genres, { 'id': id }).name;
+      const genre = find(genresList.genres, { 'id': id });
+      return genre?.name;
     });
+    // remove all falsy values from genres array
+    genres = compact(genres);
+
     showGenres = !isEmpty(genres);
   }
 
@@ -114,7 +124,7 @@ export const displayKnownFor = (knownForItems) => {
         id: item.id,
         title: item.title || item.name,
         releaseYear: item.release_date ? moment(item.release_date).year() : moment(item.first_air_date).year(),
-        posterUrl: `${SECURE_BASE_URL}${POSTER_SIZES.small}${item.poster_path}`
+        posterUrl: item.poster_path && `${SECURE_BASE_URL}${POSTER_SIZES.small}${item.poster_path}`
       };
     });
   }
@@ -128,13 +138,10 @@ export const displayKnownFor = (knownForItems) => {
 export const responseItemHasNeededData = (response) => {
   const {
     id,
-    poster_path,
     title,
-    name,
-    profile_path
+    name
   } = response;
 
   return id &&
-        (poster_path || profile_path) &&
         (title || name);
 };
