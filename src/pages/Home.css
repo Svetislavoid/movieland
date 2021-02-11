@@ -1,7 +1,6 @@
 .ml-home-search {
   text-align: center;
-  height: 40vh;
-  margin-top: 10vh;
+  margin: 5rem 0;
 }
 
 @media (max-width: 1000px) {
