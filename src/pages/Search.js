@@ -74,8 +74,9 @@ const Search = () => {
       <div className='ml-search-search-input'>
         <SearchInput defaultSearchValue={ searchTerm } />
       </div>
-      <p>Found { totalResults } results for '{ searchTerm }'</p>
-      <p>Page { page } of { totalPages }</p>
+      <h6 className='ml-search-results-info'>
+        Found { totalResults } results for '{ searchTerm }'
+      </h6>
       <Section
         dataToShow={searchResults}
       />

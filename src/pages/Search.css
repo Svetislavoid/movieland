@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.ml-search-results-info {
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--light-shadow-color);
+  font-style: italic;
+  font-weight: 400;
+}
+
 .ml-search-button-holder {
   text-align: center;
   margin-bottom: 4rem;;
