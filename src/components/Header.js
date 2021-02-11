@@ -14,6 +14,11 @@ const Header = () => {
         className='ml-header-app-logo'
         to='/'
       >
+        <img
+          className='ml-header-logo-small-screen'
+          src={movieLandLogo}
+          alt='movieland logo'
+        />
         <h1 className='ml-header-app-name'>Movie</h1>
         <img
           className='ml-header-logo'

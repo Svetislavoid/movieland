@@ -24,6 +24,10 @@
   margin: 0 3rem;
 }
 
+.ml-header-logo-small-screen {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .ml-header {
     margin-bottom: 0;
@@ -46,14 +50,23 @@
   }
 
   .ml-header-logo {
-    order: -1;
-    width: min-content;
-    margin: 0 auto 1rem;
+    display: none;
+  }
+
+  .ml-header-logo-small-screen {
+    display: block;
+    margin: 1rem auto 2rem;
+  }
+
+  .ml-header-app-logo {
+    display: block;
+    text-align: center;
   }
 
   .ml-header-app-name {
-    text-align: center;
+    display: inline-block;
     margin-right: 0;
+    margin-left: 1.2rem;
     letter-spacing: 1rem;
     line-height: 1.2;
   }
