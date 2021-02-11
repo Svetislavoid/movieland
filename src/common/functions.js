@@ -145,14 +145,3 @@ export const responseItemHasNeededData = (response) => {
   return id &&
         (title || name);
 };
-
-// This function sets state variable back to false value
-// after 500ms. Used for redirection variable to prevent
-// strange behavior of searchbar on Search page
-export const setRedirectionVariable = (setFunction) => {
-  setFunction(true);
-
-  setTimeout(() => {
-    setFunction(false);
-  }, 500);
-}
