@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // components
 import Card from '@/components/Card';
@@ -7,13 +8,25 @@ import Card from '@/components/Card';
 import '@/components/Section.css';
 
 const Section = (props) => {
-  const { title, dataToShow } = props;
+  const {
+    title,
+    showMoreUrl,
+    dataToShow
+  } = props;
 
   return (
     <section className='ml-section'>
       {
         title &&
-        <h2 className='ml-section-title'>{ title }</h2>
+        <h2 className='ml-section-title'>
+          { title }
+        </h2>
+      }
+      {
+        showMoreUrl &&
+        <Link
+          className='ml-section-show-more'
+          to={showMoreUrl}>show more</Link>
       }
       <div className='ml-section-content'>
         {

@@ -65,6 +65,7 @@ const Home = () => {
         TRENDING_SETTINGS.mediaTypes.includes('all') &&
         <Section
           title='Trending'
+          showMoreUrl='/trending'
           dataToShow={trendingAll}
         />
       }
@@ -72,6 +73,7 @@ const Home = () => {
         TRENDING_SETTINGS.mediaTypes.includes('movie') &&
         <Section
           title='Trending movies'
+          showMoreUrl='/trending/movie'
           dataToShow={trendingMovies}
         />
       }
@@ -79,6 +81,7 @@ const Home = () => {
         TRENDING_SETTINGS.mediaTypes.includes('tv') &&
         <Section
           title='Trending TV shows'
+          showMoreUrl='/trending/tv'
           dataToShow={trendingTvShows}
         />
       }
@@ -86,6 +89,7 @@ const Home = () => {
         TRENDING_SETTINGS.mediaTypes.includes('person') &&
         <Section
           title='Trending persons'
+          showMoreUrl='/trending/person'
           dataToShow={trendingPersons}
         />
       }

@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import SearchInput from '@/components/SearchInput';
 import Section from '@/components/Section';
 import Button from '@/components/Button';
 
 // styles
-import '@/pages/Search.css';
+import '@/pages/Trending.css';
 
 // services
-import { searchMoviesTvShowsPeople } from '@/services';
+import { getTrending } from '@/services';
 
-// functions
+// settings && functions
 import { responseItemHasNeededData } from '@/common/functions';
+import { TRENDING_SETTINGS } from '@/common/settings';
 
-const Search = () => {
+const { timeWindow } = TRENDING_SETTINGS;
+
+const Trending = () => {
   // state variables
-  const [searchResults, setSearchResults] = useState([]);
+  const [results, setResults] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalResults, setTotalResults] = useState(0);
+  const [sectionTitle, setSectionTitle] = useState('');
 
   // component variables
   const { pathname } = window.location;
-  const searchTerm = decodeURIComponent(pathname.split('/')[2]);
+  const mediaType = decodeURIComponent(pathname.split('/')[2]);
 
   const loadMoreResults = (pageToLoad) => {
-    searchMoviesTvShowsPeople(searchTerm, pageToLoad)
+    getTrending(mediaType, timeWindow, pageToLoad)
       .then((response) => {
         const {
           results,
@@ -36,8 +38,8 @@ const Search = () => {
         // Filter result items that do not have all the needed data
         const filteredResults = results.filter((item) => responseItemHasNeededData(item));
 
-        setSearchResults((searchResults) => ([
-          ...searchResults,
+        setResults((results) => ([
+          ...results,
           ...filteredResults
         ]));
         setPage(page);
@@ -48,37 +50,38 @@ const Search = () => {
 
   // Search for a movie, tv show or person
   useEffect(() => {
-    searchMoviesTvShowsPeople(searchTerm)
+    getTrending(mediaType, timeWindow)
       .then((response) => {
         const {
           results,
           page,
-          total_pages,
-          total_results
+          total_pages
         } = response.data;
 
         // Filter result items that do not have all the needed data
         const filteredResults = results.filter((item) => responseItemHasNeededData(item));
 
-        setSearchResults(filteredResults);
+        setResults(filteredResults);
         setPage(page);
         setTotalPages(total_pages);
-        setTotalResults(total_results);
 
         return response;
       });
-  }, [searchTerm]);
+
+    if (mediaType === 'movie') {
+      setSectionTitle('Trending movies');
+    } else if (mediaType === 'tv') {
+      setSectionTitle('Trending Tv shows');
+    } else if (mediaType === 'person') {
+      setSectionTitle('Trending persons');
+    }
+  }, [mediaType]);
 
   return (
     <div>
-      <div className='ml-search-search-input'>
-        <SearchInput defaultSearchValue={ searchTerm } />
-      </div>
-      <h6 className='ml-search-results-info'>
-        Found { totalResults } results for '{ searchTerm }'
-      </h6>
       <Section
-        dataToShow={searchResults}
+        title={sectionTitle}
+        dataToShow={results}
       />
       <div className='ml-search-button-holder'>
         <Button
@@ -91,4 +94,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Trending;
