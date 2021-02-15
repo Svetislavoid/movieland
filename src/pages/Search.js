@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // components
 import SearchInput from '@/components/SearchInput';
@@ -25,6 +26,9 @@ const Search = () => {
   const { pathname } = window.location;
   const searchTerm = decodeURIComponent(pathname.split('/')[2]);
 
+  // history
+  const history = useHistory();
+
   const loadMoreResults = (pageToLoad) => {
     searchMoviesTvShowsPeople(searchTerm, pageToLoad)
       .then((response) => {
@@ -43,6 +47,9 @@ const Search = () => {
         setPage(page);
 
         return response;
+      })
+      .catch((error) => {
+        history.push('/error');
       });
   };
 
@@ -66,6 +73,9 @@ const Search = () => {
         setTotalResults(total_results);
 
         return response;
+      })
+      .catch((error) => {
+        history.push('/error');
       });
   }, [searchTerm]);
 

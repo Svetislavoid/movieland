@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 // components
 import Header from '@/components/Header';
@@ -8,6 +8,7 @@ import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Trending from '@/pages/Trending';
 import Single from '@/pages/Single';
+import ErrorPage from '@/pages/Error';
 
 // styles
 import '@/App.css';
@@ -29,57 +30,48 @@ const App = () => {
   // Context
   const [state, dispatch] = useContext(Context);
 
+  // history
+  const history = useHistory();
+
+  const apiFunctions = [
+    {
+      route: getApiConfiguration,
+      dispatchType: 'SET_API_CONFIGURATION'
+    },
+    {
+      route: getCountries,
+      dispatchType: 'SET_COUNTRIES'
+    },
+    {
+      route: getLanguages,
+      dispatchType: 'SET_LANGUAGES'
+    },
+    {
+      route: getMovieGenres,
+      dispatchType: 'SET_MOVIE_GENRES'
+    },
+    {
+      route: getTvGenres,
+      dispatchType: 'SET_TV_GENRES'
+    },
+  ]
+
   // Get tmdb configuration and genres and store them
   useEffect(() => {
-    getApiConfiguration()
-      .then((response) => {
-        dispatch({
-          type: 'SET_API_CONFIGURATION',
-          payload: response.data
+    apiFunctions.forEach((apiFunction) => {
+      apiFunction.route()
+        .then((response) => {
+          dispatch({
+            type: apiFunction.dispatchType,
+            payload: response.data
+          });
+
+          return response;
+        })
+        .catch((error) => {
+          history.push('/error');
         });
-
-        return response;
-      });
-
-    getCountries()
-      .then((response) => {
-        dispatch({
-          type: 'SET_COUNTRIES',
-          payload: response.data
-        });
-
-        return response;
-      });
-
-    getLanguages()
-      .then((response) => {
-        dispatch({
-          type: 'SET_LANGUAGES',
-          payload: response.data
-        });
-
-        return response;
-      });
-
-    getMovieGenres()
-      .then((response) => {
-        dispatch({
-          type: 'SET_MOVIE_GENRES',
-          payload: response.data
-        });
-
-        return response;
-      });
-
-    getTvGenres()
-      .then((response) => {
-        dispatch({
-          type: 'SET_TV_GENRES',
-          payload: response.data
-        });
-
-        return response;
-      });
+    });
   }, [dispatch]);
 
   return (
@@ -99,6 +91,7 @@ const App = () => {
             <Route exact path='/trending/:mediaType' component={Trending} />
             <Route exact path='/search/:searchTerm' component={Search} />
             <Route exact path='/' component={Home} />
+            <Route component={ErrorPage} />
           </Switch>
         </div>
       }

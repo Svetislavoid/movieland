@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // components
 import InfoItem from '@/components/InfoItem';
@@ -164,6 +164,9 @@ const Single = () => {
   const mediaType = decodeURIComponent(pathname.split('/')[1]);
   const id = decodeURIComponent(pathname.split('/')[2]);
 
+  // history
+  const history = useHistory();
+
   useEffect(() => {
     getSingle(mediaType, id)
       .then((response) => {
@@ -217,6 +220,11 @@ const Single = () => {
         setType(data.type);
 
         setDataLoaded(true);
+
+        return response;
+      })
+      .catch((error) => {
+        history.push('/error');
       });
   }, [mediaType, id]);
 

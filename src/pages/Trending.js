@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // components
 import Section from '@/components/Section';
@@ -27,6 +28,9 @@ const Trending = () => {
   const { pathname } = window.location;
   const mediaType = decodeURIComponent(pathname.split('/')[2]);
 
+  // history
+  const history = useHistory();
+
   const loadMoreResults = (pageToLoad) => {
     getTrending(mediaType, timeWindow, pageToLoad)
       .then((response) => {
@@ -45,6 +49,9 @@ const Trending = () => {
         setPage(page);
 
         return response;
+      })
+      .catch((error) => {
+        history.push('/error');
       });
   };
 
@@ -66,6 +73,9 @@ const Trending = () => {
         setTotalPages(total_pages);
 
         return response;
+      })
+      .catch((error) => {
+        history.push('/error');
       });
 
     if (mediaType === 'movie') {

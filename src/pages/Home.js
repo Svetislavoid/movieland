@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // components
 import Section from '@/components/Section';
@@ -30,6 +31,9 @@ const Home = () => {
   const [trendingTvShows, setTrendingTvShows] = useState([]);
   const [trendingPersons, setTrendingPersons] = useState([]);
 
+  // history
+  const history = useHistory();
+
   // Get data for each trending type defined in settings
   useEffect(() => {
     mediaTypes.forEach((type) => {
@@ -52,6 +56,9 @@ const Home = () => {
           }
 
           return response;
+        })
+        .catch((error) => {
+          history.push('/error');
         });
     });
   }, []);

@@ -1,0 +1,18 @@
+.ml-error {
+  text-align: center;
+}
+
+.ml-error-heading > * {
+  margin: 0;
+  font-weight: 300;
+  color: var(--light-shadow-color);
+}
+
+.ml-error-explanation {
+  margin: 1rem 0 3rem;
+  color: var(--light-shadow-color);
+}
+
+.ml-error-404 {
+  font-size: 5rem;
+}
