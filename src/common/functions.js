@@ -122,9 +122,10 @@ export const displayKnownFor = (knownForItems) => {
     knownFor = filteredKnownForItems.map((item) => {
       return {
         id: item.id,
+        mediaType: item.media_type,
         title: item.title || item.name,
         releaseYear: item.release_date ? moment(item.release_date).year() : moment(item.first_air_date).year(),
-        posterUrl: item.poster_path && `${SECURE_BASE_URL}${POSTER_SIZES.small}${item.poster_path}`
+        posterUrl: item.poster_path && `${SECURE_BASE_URL}${POSTER_SIZES.smaller}${item.poster_path}`
       };
     });
   }

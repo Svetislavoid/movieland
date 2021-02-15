@@ -87,6 +87,14 @@ export const getTrending = (mediaType, timeWindow, page) => {
   return Api().get(`${GET_TRENDING}/${mediaType}/${timeWindow}`, { params });
 };
 
+export const getSingle = (mediaType, id) => {
+  const params = {
+    append_to_response: 'videos,images,similar,recommendations,keywords,reviews,combined_credits'
+  };
+
+  return Api().get(`/${mediaType}/${id}`, { params });
+};
+
 export const getMovieGenres = () => {
   return Api().get(GET_MOVIE_GENRES);
 };

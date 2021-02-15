@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 // styles
 import '@/components/Card.css';
+
+// components
+import InfoItem from '@/components/InfoItem';
 
 // services & store
 import { Context } from '@/store/store';
@@ -25,36 +29,9 @@ import {
 import noImageAvailable from '@/assets/no_image_available.png';
 
 // libraries
-import { isUndefined } from 'lodash';
-
-const InfoItem = (props) => {
-  const {
-    show,
-    className,
-    label,
-    dataToShow,
-    children
-  } = props;
-
-  return show ? (
-    <div className={className}>
-      {
-        label &&
-        (<span className='ml-card-label'>{ label }</span>)
-      }
-      {
-        dataToShow &&
-        (<span>{ dataToShow }</span>)
-      }
-      { children }
-    </div>
-  ) : null;
-};
+import { isUndefined, isEmpty } from 'lodash';
 
 const Card = ({ item }) => {
-  // movie data: id, media_type, popularity, genre_ids, backdrop_path, adult, title, original_title, vote_count, release_date, overview, vote_average, video, poster_path, original_language
-  // tv show data: id, media_type, popularity, genre_ids, backdrop_path, name, original_name, vote_count, overview, vote_average, poster_path, original_language, origin_country, first_air_date
-  // person data: id, media_type, popularity, name, gender, known_for_department, known_for, adult, profile_path
   const {
     genre_ids,
     id,
@@ -86,15 +63,17 @@ const Card = ({ item }) => {
   } = state;
 
   const posterUrl = (poster_path || profile_path) &&
-                    `${SECURE_BASE_URL}${POSTER_SIZES.large}${poster_path || profile_path}`;
+                    `${SECURE_BASE_URL}${POSTER_SIZES.larger}${poster_path || profile_path}`;
 
   return (
     <div className='ml-card'>
-      <img
-        className='ml-card-poster'
-        src={posterUrl || noImageAvailable}
-        alt={title || name}
-      />
+      <Link to={`/${media_type}/${id}`}>
+        <img
+          className='ml-card-poster'
+          src={posterUrl || noImageAvailable}
+          alt={title || name}
+        />
+      </Link>
       <h4 className='ml-card-title'>
         <span>{ displayName(title, name) }</span>
         {
@@ -139,7 +118,7 @@ const Card = ({ item }) => {
           dataToShow={ vote_average }
         />
         <InfoItem
-          show={ !isUndefined(overview) }
+          show={ !isEmpty(overview) }
           className='ml-card-overview'
           dataToShow={ overview }
         />
@@ -152,11 +131,13 @@ const Card = ({ item }) => {
             displayKnownFor(known_for).knownFor.map((item) => {
               return (
                 <div className='ml-card-known-for-item' key={item.id}>
-                  <img
-                    className='ml-card-poster'
-                    src={item.posterUrl || noImageAvailable}
-                    alt={item.title}
-                  />
+                  <Link to={`/${item.mediaType}/${item.id}`}>
+                    <img
+                      className='ml-card-poster'
+                      src={item.posterUrl || noImageAvailable}
+                      alt={item.title}
+                    />
+                  </Link>
                   <p>{item.title} ({item.releaseYear})</p>
                 </div>
               );
@@ -164,6 +145,12 @@ const Card = ({ item }) => {
           }
         </InfoItem>
       </div>
+      <Link
+        className='ml-card-read-more-link'
+        to={`/${media_type}/${id}`}
+      >
+        Show more...
+      </Link>
     </div>
   );
 };

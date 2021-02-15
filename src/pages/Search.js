@@ -75,18 +75,22 @@ const Search = () => {
         <SearchInput defaultSearchValue={ searchTerm } />
       </div>
       <h6 className='ml-search-results-info'>
-        Found { totalResults } results for '{ searchTerm }'
+        Found { totalResults } {totalResults === 1 ? 'result' : 'results'} for '{ searchTerm }'
       </h6>
       <Section
         dataToShow={searchResults}
       />
-      <div className='ml-search-button-holder'>
-        <Button
-          label='Load more'
-          disabled={page === totalPages}
-          clickHandler={() => loadMoreResults(page + 1)}
-        />
-      </div>
+      {
+        totalResults ?
+          (<div className='ml-search-button-holder'>
+            <Button
+              label='Load more'
+              disabled={page === totalPages}
+              clickHandler={() => loadMoreResults(page + 1)}
+            />
+          </div>) :
+          null
+      }
     </div>
   );
 };

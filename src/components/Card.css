@@ -1,6 +1,8 @@
 .ml-card {
   margin: 4% 2%;
-  box-shadow: 0px 0px 5px 2px var(--dark-shadow-color)
+  box-shadow: 0px 0px 5px 2px var(--dark-shadow-color);
+  position: relative;
+  animation: fadein 1s;
 }
 
 .ml-card-poster {
@@ -20,15 +22,8 @@
 }
 
 .ml-card-content {
-  padding: 1rem;
+  padding: 1rem 1rem 4rem 1rem;
   color: var(--light-shadow-color);
-}
-
-.ml-card-label {
-  color: var(--text-color);
-  margin-right: 0.5rem;
-  font-style: italic;
-  font-size: 0.8rem;;
 }
 
 p {
@@ -49,6 +44,16 @@ p {
 .ml-card-known-for-item {
   margin: 2%;
   text-align: center;
+}
+
+.ml-card-read-more-link {
+  position: absolute;
+  left: 1rem;
+  bottom: 2rem;
+  text-decoration: none;
+  color: var(--text-color);
+  font-style: italic;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 600px) {

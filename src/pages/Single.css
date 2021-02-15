@@ -1,0 +1,74 @@
+.ml-single-loaded {
+  animation: fadein 1s;
+}
+
+.ml-single-header {
+  display: grid;
+  grid-column-gap: 10%;
+  grid-template-columns: 40% 50%;
+}
+
+.ml-single-poster {
+  width: 100%;
+}
+
+.ml-single-info {
+  text-align: justify;
+}
+
+.ml-single-name {
+  background-color: var(--contrast-color);
+  padding: 0.5rem 1rem;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.ml-single-release-year {
+  font-size: 1rem;
+}
+
+.ml-single-content {
+  padding: 1rem 0;
+  color: var(--light-shadow-color);
+}
+
+.ml-single-biography {
+  margin: 2rem 0;
+}
+
+.ml-single-known-for {
+  margin: 2rem 0;
+}
+
+.ml-single-known-for-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  grid-gap: 1rem;
+}
+
+.ml-single-known-for-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 1rem;
+  text-decoration: none;
+  color: var(--text-color);
+  box-shadow: 0px 0px 5px 2px var(--dark-shadow-color);
+  padding: 1rem;
+  color: var(--light-shadow-color);
+}
+
+.ml-single-known-for-item:hover {
+  box-shadow: 0px 0px 5px 6px var(--dark-shadow-color);
+}
+
+.ml-single-known-for-poster {
+  width: 5rem;
+}
+
+@media (max-width: 1000px) {
+  .ml-single-header {
+    grid-column-gap: 0;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+}

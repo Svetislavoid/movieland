@@ -1,0 +1,6 @@
+.ml-label {
+  color: var(--text-color);
+  margin-right: 0.5rem;
+  font-style: italic;
+  font-size: 0.8rem;;
+}
