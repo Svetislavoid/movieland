@@ -9,6 +9,7 @@ import Search from '@/pages/Search';
 import Trending from '@/pages/Trending';
 import Single from '@/pages/Single';
 import ErrorPage from '@/pages/Error';
+import Settings from '@/pages/Settings';
 
 // styles
 import '@/App.css';
@@ -85,6 +86,7 @@ const App = () => {
         !isEmpty(state.tvGenresList) &&
         <div className='ml-app-main-content'>
           <Switch>
+            <Route exact path='/settings' component={Settings} />
             <Route exact path='/movie/:id' component={Single} />
             <Route exact path='/tv/:id' component={Single} />
             <Route exact path='/person/:id' component={Single} />

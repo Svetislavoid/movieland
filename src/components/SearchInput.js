@@ -25,7 +25,7 @@ const SearchInput = (props) => {
   return (
     <div className='ml-search-input-holder'>
       <input
-        className='ml-search-input-input'
+        className='browser-default ml-search-input-input'
         type='search'
         placeholder='Search for movies, tv shows and people'
         value={searchTerm}

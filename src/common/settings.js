@@ -4,8 +4,8 @@
 export const TRENDING_SETTINGS = {
   mediaTypes: ['movie', 'tv', 'person'],
   timeWindow: 'day',
-  numberOfItemsToShowOnHomepage: 6
-};
+  numberOfItemsToShow: 6
+}
 
 export const BACKDROP_SIZES = {
   small: 'w300',
