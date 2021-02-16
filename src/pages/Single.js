@@ -301,11 +301,13 @@ const Single = () => {
               allCredits={allCredits}
               numberOfItemsToLoad={creditsPage * getSetting('knownForItemsPerPage')}
             />
-            <Button
-              label='Load more'
-              disabled={creditsPage === creditsTotalPages}
-              clickHandler={() => loadMoreResults(creditsPage + 1)}
-            />
+            <div className='ml-single-button-holder'>
+              <Button
+                label='Load more'
+                disabled={creditsPage === creditsTotalPages}
+                clickHandler={() => loadMoreResults(creditsPage + 1)}
+              />
+            </div>
           </>
         )
       }

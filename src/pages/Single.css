@@ -69,6 +69,11 @@
   width: 5rem;
 }
 
+.ml-single-button-holder {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
 @media (max-width: 1000px) {
   .ml-single-header {
     grid-column-gap: 0;
