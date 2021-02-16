@@ -112,8 +112,11 @@ const Settings = () => {
           defaultValue={numberOfItemsToShow}
           onChange={(e) => handleNumberOfItemsSetting(e)}
           onMouseUp={(e) => setNumberOfItemsToShow(e.target.value)}
+          onTouchEnd={(e) => setNumberOfItemsToShow(e.target.value)}
         />
-        <span>{numberOfItemsToShow}</span>
+        <span className='ml-settings-trending-items-no-counter'>
+          { numberOfItemsToShow }
+        </span>
       </p>
     );
   };

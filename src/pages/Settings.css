@@ -27,3 +27,7 @@ input.ml-settings-trending-items-no-input {
   border: none;
   margin: 0 1rem 0 0;
 }
+
+.ml-settings-trending-items-no-counter {
+  width: 2rem;
+}
