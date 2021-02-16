@@ -81,28 +81,21 @@ const KnownFor = (props) => {
     crewCredits
   } = props;
 
-  // sort cast credits by date in descending order
-  castCredits && castCredits.sort((creditA, creditB) => {
+  const allCredits = [...castCredits, ...crewCredits];
+
+  // sort all credits by date in descending order
+  allCredits && allCredits.sort((creditA, creditB) => {
     const creditADate = moment(creditA.release_date || creditA.first_air_date);
     const creditBDate = moment(creditB.release_date || creditB.first_air_date);
 
     return creditBDate - creditADate;
   });
 
-  // sort crew credits by date in descending order
-  crewCredits && crewCredits.sort((creditA, creditB) => {
-    const creditADate = moment(creditA.release_date || creditA.first_air_date);
-    const creditBDate = moment(creditB.release_date || creditB.first_air_date);
-
-    return creditBDate - creditADate;
-  });
-
-  return (!isEmpty(castCredits) || !isEmpty(crewCredits)) ? (
+  return (!isEmpty(allCredits)) ? (
     <div className='ml-single-known-for'>
       <h3>Known for</h3>
       <div className='ml-single-known-for-items'>
-        <Credits credits={castCredits} />
-        <Credits credits={crewCredits} />
+        <Credits credits={allCredits} />
       </div>
     </div>
   ) : null;
