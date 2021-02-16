@@ -12,8 +12,7 @@ import '@/pages/Home.css';
 import { getTrending } from '@/services';
 
 // settings & functions
-import { SETTINGS } from '@/common/settings';
-import { responseItemHasNeededData } from '@/common/functions';
+import { responseItemHasNeededData, getSetting } from '@/common/functions';
 
 // libraries
 import { take } from 'lodash';
@@ -24,25 +23,12 @@ const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [trendingTvShows, setTrendingTvShows] = useState([]);
   const [trendingPersons, setTrendingPersons] = useState([]);
+  const [trendingMediaTypes] = useState(getSetting('trendingMediaTypes'));
+  const [trendingTimeWindow] = useState(getSetting('trendingTimeWindow'));
+  const [numberOfTrendingItemsToShow] = useState(getSetting('numberOfTrendingItemsToShow'));
 
   // history
   const history = useHistory();
-
-  let trendingMediaTypes = [];
-  let trendingTimeWindow = '';
-  let numberOfTrendingItemsToShow = 0;
-
-  // Pull settings from local storage, if they exist,
-  // otherwise get default settings from a settings file
-  if (localStorage.getItem('settings')) {
-    trendingMediaTypes = JSON.parse(localStorage.getItem('settings')).trendingMediaTypes;
-    trendingTimeWindow = JSON.parse(localStorage.getItem('settings')).trendingTimeWindow;
-    numberOfTrendingItemsToShow = JSON.parse(localStorage.getItem('settings')).numberOfTrendingItemsToShow;
-  } else {
-    trendingMediaTypes = SETTINGS.trendingMediaTypes;
-    trendingTimeWindow = SETTINGS.trendingTimeWindow;
-    numberOfTrendingItemsToShow = SETTINGS.numberOfTrendingItemsToShow;
-  }
 
   // Get data for each trending type defined in settings
   useEffect(() => {
@@ -71,7 +57,7 @@ const Home = () => {
           history.push('/error');
         });
     });
-  }, []);
+  }, [history, trendingMediaTypes, trendingTimeWindow, numberOfTrendingItemsToShow]);
 
   return (
     <div className='ml-home'>
