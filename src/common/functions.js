@@ -5,7 +5,8 @@ import moment from 'moment';
 // settings & functions
 import {
   POSTER_SIZES,
-  SECURE_BASE_URL
+  SECURE_BASE_URL,
+  SETTINGS
 } from '@/common/settings';
 
 export const displayName = (title, name) => {
@@ -146,3 +147,23 @@ export const responseItemHasNeededData = (response) => {
   return id &&
         (title || name);
 };
+
+export const getSetting = (setting) => {
+  return localStorage.getItem('settings') ?
+    JSON.parse(localStorage.getItem('settings'))[setting] :
+    SETTINGS[setting]
+};
+
+export const setSetting = (setting, value) => {
+  if (localStorage.getItem('settings')) {
+    localStorage.setItem('settings', JSON.stringify({
+      ...JSON.parse(localStorage.getItem('settings')),
+      [setting]: value
+    }));
+  } else {
+    localStorage.setItem('settings', JSON.stringify({
+      ...SETTINGS,
+      [setting]: value
+    }));
+  }
+}

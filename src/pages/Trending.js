@@ -13,9 +13,9 @@ import { getTrending } from '@/services';
 
 // settings && functions
 import { responseItemHasNeededData } from '@/common/functions';
-import { TRENDING_SETTINGS } from '@/common/settings';
+import { SETTINGS } from '@/common/settings';
 
-const { timeWindow } = TRENDING_SETTINGS;
+const { trendingTimeWindow } = SETTINGS;
 
 const Trending = () => {
   // state variables
@@ -32,7 +32,7 @@ const Trending = () => {
   const history = useHistory();
 
   const loadMoreResults = (pageToLoad) => {
-    getTrending(mediaType, timeWindow, pageToLoad)
+    getTrending(mediaType, trendingTimeWindow, pageToLoad)
       .then((response) => {
         const {
           results,
@@ -57,7 +57,7 @@ const Trending = () => {
 
   // Search for a movie, tv show or person
   useEffect(() => {
-    getTrending(mediaType, timeWindow)
+    getTrending(mediaType, trendingTimeWindow)
       .then((response) => {
         const {
           results,

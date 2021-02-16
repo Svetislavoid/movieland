@@ -1,11 +1,12 @@
 // possible values:
 //   mediaType: 'all', 'movie', 'tv', 'person'
 //   timeWindow: 'day', 'week'
-export const TRENDING_SETTINGS = {
-  mediaTypes: ['movie', 'tv', 'person'],
-  timeWindow: 'day',
-  numberOfItemsToShow: 6
-}
+export const SETTINGS = {
+  trendingMediaTypes: ['movie', 'tv', 'person'],
+  trendingTimeWindow: 'week',
+  numberOfTrendingItemsToShow: 6,
+  includeAdultContent: false
+};
 
 export const BACKDROP_SIZES = {
   small: 'w300',
@@ -51,6 +52,3 @@ export const STILL_SIZES = {
 // url for getting images
 export const BASE_URL = 'http://image.tmdb.org/t/p/';
 export const SECURE_BASE_URL = 'https://image.tmdb.org/t/p/';
-
-// whether to include adult content in multi search or not
-export const INCLUDE_ADULT_CONTENT = 'true';

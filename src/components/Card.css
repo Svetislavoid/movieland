@@ -26,7 +26,7 @@
   color: var(--light-shadow-color);
 }
 
-p {
+.ml-card p {
   margin: 0.3rem 0;
 }
 

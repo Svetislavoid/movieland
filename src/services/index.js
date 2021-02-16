@@ -14,8 +14,8 @@ import {
   GET_TV_GENRES
 } from '@/services/routes';
 
-// setiings
-import { INCLUDE_ADULT_CONTENT } from '@/common/settings';
+// functions
+import { getSetting } from '@/common/functions';
 
 export const getApiConfiguration = () => {
   return Api().get(GET_API_CONFIGURATION);
@@ -37,7 +37,7 @@ export const searchMoviesTvShowsPeople = (searchTerm, page) => {
   const params = {
     query: searchTerm,
     page,
-    include_adult: INCLUDE_ADULT_CONTENT
+    include_adult: getSetting('includeAdultContent')
   };
 
   return Api().get(MULTI_SEARCH, { params });

@@ -12,7 +12,7 @@ import '@/pages/Home.css';
 import { getTrending } from '@/services';
 
 // settings & functions
-import { TRENDING_SETTINGS } from '@/common/settings';
+import { SETTINGS } from '@/common/settings';
 import { responseItemHasNeededData } from '@/common/functions';
 
 // libraries
@@ -28,32 +28,32 @@ const Home = () => {
   // history
   const history = useHistory();
 
-  let mediaTypes = [];
-  let timeWindow = '';
-  let numberOfItemsToShow = 0;
+  let trendingMediaTypes = [];
+  let trendingTimeWindow = '';
+  let numberOfTrendingItemsToShow = 0;
 
   // Pull settings from local storage, if they exist,
   // otherwise get default settings from a settings file
-  if (localStorage.getItem('trendingSettings')) {
-    mediaTypes = JSON.parse(localStorage.getItem('trendingSettings')).mediaTypes;
-    timeWindow = JSON.parse(localStorage.getItem('trendingSettings')).timeWindow;
-    numberOfItemsToShow = JSON.parse(localStorage.getItem('trendingSettings')).numberOfItemsToShow;
+  if (localStorage.getItem('settings')) {
+    trendingMediaTypes = JSON.parse(localStorage.getItem('settings')).trendingMediaTypes;
+    trendingTimeWindow = JSON.parse(localStorage.getItem('settings')).trendingTimeWindow;
+    numberOfTrendingItemsToShow = JSON.parse(localStorage.getItem('settings')).numberOfTrendingItemsToShow;
   } else {
-    mediaTypes = TRENDING_SETTINGS.mediaTypes;
-    timeWindow = TRENDING_SETTINGS.timeWindow;
-    numberOfItemsToShow = TRENDING_SETTINGS.numberOfItemsToShow;
+    trendingMediaTypes = SETTINGS.trendingMediaTypes;
+    trendingTimeWindow = SETTINGS.trendingTimeWindow;
+    numberOfTrendingItemsToShow = SETTINGS.numberOfTrendingItemsToShow;
   }
 
   // Get data for each trending type defined in settings
   useEffect(() => {
-    mediaTypes.forEach((type) => {
-      getTrending(type, timeWindow)
+    trendingMediaTypes.forEach((type) => {
+      getTrending(type, trendingTimeWindow)
         .then((response) => {
           const { results } = response.data;
 
           // Filter result items that do not have all the needed data
           const filteredResults = results.filter((item) => responseItemHasNeededData(item));
-          const items = take(filteredResults, numberOfItemsToShow);
+          const items = take(filteredResults, numberOfTrendingItemsToShow);
 
           if (type === 'movie') {
             setTrendingMovies(items);
@@ -80,7 +80,7 @@ const Home = () => {
       </div>
       <Link to='/settings'>Settings</Link>
       {
-        mediaTypes.includes('all') &&
+        trendingMediaTypes.includes('all') &&
         <Section
           title='Trending'
           showMoreUrl='/trending'
@@ -88,7 +88,7 @@ const Home = () => {
         />
       }
       {
-        mediaTypes.includes('movie') &&
+        trendingMediaTypes.includes('movie') &&
         <Section
           title='Trending movies'
           showMoreUrl='/trending/movie'
@@ -96,7 +96,7 @@ const Home = () => {
         />
       }
       {
-        mediaTypes.includes('tv') &&
+        trendingMediaTypes.includes('tv') &&
         <Section
           title='Trending TV shows'
           showMoreUrl='/trending/tv'
@@ -104,7 +104,7 @@ const Home = () => {
         />
       }
       {
-        mediaTypes.includes('person') &&
+        trendingMediaTypes.includes('person') &&
         <Section
           title='Trending persons'
           showMoreUrl='/trending/person'
