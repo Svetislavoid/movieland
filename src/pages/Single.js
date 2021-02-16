@@ -226,7 +226,7 @@ const Single = () => {
       .catch((error) => {
         history.push('/error');
       });
-  }, [mediaType, id]);
+  }, [mediaType, id, history]);
 
   return (
     <div className={`ml-single ${dataLoaded && 'ml-single-loaded'}`}>

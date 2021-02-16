@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
 // components
@@ -34,28 +34,29 @@ const App = () => {
   // history
   const history = useHistory();
 
-  const apiFunctions = [
-    {
-      route: getApiConfiguration,
-      dispatchType: 'SET_API_CONFIGURATION'
-    },
-    {
-      route: getCountries,
-      dispatchType: 'SET_COUNTRIES'
-    },
-    {
-      route: getLanguages,
-      dispatchType: 'SET_LANGUAGES'
-    },
-    {
-      route: getMovieGenres,
-      dispatchType: 'SET_MOVIE_GENRES'
-    },
-    {
-      route: getTvGenres,
-      dispatchType: 'SET_TV_GENRES'
-    },
-  ]
+  const apiFunctions = useMemo(() =>
+    [
+      {
+        route: getApiConfiguration,
+        dispatchType: 'SET_API_CONFIGURATION'
+      },
+      {
+        route: getCountries,
+        dispatchType: 'SET_COUNTRIES'
+      },
+      {
+        route: getLanguages,
+        dispatchType: 'SET_LANGUAGES'
+      },
+      {
+        route: getMovieGenres,
+        dispatchType: 'SET_MOVIE_GENRES'
+      },
+      {
+        route: getTvGenres,
+        dispatchType: 'SET_TV_GENRES'
+      },
+    ], []);
 
   // Get tmdb configuration and genres and store them
   useEffect(() => {
@@ -73,7 +74,7 @@ const App = () => {
           history.push('/error');
         });
     });
-  }, [dispatch]);
+  }, [dispatch, history, apiFunctions]);
 
   return (
     <div className='ml-app'>

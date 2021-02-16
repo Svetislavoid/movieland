@@ -151,7 +151,7 @@ export const responseItemHasNeededData = (response) => {
 export const getSetting = (setting) => {
   return localStorage.getItem('settings') ?
     JSON.parse(localStorage.getItem('settings'))[setting] :
-    SETTINGS[setting]
+    SETTINGS[setting];
 };
 
 export const setSetting = (setting, value) => {
@@ -166,4 +166,4 @@ export const setSetting = (setting, value) => {
       [setting]: value
     }));
   }
-}
+};

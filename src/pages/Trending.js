@@ -85,7 +85,7 @@ const Trending = () => {
     } else if (mediaType === 'person') {
       setSectionTitle('Trending persons');
     }
-  }, [mediaType]);
+  }, [mediaType, history]);
 
   return (
     <div>

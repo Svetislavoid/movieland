@@ -77,7 +77,7 @@ const Search = () => {
       .catch((error) => {
         history.push('/error');
       });
-  }, [searchTerm]);
+  }, [searchTerm, history]);
 
   return (
     <div>
