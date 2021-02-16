@@ -5,7 +5,8 @@ export const SETTINGS = {
   trendingMediaTypes: ['movie', 'tv', 'person'],
   trendingTimeWindow: 'week',
   numberOfTrendingItemsToShow: 6,
-  includeAdultContent: false
+  includeAdultContent: false,
+  knownForItemsPerPage: 12
 };
 
 export const BACKDROP_SIZES = {
@@ -52,3 +53,5 @@ export const STILL_SIZES = {
 // url for getting images
 export const BASE_URL = 'http://image.tmdb.org/t/p/';
 export const SECURE_BASE_URL = 'https://image.tmdb.org/t/p/';
+
+export const DATETIME_FORMAT = 'MMMM Do, YYYY';

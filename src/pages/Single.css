@@ -41,6 +41,10 @@
   margin: 2rem 0;
 }
 
+.ml-single-known-for-title {
+  margin: 2rem 0;
+}
+
 .ml-single-known-for-items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));

@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 // components
 import InfoItem from '@/components/InfoItem';
 import Section from '@/components/Section';
+import Button from '@/components/Button';
 
 // services
 import { getSingle } from '@/services';
@@ -17,7 +18,8 @@ import {
   POSTER_SIZES,
   PROFILE_SIZES,
   LOGO_SIZES,
-  SECURE_BASE_URL
+  SECURE_BASE_URL,
+  DATETIME_FORMAT
 } from '@/common/settings';
 import {
   displayName,
@@ -26,7 +28,8 @@ import {
   displayGenres,
   displayOriginalLanguage,
   displayOriginCountries,
-  displayKnownFor
+  displayKnownFor,
+  getSetting
 } from '@/common/functions';
 
 // assets
@@ -34,7 +37,7 @@ import noImageAvailable from '@/assets/no_image_available.png';
 
 // libraries
 // import moment from 'moment';
-import { isUndefined, isEmpty } from 'lodash';
+import { isUndefined, isEmpty, take, uniqBy } from 'lodash';
 import moment from 'moment';
 
 const Credits = (props) => {
@@ -77,25 +80,25 @@ const Credits = (props) => {
 
 const KnownFor = (props) => {
   const {
-    castCredits,
-    crewCredits
+    allCredits,
+    numberOfItemsToLoad
   } = props;
 
-  const allCredits = [...castCredits, ...crewCredits];
-
   // sort all credits by date in descending order
-  allCredits && allCredits.sort((creditA, creditB) => {
+  allCredits.sort((creditA, creditB) => {
     const creditADate = moment(creditA.release_date || creditA.first_air_date);
     const creditBDate = moment(creditB.release_date || creditB.first_air_date);
 
     return creditBDate - creditADate;
   });
 
-  return (!isEmpty(allCredits)) ? (
+  const paginatedCredits = take(allCredits, numberOfItemsToLoad);
+
+  return (!isEmpty(paginatedCredits)) ? (
     <div className='ml-single-known-for'>
-      <h3>Known for</h3>
+      <h3 className='ml-single-known-for-title'>Known for</h3>
       <div className='ml-single-known-for-items'>
-        <Credits credits={allCredits} />
+        <Credits credits={paginatedCredits} />
       </div>
     </div>
   ) : null;
@@ -119,6 +122,9 @@ const Single = () => {
   const [profileImages, setProfileImages] = useState([]);
   const [castCredits, setCastCredits] = useState([]);
   const [crewCredits, setCrewCredits] = useState([]);
+  const [allCredits, setAllCredits] = useState([]);
+  const [creditsPage, setCreditsPage] = useState(1);
+  const [creditsTotalPages, setCreditsTotalPages] = useState(1);
 
   // movie specific
   const [genres, setGenres] = useState([]);
@@ -160,6 +166,20 @@ const Single = () => {
   // history
   const history = useHistory();
 
+  const loadMoreResults = () => {
+    if (creditsPage < creditsTotalPages) {
+      setCreditsPage((creditsPage) => creditsPage + 1);
+    }
+  };
+
+  const getCombinedCredits = (data) => {
+    const castCredits = data?.combined_credits?.cast || [];
+    const crewCredits = data?.combined_credits?.crew || [];
+    const combinedCredits = uniqBy([...castCredits, ...crewCredits], 'id');
+
+    return combinedCredits;
+  }
+
   useEffect(() => {
     getSingle(mediaType, id)
       .then((response) => {
@@ -177,8 +197,10 @@ const Single = () => {
         setGender(data.gender);
         setPlaceOfBirth(data.place_of_birth);
         setProfileImages(data?.images?.profiles && data.images.profiles.map((image) => image.file_path));
-        setCastCredits(data?.combined_credits?.cast);
-        setCrewCredits(data?.combined_credits?.crew);
+        setCastCredits(data?.combined_credits?.cast || []);
+        setCrewCredits(data?.combined_credits?.crew || []);
+        setAllCredits(() => getCombinedCredits(data));
+        setCreditsTotalPages(() => Math.ceil(getCombinedCredits(data).length / getSetting('knownForItemsPerPage')));
 
         // movie specific
         setGenres(data?.genres && data.genres.map((genre) => genre.name));
@@ -193,9 +215,9 @@ const Single = () => {
         setStatus(data.status);
         setTagline(data.tagline);
         setVoteAverage(data.vote_average);
-        setVideos(data?.videos?.results);
-        setBackdropImages(data?.images?.backdrops);
-        setPosterImages(data?.images?.posters);
+        setVideos(data?.videos?.results || []);
+        setBackdropImages(data?.images?.backdrops || []);
+        setPosterImages(data?.images?.posters || []);
 
         // tv show specific
         setCreatedBy(data?.created_by && data.created_by.map((creator) => creator.name));
@@ -251,12 +273,12 @@ const Single = () => {
             <InfoItem
               show={ !isEmpty(birthday) }
               label='Birthday:'
-              dataToShow={ birthday }
+              dataToShow={ moment(birthday).format(DATETIME_FORMAT) }
             />
             <InfoItem
               show={ !isEmpty(deathday) }
               label='Deathday:'
-              dataToShow={ deathday }
+              dataToShow={ moment(deathday).format(DATETIME_FORMAT) }
             />
             <InfoItem
               show={ !isUndefined(gender) }
@@ -272,11 +294,20 @@ const Single = () => {
         </div>
       </div>
       {
-        (!isEmpty(castCredits) || !isEmpty(crewCredits)) &&
-        (<KnownFor
-          castCredits={castCredits}
-          crewCredits={crewCredits}
-        />)
+        (!isEmpty(allCredits)) &&
+        (
+          <>
+            <KnownFor
+              allCredits={allCredits}
+              numberOfItemsToLoad={creditsPage * getSetting('knownForItemsPerPage')}
+            />
+            <Button
+              label='Load more'
+              disabled={creditsPage === creditsTotalPages}
+              clickHandler={() => loadMoreResults(creditsPage + 1)}
+            />
+          </>
+        )
       }
     </div>
   );
