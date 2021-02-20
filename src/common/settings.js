@@ -58,6 +58,6 @@ export const SECURE_BASE_URL = 'https://image.tmdb.org/t/p/';
 export const VIDEO_SERVICES = {
   YouTube: 'https://www.youtube.com/embed/',
   Vimeo: 'https://vimeo.com/'
-}
+};
 
 export const DATETIME_FORMAT = 'MMMM Do, YYYY';

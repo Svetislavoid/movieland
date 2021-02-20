@@ -53,7 +53,7 @@ const PosterImages = (props) => {
       <div className='ml-single-known-for-items'>
         {
           posterImages.map((image) => (
-            <img src={`${SECURE_BASE_URL}${POSTER_SIZES.large}${image.file_path}`} />
+            <img src={`${SECURE_BASE_URL}${POSTER_SIZES.large}${image.file_path}`} alt='poster' />
           ))
         }
       </div>
@@ -73,6 +73,7 @@ const Videos = (props) => {
         {
           videos.map((video) => (
             <iframe
+              title={video.name}
               key={video.id}
               allowfullscreen='allowfullscreen'
               mozallowfullscreen='mozallowfullscreen'
