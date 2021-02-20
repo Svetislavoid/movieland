@@ -31,7 +31,7 @@ import noImageAvailable from '@/assets/no_image_available.png';
 // libraries
 import { isUndefined, isEmpty } from 'lodash';
 
-const Card = ({ item }) => {
+const Card = ({ item, mediaType }) => {
   const {
     genre_ids,
     id,
@@ -52,6 +52,11 @@ const Card = ({ item }) => {
     adult
   } = item;
 
+  // API for getting similar movies/tv shows do not
+  // return media_type in the response - that's why
+  // it has to be passed explicitly in this case
+  const itemMediaType = media_type || mediaType;
+
   // Context
   const [state] = useContext(Context);
 
@@ -67,7 +72,7 @@ const Card = ({ item }) => {
 
   return (
     <div className='ml-card'>
-      <Link to={`/${media_type}/${id}`}>
+      <Link to={`/${itemMediaType}/${id}`}>
         <img
           className='ml-card-poster'
           src={posterUrl || noImageAvailable}
@@ -88,14 +93,14 @@ const Card = ({ item }) => {
           dataToShow={ displayOriginalName(title, original_title, name, original_name).originalNameToDisplay }
         />
         <InfoItem
-          show={ media_type }
+          show={ itemMediaType }
           label='Type:'
-          dataToShow={ media_type }
+          dataToShow={ itemMediaType }
         />
         <InfoItem
-          show={ displayGenres(media_type, genre_ids, movieGenresList, tvGenresList).showGenres }
+          show={ displayGenres(itemMediaType, genre_ids, movieGenresList, tvGenresList).showGenres }
           label='Genres:'
-          dataToShow={ displayGenres(media_type, genre_ids, movieGenresList, tvGenresList).genres.join(', ') }
+          dataToShow={ displayGenres(itemMediaType, genre_ids, movieGenresList, tvGenresList).genres.join(', ') }
         />
         <InfoItem
           show={ !isUndefined(adult) }
@@ -147,7 +152,7 @@ const Card = ({ item }) => {
       </div>
       <Link
         className='ml-card-read-more-link'
-        to={`/${media_type}/${id}`}
+        to={`/${itemMediaType}/${id}`}
       >
         Show more...
       </Link>

@@ -54,4 +54,10 @@ export const STILL_SIZES = {
 export const BASE_URL = 'http://image.tmdb.org/t/p/';
 export const SECURE_BASE_URL = 'https://image.tmdb.org/t/p/';
 
+// video services urls
+export const VIDEO_SERVICES = {
+  YouTube: 'https://www.youtube.com/embed/',
+  Vimeo: 'https://vimeo.com/'
+}
+
 export const DATETIME_FORMAT = 'MMMM Do, YYYY';

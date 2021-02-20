@@ -59,6 +59,10 @@ const Home = () => {
     });
   }, [history, trendingMediaTypes, trendingTimeWindow, numberOfTrendingItemsToShow]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className='ml-home'>
       <div className='ml-home-search'>

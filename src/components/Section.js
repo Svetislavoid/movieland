@@ -11,7 +11,8 @@ const Section = (props) => {
   const {
     title,
     showMoreUrl,
-    dataToShow
+    dataToShow,
+    mediaType
   } = props;
 
   return (
@@ -31,7 +32,7 @@ const Section = (props) => {
       <div className='ml-section-content'>
         {
           dataToShow.map((item) => {
-            return (<Card key={item.id} item={item} />);
+            return (<Card key={item.id} item={item} mediaType={mediaType} />);
           })
         }
       </div>

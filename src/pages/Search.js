@@ -79,6 +79,10 @@ const Search = () => {
       });
   }, [searchTerm, history]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <div>
       <div className='ml-search-search-input'>

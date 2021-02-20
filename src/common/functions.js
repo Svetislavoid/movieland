@@ -82,7 +82,7 @@ export const displayOriginalLanguage = (language, languagesList) => {
   let showOriginalLanguage = false;
   let originalLanguage = '';
 
-  if (!isUndefined(language)) {
+  if (!isEmpty(language)) {
     showOriginalLanguage = true;
     originalLanguage = find(languagesList, { 'iso_639_1': language }).english_name;
   }

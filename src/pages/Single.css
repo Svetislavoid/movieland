@@ -33,7 +33,16 @@
   color: var(--light-shadow-color);
 }
 
-.ml-single-biography {
+.ml-single-tagline {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin: 1rem 0;
+  letter-spacing: 0.15rem;
+}
+
+.ml-single-biography,
+.ml-single-overview {
   margin: 2rem 0;
 }
 
