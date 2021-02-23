@@ -74,6 +74,10 @@
   box-shadow: 0px 0px 5px 6px var(--dark-shadow-color);
 }
 
+.ml-single-image {
+  cursor: pointer;
+}
+
 .ml-single-known-for-poster {
   width: 5rem;
 }

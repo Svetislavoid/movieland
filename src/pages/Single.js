@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import InfoItem from '@/components/InfoItem';
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import ImagesModal from '@/components/ImagesModal';
 
 // services
 import { getSingle } from '@/services';
@@ -44,7 +45,8 @@ import moment from 'moment';
 
 const PosterImages = (props) => {
   const {
-    posterImages
+    posterImages,
+    openImagesModal
   } = props;
 
   return (!isEmpty(posterImages)) ? (
@@ -52,8 +54,14 @@ const PosterImages = (props) => {
       <h3 className='ml-single-known-for-title'>Images</h3>
       <div className='ml-single-known-for-items'>
         {
-          posterImages.map((image) => (
-            <img src={`${SECURE_BASE_URL}${POSTER_SIZES.large}${image.file_path}`} alt='poster' />
+          posterImages.map((image, index) => (
+            <img
+              key={image.file_path}
+              className='ml-single-image'
+              src={`${SECURE_BASE_URL}${POSTER_SIZES.large}${image.file_path}`}
+              alt='poster'
+              onClick={() => openImagesModal(index)}
+            />
           ))
         }
       </div>
@@ -75,7 +83,7 @@ const Videos = (props) => {
             <iframe
               title={video.name}
               key={video.id}
-              allowfullscreen='allowfullscreen'
+              allowFullScreen='allowfullscreen'
               mozallowfullscreen='mozallowfullscreen'
               msallowfullscreen='msallowfullscreen'
               oallowfullscreen='oallowfullscreen'
@@ -155,6 +163,8 @@ const KnownFor = (props) => {
 const Single = () => {
   // state variables
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [imagesModalOpened, setImagesModalOpened] = useState(false);
+  const [openedImageIndex, setOpenedImageIndex] = useState(0);
 
   // common
   const [name, setName] = useState('');
@@ -232,6 +242,15 @@ const Single = () => {
     const combinedCredits = uniqBy([...castCredits, ...crewCredits], 'id');
 
     return combinedCredits;
+  };
+
+  const openImagesModal = (index) => {
+    setOpenedImageIndex(index);
+    setImagesModalOpened(true);
+  };
+
+  const closeImagesModal = () => {
+    setImagesModalOpened(false);
   };
 
   useEffect(() => {
@@ -488,7 +507,10 @@ const Single = () => {
       {
         (!isEmpty(posterImages)) &&
         (
-          <PosterImages posterImages={backdropImages} />
+          <PosterImages
+            posterImages={backdropImages}
+            openImagesModal={openImagesModal}
+          />
         )
       }
       {
@@ -504,6 +526,16 @@ const Single = () => {
             title={`Similar ${mediaType === 'movie' ? 'movies' : 'TV shows'}`}
             dataToShow={similar}
             mediaType={mediaType}
+          />
+        )
+      }
+      {
+        imagesModalOpened && !isEmpty(backdropImages) &&
+        (
+          <ImagesModal
+            images={backdropImages}
+            openedImageIndex={openedImageIndex}
+            closeImagesModal={closeImagesModal}
           />
         )
       }

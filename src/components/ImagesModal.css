@@ -1,0 +1,54 @@
+.ml-images-modal-wrapper {
+  background-color: var(--main-bg-color);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ml-images-modal-image {
+  max-height:100%;
+  max-width:100%;
+}
+
+.ml-images-modal-button {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  background-color: #95979455; /* --light-shadow-color */
+  border-radius: 50%;
+  padding: 1vh;
+  cursor: pointer;
+  width: 4rem;
+  height: 4rem;
+}
+
+.ml-images-modal-button-icon {
+  margin: auto;
+}
+
+.ml-images-modal-left-button {
+  top: 47vh;
+  left: 2rem;
+}
+
+.ml-images-modal-right-button {
+  top: 47vh;
+  right: 2rem;
+}
+
+.ml-images-modal-close-button {
+  top: 2rem;
+  right: 2rem;
+}
+
+.ml-images-modal-left-button:hover,
+.ml-images-modal-right-button:hover,
+.ml-images-modal-close-button:hover {
+  background-color: #45433E99; /* --dark-shadow-color */
+}
