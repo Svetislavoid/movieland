@@ -1,4 +1,33 @@
 // ########################################
+// ####### ACCOUNT ROUTES
+// ########################################
+
+// Get account details
+export const GET_ACCOUNT = '/account';
+
+// Get favorite movies
+export const GET_FAVORITE_MOVIES = '/favorite/movies';
+
+// Get favorite tv shows
+export const GET_FAVORITE_TV_SHOWS = '/favorite/tv';
+
+// Get movies to watch later
+export const GET_MOVIES_WATCHLIST = '/watchlist/movies';
+
+// Get tv shows to watch later
+export const GET_TV_SHOWS_WATCHLIST = '/watchlist/tv';
+
+// ########################################
+// ####### AUTH ROUTES
+// ########################################
+
+// Get request token
+export const GET_REQUEST_TOKEN = '/authentication/token/new';
+
+// Get session id
+export const GET_SESSION_ID = '/authentication/session/new';
+
+// ########################################
 // ####### SEARCH ROUTES
 // ########################################
 

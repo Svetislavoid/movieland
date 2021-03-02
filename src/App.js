@@ -10,6 +10,9 @@ import Trending from '@/pages/Trending';
 import Single from '@/pages/Single';
 import ErrorPage from '@/pages/Error';
 import Settings from '@/pages/Settings';
+import Auth from '@/pages/Auth';
+import Favorites from '@/pages/Favorites';
+import WatchLater from '@/pages/WatchLater';
 
 // styles
 import '@/App.css';
@@ -87,12 +90,15 @@ const App = () => {
         !isEmpty(state.tvGenresList) &&
         <div className='ml-app-main-content'>
           <Switch>
+            <Route exact path='/favorites' component={Favorites} />
+            <Route exact path='/watch-later' component={WatchLater} />
             <Route exact path='/settings' component={Settings} />
             <Route exact path='/movie/:id' component={Single} />
             <Route exact path='/tv/:id' component={Single} />
             <Route exact path='/person/:id' component={Single} />
             <Route exact path='/trending/:mediaType' component={Trending} />
             <Route exact path='/search/:searchTerm' component={Search} />
+            <Route exact path='/approve' component={Auth} />
             <Route exact path='/' component={Home} />
             <Route component={ErrorPage} />
           </Switch>

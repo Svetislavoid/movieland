@@ -50,6 +50,12 @@ export const STILL_SIZES = {
   original: 'original'
 };
 
+// app base url
+export const MOVIELAND_BASE_URL = 'http://localhost:3000/';
+
+// tmdb auth url
+export const AUTH_URL = 'https://www.themoviedb.org/authenticate/';
+
 // url for getting images
 export const BASE_URL = 'http://image.tmdb.org/t/p/';
 export const SECURE_BASE_URL = 'https://image.tmdb.org/t/p/';

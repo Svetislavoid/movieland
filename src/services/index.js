@@ -1,6 +1,13 @@
 // services
 import Api from '@/services/Api';
 import {
+  GET_REQUEST_TOKEN,
+  GET_SESSION_ID,
+  GET_ACCOUNT,
+  GET_FAVORITE_MOVIES,
+  GET_FAVORITE_TV_SHOWS,
+  GET_MOVIES_WATCHLIST,
+  GET_TV_SHOWS_WATCHLIST,
   GET_API_CONFIGURATION,
   GET_COUNTRIES,
   GET_LANGUAGES,
@@ -16,6 +23,58 @@ import {
 
 // functions
 import { getSetting } from '@/common/functions';
+
+export const getRequestToken = () => {
+  return Api().get(GET_REQUEST_TOKEN);
+};
+
+export const getSessionId = (requestToken) => {
+  const params = {
+    request_token: requestToken
+  };
+
+  return Api().get(GET_SESSION_ID, { params });
+};
+
+export const getAccountDetails = (sessionId) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  return Api().get(GET_ACCOUNT, { params });
+};
+
+export const getFavoriteMovies = (accountId, sessionId) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  return Api().get(`${GET_ACCOUNT}/${accountId}${GET_FAVORITE_MOVIES}`, { params });
+};
+
+export const getFavoriteTvShows = (accountId, sessionId) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  return Api().get(`${GET_ACCOUNT}/${accountId}${GET_FAVORITE_TV_SHOWS}`, { params });
+};
+
+export const getMoviesWatchlist = (accountId, sessionId) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  return Api().get(`${GET_ACCOUNT}/${accountId}${GET_MOVIES_WATCHLIST}`, { params });
+};
+
+export const getTvShowsWatchlist = (accountId, sessionId) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  return Api().get(`${GET_ACCOUNT}/${accountId}${GET_TV_SHOWS_WATCHLIST}`, { params });
+};
 
 export const getApiConfiguration = () => {
   return Api().get(GET_API_CONFIGURATION);

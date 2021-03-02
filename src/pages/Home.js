@@ -9,10 +9,14 @@ import SearchInput from '@/components/SearchInput';
 import '@/pages/Home.css';
 
 // services
-import { getTrending } from '@/services';
+import {
+  getRequestToken,
+  getTrending
+} from '@/services';
 
 // settings & functions
 import { responseItemHasNeededData, getSetting } from '@/common/functions';
+import { AUTH_URL, MOVIELAND_BASE_URL } from '@/common/settings';
 
 // libraries
 import { take } from 'lodash';
@@ -29,6 +33,14 @@ const Home = () => {
 
   // history
   const history = useHistory();
+
+  const login = () => {
+    getRequestToken().then((response) => {
+      const { request_token } = response.data;
+
+      window.location.href = `${AUTH_URL}${request_token}?redirect_to=${MOVIELAND_BASE_URL}approve`;
+    });
+  };
 
   // Get data for each trending type defined in settings
   useEffect(() => {
@@ -68,7 +80,10 @@ const Home = () => {
       <div className='ml-home-search'>
         <SearchInput />
       </div>
+      <Link to='/favorites'>Favorites</Link>
+      <Link to='/watch-later'>WatchLater</Link>
       <Link to='/settings'>Settings</Link>
+      <div onClick={login}>Login</div>
       {
         trendingMediaTypes.includes('all') &&
         <Section
