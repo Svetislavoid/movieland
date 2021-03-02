@@ -1,32 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-// services
+// components
+import Section from '@/components/Section';
+
+// services & store
 import {
   getMoviesWatchlist,
   getTvShowsWatchlist
 } from '@/services';
 
 const WatchLater = () => {
-  const accountId = localStorage.getItem('accountId');
-  const sessionId = localStorage.getItem('sessionId');
+  // state variables
+  const [moviesWatchlist, setMoviesWatchlist] = useState([]);
+  const [tvShowsWatchlist, setTvShowsWatchlist] = useState([]);
 
-  useEffect(() => {
-    getMoviesWatchlist(accountId, sessionId).then((response) => {
-      console.log(response.data);
-    });
-
-    getTvShowsWatchlist(accountId, sessionId).then((response) => {
-      console.log(response.data);
-    });
-  }, []);
+  // history
+  const history = useHistory();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+
+    const accountId = localStorage.getItem('accountId');
+    const sessionId = localStorage.getItem('sessionId');
+
+    if (accountId && sessionId) {
+      getMoviesWatchlist(accountId, sessionId)
+        .then((response) => {
+          const { results } = response.data;
+
+          setMoviesWatchlist(results);
+
+          return response;
+        })
+        .catch((error) => {
+          history.push('/error');
+        });
+
+      getTvShowsWatchlist(accountId, sessionId)
+        .then((response) => {
+          const { results } = response.data;
+
+          setTvShowsWatchlist(results);
+
+          return response;
+        })
+        .catch((error) => {
+          history.push('/error');
+        });
+    }
+  }, [history]);
 
   return (
     <div className='ml-watch-later'>
-      WatchLater
+      <Section
+        title='Movies watchlist'
+        dataToShow={moviesWatchlist}
+      />
+      <Section
+        title='Tv shows watchlist'
+        dataToShow={tvShowsWatchlist}
+      />
     </div>
   );
 };

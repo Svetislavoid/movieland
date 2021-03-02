@@ -8,7 +8,11 @@ const initialState = {
   countriesList: {},
   languagesList: {},
   movieGenresList: [],
-  tvGenresList: []
+  tvGenresList: [],
+  favoriteMoviesList: [],
+  favoriteTvShowsList: [],
+  moviesWatchlist: [],
+  tvShowsWatchlist: []
 };
 
 const Store = ({ children }) => {

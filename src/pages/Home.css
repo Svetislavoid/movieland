@@ -1,6 +1,20 @@
+.ml-home-menu {
+  text-align: center;
+}
+
+.ml-home-menu-link {
+  display: inline-block;
+  color: var(--light-shadow-color);
+  cursor: pointer;
+  margin: 0 1rem;
+}
+
+.ml-home-menu-link:hover {
+  color: var(--text-color);
+}
 .ml-home-search {
   text-align: center;
-  margin: 5rem 0;
+  margin: 5rem 0 2rem 0;
 }
 
 @media (max-width: 1000px) {

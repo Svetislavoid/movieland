@@ -23,7 +23,11 @@ import {
   getCountries,
   getLanguages,
   getMovieGenres,
-  getTvGenres
+  getTvGenres,
+  getFavoriteMovies,
+  getFavoriteTvShows,
+  getMoviesWatchlist,
+  getTvShowsWatchlist
 } from '@/services';
 import { Context } from '@/store/store';
 
@@ -37,7 +41,10 @@ const App = () => {
   // history
   const history = useHistory();
 
-  const apiFunctions = useMemo(() =>
+  const accountId = localStorage.getItem('accountId');
+  const sessionId = localStorage.getItem('sessionId');
+
+  const appApiFunctions = useMemo(() =>
     [
       {
         route: getApiConfiguration,
@@ -61,9 +68,35 @@ const App = () => {
       },
     ], []);
 
-  // Get tmdb configuration and genres and store them
+  const userApiFunctions = useMemo(() =>
+    [
+      {
+        route: getFavoriteMovies,
+        dispatchType: 'SET_FAVORITE_MOVIES',
+        params: [accountId, sessionId]
+      },
+      {
+        route: getFavoriteTvShows,
+        dispatchType: 'SET_FAVORITE_TV_SHOWS',
+        params: [accountId, sessionId]
+      },
+      {
+        route: getMoviesWatchlist,
+        dispatchType: 'SET_MOVIES_WATCHLIST',
+        params: [accountId, sessionId]
+      },
+      {
+        route: getTvShowsWatchlist,
+        dispatchType: 'SET_TV_SHOWS_WATCHLIST',
+        params: [accountId, sessionId]
+      },
+    ], []);
+
+  // Get and store:
+  //    - tmdb configuration
+  //    - genres
   useEffect(() => {
-    apiFunctions.forEach((apiFunction) => {
+    appApiFunctions.forEach((apiFunction) => {
       apiFunction.route()
         .then((response) => {
           dispatch({
@@ -77,7 +110,29 @@ const App = () => {
           history.push('/error');
         });
     });
-  }, [dispatch, history, apiFunctions]);
+  }, [dispatch, history, appApiFunctions]);
+
+  // Get and store:
+  //    - favorites list
+  //    - watch later list
+  useEffect(() => {
+    if (accountId && sessionId) {
+      userApiFunctions.forEach((apiFunction) => {
+        apiFunction.route(...apiFunction.params)
+          .then((response) => {
+            dispatch({
+              type: apiFunction.dispatchType,
+              payload: response.data
+            });
+
+            return response;
+          })
+          .catch((error) => {
+            history.push('/error');
+          });
+      });
+    }
+  }, [dispatch, history, userApiFunctions]);
 
   return (
     <div className='ml-app'>

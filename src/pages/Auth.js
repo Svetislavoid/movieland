@@ -12,23 +12,29 @@ const Auth = () => {
   const history = useHistory();
 
   // component variables
-  const search = useLocation().search;
-  const requestToken = new URLSearchParams(search).get('request_token');
+  const { search } = useLocation();
 
   useEffect(() => {
-    getSessionId(requestToken).then((response) => {
-      const { session_id } = response.data;
+    const requestToken = new URLSearchParams(search).get('request_token');
+    const denied = new URLSearchParams(search).get('denied');
 
-      localStorage.setItem('sessionId', session_id);
+    if (denied) {
+      history.replace('/');
+    } else {
+      getSessionId(requestToken).then((response) => {
+        const { session_id } = response.data;
 
-      getAccountDetails(session_id).then((response) => {
-        const { id } = response.data;
+        localStorage.setItem('sessionId', session_id);
 
-        localStorage.setItem('accountId', id);
-        history.replace('/');
+        getAccountDetails(session_id).then((response) => {
+          const { id } = response.data;
+
+          localStorage.setItem('accountId', id);
+          history.replace('/');
+        });
       });
-    });
-  }, []);
+    }
+  }, [history, search]);
 
   return <></>;
 };

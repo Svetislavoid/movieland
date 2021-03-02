@@ -1,32 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-// services
+// components
+import Section from '@/components/Section';
+
+// services & store
 import {
   getFavoriteMovies,
   getFavoriteTvShows
 } from '@/services';
 
 const Favorites = () => {
-  const accountId = localStorage.getItem('accountId');
-  const sessionId = localStorage.getItem('sessionId');
+  // state variables
+  const [favoriteMoviesList, setFavoriteMoviesList] = useState([]);
+  const [favoriteTvShowsList, setFavoriteTvShowsList] = useState([]);
 
-  useEffect(() => {
-    getFavoriteMovies(accountId, sessionId).then((response) => {
-      console.log(response.data);
-    });
-
-    getFavoriteTvShows(accountId, sessionId).then((response) => {
-      console.log(response.data);
-    });
-  }, []);
+  // history
+  const history = useHistory();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+
+    const accountId = localStorage.getItem('accountId');
+    const sessionId = localStorage.getItem('sessionId');
+
+    if (accountId && sessionId) {
+      getFavoriteMovies(accountId, sessionId)
+        .then((response) => {
+          const { results } = response.data;
+
+          setFavoriteMoviesList(results);
+
+          return response;
+        })
+        .catch((error) => {
+          history.push('/error');
+        });
+
+      getFavoriteTvShows(accountId, sessionId)
+        .then((response) => {
+          const { results } = response.data;
+
+          setFavoriteTvShowsList(results);
+
+          return response;
+        })
+        .catch((error) => {
+          history.push('/error');
+        });
+    }
+  }, [history]);
 
   return (
     <div className='ml-favorites'>
-      Favorites
+      <Section
+        title='Favorite movies'
+        dataToShow={favoriteMoviesList}
+      />
+      <Section
+        title='Favorite tv shows'
+        dataToShow={favoriteTvShowsList}
+      />
     </div>
   );
 };

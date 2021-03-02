@@ -31,6 +31,9 @@ const Home = () => {
   const [trendingTimeWindow] = useState(getSetting('trendingTimeWindow'));
   const [numberOfTrendingItemsToShow] = useState(getSetting('numberOfTrendingItemsToShow'));
 
+  // component variables
+  const loggedIn = localStorage.getItem('accountId') && localStorage.getItem('sessionId');
+
   // history
   const history = useHistory();
 
@@ -40,6 +43,59 @@ const Home = () => {
 
       window.location.href = `${AUTH_URL}${request_token}?redirect_to=${MOVIELAND_BASE_URL}approve`;
     });
+  };
+
+  const logout = () => {
+    localStorage.removeItem('accountId');
+    localStorage.removeItem('sessionId');
+  };
+
+  const Menu = (props) => {
+    const { loggedIn } = props;
+
+    return (
+      <div className='ml-home-menu'>
+        {
+          loggedIn && (
+            <>
+              <Link
+                className='ml-home-menu-link'
+                to='/favorites'
+              >
+                Favorites
+              </Link>
+              <Link
+                className='ml-home-menu-link'
+                to='/watch-later'
+              >
+                Watch later
+              </Link>
+            </>
+          )
+        }
+        <Link
+          className='ml-home-menu-link'
+          to='/settings'
+        >
+          Settings
+        </Link>
+        {
+          loggedIn ?
+            (<div
+              className='ml-home-menu-link'
+              onClick={logout}
+            >
+              Logout
+            </div>) :
+            (<div
+              className='ml-home-menu-link'
+              onClick={login}
+            >
+              Login
+            </div>)
+        }
+      </div>
+    );
   };
 
   // Get data for each trending type defined in settings
@@ -80,10 +136,7 @@ const Home = () => {
       <div className='ml-home-search'>
         <SearchInput />
       </div>
-      <Link to='/favorites'>Favorites</Link>
-      <Link to='/watch-later'>WatchLater</Link>
-      <Link to='/settings'>Settings</Link>
-      <div onClick={login}>Login</div>
+      <Menu loggedIn={loggedIn} />
       {
         trendingMediaTypes.includes('all') &&
         <Section
