@@ -9,10 +9,10 @@ const initialState = {
   languagesList: {},
   movieGenresList: [],
   tvGenresList: [],
-  favoriteMoviesList: [],
-  favoriteTvShowsList: [],
-  moviesWatchlist: [],
-  tvShowsWatchlist: []
+  favoriteMoviesListIds: [],
+  favoriteTvShowsListIds: [],
+  moviesWatchlistIds: [],
+  tvShowsWatchlistIds: []
 };
 
 const Store = ({ children }) => {

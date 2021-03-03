@@ -56,10 +56,12 @@ const Favorites = () => {
       <Section
         title='Favorite movies'
         dataToShow={favoriteMoviesList}
+        mediaType='movie'
       />
       <Section
         title='Favorite tv shows'
         dataToShow={favoriteTvShowsList}
+        mediaType='tv'
       />
     </div>
   );

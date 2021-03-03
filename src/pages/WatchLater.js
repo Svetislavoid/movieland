@@ -56,10 +56,12 @@ const WatchLater = () => {
       <Section
         title='Movies watchlist'
         dataToShow={moviesWatchlist}
+        mediaType='movie'
       />
       <Section
         title='Tv shows watchlist'
         dataToShow={tvShowsWatchlist}
+        mediaType='tv'
       />
     </div>
   );

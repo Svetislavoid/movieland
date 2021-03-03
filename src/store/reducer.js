@@ -25,25 +25,25 @@ const Reducer = (state, action) => {
         ...state,
         tvGenresList: action.payload,
       };
-    case 'SET_FAVORITE_MOVIES':
+    case 'SET_FAVORITE_MOVIES_IDS':
       return {
         ...state,
-        favoriteMoviesList: action.payload,
+        favoriteMoviesListIds: action.payload,
       };
-    case 'SET_FAVORITE_TV_SHOWS':
+    case 'SET_FAVORITE_TV_SHOWS_IDS':
       return {
         ...state,
-        favoriteTvShowsList: action.payload,
+        favoriteTvShowsListIds: action.payload,
       };
-    case 'SET_MOVIES_WATCHLIST':
+    case 'SET_MOVIES_WATCHLIST_IDS':
       return {
         ...state,
-        moviesWatchlist: action.payload,
+        moviesWatchlistIds: action.payload,
       };
-    case 'SET_TV_SHOWS_WATCHLIST':
+    case 'SET_TV_SHOWS_WATCHLIST_IDS':
       return {
         ...state,
-        tvShowsWatchlist: action.payload,
+        tvShowsWatchlistIds: action.payload,
       };
     default:
       return state;

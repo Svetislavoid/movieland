@@ -72,22 +72,22 @@ const App = () => {
     [
       {
         route: getFavoriteMovies,
-        dispatchType: 'SET_FAVORITE_MOVIES',
+        dispatchType: 'SET_FAVORITE_MOVIES_IDS',
         params: [accountId, sessionId]
       },
       {
         route: getFavoriteTvShows,
-        dispatchType: 'SET_FAVORITE_TV_SHOWS',
+        dispatchType: 'SET_FAVORITE_TV_SHOWS_IDS',
         params: [accountId, sessionId]
       },
       {
         route: getMoviesWatchlist,
-        dispatchType: 'SET_MOVIES_WATCHLIST',
+        dispatchType: 'SET_MOVIES_WATCHLIST_IDS',
         params: [accountId, sessionId]
       },
       {
         route: getTvShowsWatchlist,
-        dispatchType: 'SET_TV_SHOWS_WATCHLIST',
+        dispatchType: 'SET_TV_SHOWS_WATCHLIST_IDS',
         params: [accountId, sessionId]
       },
     ], []);
@@ -113,16 +113,19 @@ const App = () => {
   }, [dispatch, history, appApiFunctions]);
 
   // Get and store:
-  //    - favorites list
-  //    - watch later list
+  //    - list of ids of favorite movies and tv shows
+  //    - list of ids of movies and tv shows to watch later
   useEffect(() => {
     if (accountId && sessionId) {
       userApiFunctions.forEach((apiFunction) => {
         apiFunction.route(...apiFunction.params)
           .then((response) => {
+            const { results } = response.data;
+            const ids = results.map((result) => result.id);
+
             dispatch({
               type: apiFunction.dispatchType,
-              payload: response.data
+              payload: ids
             });
 
             return response;

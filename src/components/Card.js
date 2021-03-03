@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // styles
@@ -64,11 +64,34 @@ const Card = ({ item, mediaType }) => {
     countriesList,
     languagesList,
     movieGenresList,
-    tvGenresList
+    tvGenresList,
+    favoriteMoviesListIds,
+    favoriteTvShowsListIds,
+    moviesWatchlistIds,
+    tvShowsWatchlistIds
   } = state;
+
+  // state variables
+  const [favorite, setFavorite] = useState(false);
+  const [watchLater, setWatchLater] = useState(false);
 
   const posterUrl = (poster_path || profile_path) &&
                     `${SECURE_BASE_URL}${POSTER_SIZES.larger}${poster_path || profile_path}`;
+
+  useEffect(() => {
+    switch (itemMediaType) {
+      case 'movie':
+        setFavorite(favoriteMoviesListIds.includes(id));
+        setWatchLater(moviesWatchlistIds.includes(id));
+        break;
+      case 'tv':
+        setFavorite(favoriteTvShowsListIds.includes(id));
+        setWatchLater(tvShowsWatchlistIds.includes(id));
+        break;
+      default:
+        break;
+    }
+  });
 
   return (
     <div className='ml-card'>
@@ -156,6 +179,18 @@ const Card = ({ item, mediaType }) => {
       >
         Show more...
       </Link>
+      {
+        itemMediaType !== 'person' && (
+          <div className='ml-card-action-icons'>
+            <i className={`material-icons ml-card-action-icon ${favorite && 'ml-card-action-icon-active'}`}>
+              favorite
+            </i>
+            <i className={`material-icons ml-card-action-icon ${watchLater && 'ml-card-action-icon-active'}`}>
+              watch_later
+            </i>
+          </div>
+        )
+      }
     </div>
   );
 };
