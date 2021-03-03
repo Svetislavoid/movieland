@@ -8,6 +8,10 @@ import '@/components/Card.css';
 import InfoItem from '@/components/InfoItem';
 
 // services & store
+import {
+  addToFavorites,
+  addToWatchlist
+} from '@/services';
 import { Context } from '@/store/store';
 
 // settings & functions
@@ -75,8 +79,23 @@ const Card = ({ item, mediaType }) => {
   const [favorite, setFavorite] = useState(false);
   const [watchLater, setWatchLater] = useState(false);
 
+  const accountId = localStorage.getItem('accountId');
+  const sessionId = localStorage.getItem('sessionId');
+
   const posterUrl = (poster_path || profile_path) &&
                     `${SECURE_BASE_URL}${POSTER_SIZES.larger}${poster_path || profile_path}`;
+
+  const toggleFavorite = (accountId, sessionId, mediaType, id, add) => {
+    addToFavorites(accountId, sessionId, mediaType, id, add).then((response) => {
+      setFavorite((favorite) => !favorite);
+    });
+  };
+
+  const toggleWatchLater = (accountId, sessionId, mediaType, id, add) => {
+    addToWatchlist(accountId, sessionId, mediaType, id, add).then((response) => {
+      setWatchLater((watchLater) => !watchLater);
+    });
+  };
 
   useEffect(() => {
     switch (itemMediaType) {
@@ -91,7 +110,7 @@ const Card = ({ item, mediaType }) => {
       default:
         break;
     }
-  });
+  }, []);
 
   return (
     <div className='ml-card'>
@@ -182,10 +201,14 @@ const Card = ({ item, mediaType }) => {
       {
         itemMediaType !== 'person' && (
           <div className='ml-card-action-icons'>
-            <i className={`material-icons ml-card-action-icon ${favorite && 'ml-card-action-icon-active'}`}>
+            <i className={`material-icons ml-card-action-icon ${favorite && 'ml-card-action-icon-active'}`}
+              onClick={() => toggleFavorite(accountId, sessionId, itemMediaType, id, !favorite)}
+            >
               favorite
             </i>
-            <i className={`material-icons ml-card-action-icon ${watchLater && 'ml-card-action-icon-active'}`}>
+            <i className={`material-icons ml-card-action-icon ${watchLater && 'ml-card-action-icon-active'}`}
+              onClick={() => toggleWatchLater(accountId, sessionId, itemMediaType, id, !watchLater)}
+            >
               watch_later
             </i>
           </div>

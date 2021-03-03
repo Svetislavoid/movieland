@@ -8,7 +8,11 @@ import Button from '@/components/Button';
 import ImagesModal from '@/components/ImagesModal';
 
 // services
-import { getSingle } from '@/services';
+import {
+  getSingle,
+  addToFavorites,
+  addToWatchlist
+} from '@/services';
 import { Context } from '@/store/store';
 
 // styles
@@ -165,6 +169,8 @@ const Single = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [imagesModalOpened, setImagesModalOpened] = useState(false);
   const [openedImageIndex, setOpenedImageIndex] = useState(0);
+  const [favorite, setFavorite] = useState(false);
+  const [watchLater, setWatchLater] = useState(false);
 
   // common
   const [name, setName] = useState('');
@@ -220,15 +226,24 @@ const Single = () => {
   // component variables
   const { pathname } = window.location;
   const mediaType = decodeURIComponent(pathname.split('/')[1]);
-  const id = decodeURIComponent(pathname.split('/')[2]);
+  const id = parseInt(decodeURIComponent(pathname.split('/')[2]));
 
   // Context
   const [state] = useContext(Context);
 
-  const { languagesList } = state;
+  const {
+    languagesList,
+    favoriteMoviesListIds,
+    favoriteTvShowsListIds,
+    moviesWatchlistIds,
+    tvShowsWatchlistIds
+  } = state;
 
   // history
   const history = useHistory();
+
+  const accountId = localStorage.getItem('accountId');
+  const sessionId = localStorage.getItem('sessionId');
 
   const loadMoreResults = () => {
     if (creditsPage < creditsTotalPages) {
@@ -251,6 +266,18 @@ const Single = () => {
 
   const closeImagesModal = () => {
     setImagesModalOpened(false);
+  };
+
+  const toggleFavorite = (accountId, sessionId, mediaType, id, add) => {
+    addToFavorites(accountId, sessionId, mediaType, id, add).then((response) => {
+      setFavorite((favorite) => !favorite);
+    });
+  };
+
+  const toggleWatchLater = (accountId, sessionId, mediaType, id, add) => {
+    addToWatchlist(accountId, sessionId, mediaType, id, add).then((response) => {
+      setWatchLater((watchLater) => !watchLater);
+    });
   };
 
   useEffect(() => {
@@ -316,6 +343,21 @@ const Single = () => {
         history.push('/error');
       });
   }, [mediaType, id, history]);
+
+  useEffect(() => {
+    switch (mediaType) {
+      case 'movie':
+        setFavorite(favoriteMoviesListIds.includes(id));
+        setWatchLater(moviesWatchlistIds.includes(id));
+        break;
+      case 'tv':
+        setFavorite(favoriteTvShowsListIds.includes(id));
+        setWatchLater(tvShowsWatchlistIds.includes(id));
+        break;
+      default:
+        break;
+    }
+  }, [mediaType, id, favoriteMoviesListIds, moviesWatchlistIds, favoriteTvShowsListIds, tvShowsWatchlistIds]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -483,6 +525,22 @@ const Single = () => {
               label='Status:'
               dataToShow={ status }
             />
+            {
+              mediaType !== 'person' && (
+                <div className='ml-single-action-icons'>
+                  <i className={`material-icons ml-single-action-icon ${favorite && 'ml-single-action-icon-active'}`}
+                    onClick={() => toggleFavorite(accountId, sessionId, mediaType, id, !favorite)}
+                  >
+                    favorite
+                  </i>
+                  <i className={`material-icons ml-single-action-icon ${watchLater && 'ml-single-action-icon-active'}`}
+                    onClick={() => toggleWatchLater(accountId, sessionId, mediaType, id, !watchLater)}
+                  >
+                    watch_later
+                  </i>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

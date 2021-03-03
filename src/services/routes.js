@@ -17,6 +17,12 @@ export const GET_MOVIES_WATCHLIST = '/watchlist/movies';
 // Get tv shows to watch later
 export const GET_TV_SHOWS_WATCHLIST = '/watchlist/tv';
 
+// Add to favorites list
+export const ADD_TO_FAVORITES = '/favorite';
+
+// Add to watch later list
+export const ADD_TO_WATCHLIST = '/watchlist';
+
 // ########################################
 // ####### AUTH ROUTES
 // ########################################

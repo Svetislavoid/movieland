@@ -8,6 +8,8 @@ import {
   GET_FAVORITE_TV_SHOWS,
   GET_MOVIES_WATCHLIST,
   GET_TV_SHOWS_WATCHLIST,
+  ADD_TO_FAVORITES,
+  ADD_TO_WATCHLIST,
   GET_API_CONFIGURATION,
   GET_COUNTRIES,
   GET_LANGUAGES,
@@ -74,6 +76,34 @@ export const getTvShowsWatchlist = (accountId, sessionId) => {
   };
 
   return Api().get(`${GET_ACCOUNT}/${accountId}${GET_TV_SHOWS_WATCHLIST}`, { params });
+};
+
+export const addToFavorites = (accountId, sessionId, mediaType, id, add) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  const payload = {
+    media_type: mediaType,
+    media_id: id,
+    favorite: add
+  };
+
+  return Api().post(`${GET_ACCOUNT}/${accountId}${ADD_TO_FAVORITES}`, payload, { params });
+};
+
+export const addToWatchlist = (accountId, sessionId, mediaType, id, add) => {
+  const params = {
+    session_id: sessionId
+  };
+
+  const payload = {
+    media_type: mediaType,
+    media_id: id,
+    watchlist: add
+  };
+
+  return Api().post(`${GET_ACCOUNT}/${accountId}${ADD_TO_WATCHLIST}`, payload, { params });
 };
 
 export const getApiConfiguration = () => {
