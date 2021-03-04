@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-// services
+// services & store
 import {
   getSessionId,
   getAccountDetails
 } from '@/services';
+import { Context } from '@/store/store';
 
 const Auth = () => {
   // history
   const history = useHistory();
+
+  // Context
+  const [, dispatch] = useContext(Context);
 
   // component variables
   const { search } = useLocation();
@@ -30,11 +34,17 @@ const Auth = () => {
           const { id } = response.data;
 
           localStorage.setItem('accountId', id);
+
+          dispatch({
+            type: 'SET_LOGGED_IN',
+            payload: true
+          });
+
           history.replace('/');
         });
       });
     }
-  }, [history, search]);
+  }, [history, dispatch, search]);
 
   return <></>;
 };

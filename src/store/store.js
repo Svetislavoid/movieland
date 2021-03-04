@@ -4,6 +4,7 @@ import React, { createContext, useReducer } from 'react';
 import Reducer from '@/store/reducer';
 
 const initialState = {
+  loggedIn: false,
   apiConfiguration: {},
   countriesList: {},
   languagesList: {},

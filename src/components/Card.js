@@ -65,6 +65,7 @@ const Card = ({ item, mediaType }) => {
   const [state] = useContext(Context);
 
   const {
+    loggedIn,
     countriesList,
     languagesList,
     movieGenresList,
@@ -75,23 +76,27 @@ const Card = ({ item, mediaType }) => {
     tvShowsWatchlistIds
   } = state;
 
+  const accountId = localStorage.getItem('accountId');
+  const sessionId = localStorage.getItem('sessionId');
+
   // state variables
   const [favorite, setFavorite] = useState(false);
   const [watchLater, setWatchLater] = useState(false);
-
-  const accountId = localStorage.getItem('accountId');
-  const sessionId = localStorage.getItem('sessionId');
 
   const posterUrl = (poster_path || profile_path) &&
                     `${SECURE_BASE_URL}${POSTER_SIZES.larger}${poster_path || profile_path}`;
 
   const toggleFavorite = (accountId, sessionId, mediaType, id, add) => {
+    if (!loggedIn) return;
+
     addToFavorites(accountId, sessionId, mediaType, id, add).then((response) => {
       setFavorite((favorite) => !favorite);
     });
   };
 
   const toggleWatchLater = (accountId, sessionId, mediaType, id, add) => {
+    if (!loggedIn) return;
+
     addToWatchlist(accountId, sessionId, mediaType, id, add).then((response) => {
       setWatchLater((watchLater) => !watchLater);
     });
@@ -199,7 +204,7 @@ const Card = ({ item, mediaType }) => {
         Show more...
       </Link>
       {
-        itemMediaType !== 'person' && (
+        itemMediaType !== 'person' && loggedIn && (
           <div className='ml-card-action-icons'>
             <i className={`material-icons ml-card-action-icon ${favorite && 'ml-card-action-icon-active'}`}
               onClick={() => toggleFavorite(accountId, sessionId, itemMediaType, id, !favorite)}

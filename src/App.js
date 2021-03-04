@@ -43,6 +43,15 @@ const App = () => {
 
   const accountId = localStorage.getItem('accountId');
   const sessionId = localStorage.getItem('sessionId');
+  const loggedIn = accountId && sessionId;
+
+  const {
+    apiConfiguration,
+    countriesList,
+    languagesList,
+    movieGenresList,
+    tvGenresList
+  } = state;
 
   const appApiFunctions = useMemo(() =>
     [
@@ -116,7 +125,7 @@ const App = () => {
   //    - list of ids of favorite movies and tv shows
   //    - list of ids of movies and tv shows to watch later
   useEffect(() => {
-    if (accountId && sessionId) {
+    if (loggedIn) {
       userApiFunctions.forEach((apiFunction) => {
         apiFunction.route(...apiFunction.params)
           .then((response) => {
@@ -137,15 +146,22 @@ const App = () => {
     }
   }, [dispatch, history, userApiFunctions]);
 
+  useEffect(() => {
+    dispatch({
+      type: 'SET_LOGGED_IN',
+      payload: loggedIn
+    });
+  }, [loggedIn]);
+
   return (
     <div className='ml-app'>
       <Header />
       {
-        !isEmpty(state.apiConfiguration) &&
-        !isEmpty(state.countriesList) &&
-        !isEmpty(state.languagesList) &&
-        !isEmpty(state.movieGenresList) &&
-        !isEmpty(state.tvGenresList) &&
+        !isEmpty(apiConfiguration) &&
+        !isEmpty(countriesList) &&
+        !isEmpty(languagesList) &&
+        !isEmpty(movieGenresList) &&
+        !isEmpty(tvGenresList) &&
         <div className='ml-app-main-content'>
           <Switch>
             <Route exact path='/favorites' component={Favorites} />

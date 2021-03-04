@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 // components
@@ -8,11 +8,12 @@ import SearchInput from '@/components/SearchInput';
 // styles
 import '@/pages/Home.css';
 
-// services
+// services & store
 import {
   getRequestToken,
   getTrending
 } from '@/services';
+import { Context } from '@/store/store';
 
 // settings & functions
 import { responseItemHasNeededData, getSetting } from '@/common/functions';
@@ -31,11 +32,13 @@ const Home = () => {
   const [trendingTimeWindow] = useState(getSetting('trendingTimeWindow'));
   const [numberOfTrendingItemsToShow] = useState(getSetting('numberOfTrendingItemsToShow'));
 
-  // component variables
-  const loggedIn = localStorage.getItem('accountId') && localStorage.getItem('sessionId');
-
   // history
   const history = useHistory();
+
+  // Context
+  const [state, dispatch] = useContext(Context);
+
+  const { loggedIn } = state;
 
   const login = () => {
     getRequestToken().then((response) => {
@@ -48,6 +51,11 @@ const Home = () => {
   const logout = () => {
     localStorage.removeItem('accountId');
     localStorage.removeItem('sessionId');
+
+    dispatch({
+      type: 'SET_LOGGED_IN',
+      payload: false
+    });
   };
 
   const Menu = (props) => {

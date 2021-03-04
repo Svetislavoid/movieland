@@ -1,5 +1,10 @@
 const Reducer = (state, action) => {
   switch (action.type) {
+    case 'SET_LOGGED_IN':
+      return {
+        ...state,
+        loggedIn: action.payload,
+      };
     case 'SET_API_CONFIGURATION':
       return {
         ...state,
