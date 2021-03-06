@@ -20,10 +20,8 @@ import '@/pages/Single.css';
 
 // settings & functions
 import {
-  BACKDROP_SIZES,
   POSTER_SIZES,
   PROFILE_SIZES,
-  LOGO_SIZES,
   SECURE_BASE_URL,
   DATETIME_FORMAT,
   VIDEO_SERVICES
@@ -31,11 +29,7 @@ import {
 import {
   displayName,
   displayReleaseYear,
-  displayOriginalName,
-  displayGenres,
   displayOriginalLanguage,
-  displayOriginCountries,
-  displayKnownFor,
   getSetting
 } from '@/common/functions';
 
@@ -183,9 +177,6 @@ const Single = () => {
   const [deathday, setDeathday] = useState('');
   const [gender, setGender] = useState(0);
   const [placeOfBirth, setPlaceOfBirth] = useState('');
-  const [profileImages, setProfileImages] = useState([]);
-  const [castCredits, setCastCredits] = useState([]);
-  const [crewCredits, setCrewCredits] = useState([]);
   const [allCredits, setAllCredits] = useState([]);
   const [creditsPage, setCreditsPage] = useState(1);
   const [creditsTotalPages, setCreditsTotalPages] = useState(1);
@@ -214,13 +205,11 @@ const Single = () => {
   const [firstAirDate, setFirstAirDate] = useState('');
   const [lastAirDate, setLastAirDate] = useState('');
   const [inProduction, setInProduction] = useState('');
-  const [languages, setLanguages] = useState([]);
   const [lastEpisodeToAir, setLastEpisodeToAir] = useState({});
   const [nextEpisodeToAir, setNextEpisodeToAir] = useState({});
   const [networks, setNetworks] = useState([]);
   const [numberOfSeasons, setNumberOfSeasons] = useState(0);
   const [numberOfEpisodes, setNumberOfEpisodes] = useState(0);
-  const [seasons, setSeasons] = useState([]);
   const [type, setType] = useState('');
 
   // component variables
@@ -286,35 +275,32 @@ const Single = () => {
         const { data } = response;
 
         // common
-        setName(data.name || data.title); // DONE ---------------------
-        setPosterImage(data.poster_path || data.profile_path); // DONE ---------------------
+        setName(data.name || data.title);
+        setPosterImage(data.poster_path || data.profile_path);
 
         // person specific
-        setAdult(data.adult); // DONE ---------------------
-        setBiography(data.biography); // DONE ---------------------
-        setBirthday(data.birthday); // DONE ---------------------
-        setDeathday(data.deathday); // DONE ---------------------
-        setGender(data.gender); // DONE ---------------------
-        setPlaceOfBirth(data.place_of_birth); // DONE ---------------------
-        setProfileImages((profileImages) => data?.images?.profiles ? data.images.profiles.map((image) => image.file_path) : profileImages);
-        setCastCredits((castCredits) => data?.combined_credits?.cast ? data.combined_credits.cast : castCredits); // DONE ---------------------
-        setCrewCredits((crewCredits) => data?.combined_credits?.crew ? data.combined_credits.crew : crewCredits); // DONE ---------------------
-        setAllCredits(() => getCombinedCredits(data)); // DONE ---------------------
+        setAdult(data.adult);
+        setBiography(data.biography);
+        setBirthday(data.birthday);
+        setDeathday(data.deathday);
+        setGender(data.gender);
+        setPlaceOfBirth(data.place_of_birth);
+        setAllCredits(() => getCombinedCredits(data));
         setCreditsTotalPages(() => Math.ceil(getCombinedCredits(data).length / getSetting('knownForItemsPerPage')));
 
         // movie specific
-        setGenres((genres) => data?.genres ? data.genres.map((genre) => genre.name) : genres); // DONE ---------------------
-        setOriginalLanguage(data.original_language); // DONE ---------------------
-        setOriginalName(data.original_name || data.original_title); // DONE ---------------------
-        setOverview(data.overview); // DONE ---------------------
-        setProductionCompanies((productionCompanies) => data.production_companies || productionCompanies); // DONE ---------------------
-        setProductionCountries((productionCountries) => data.production_countries || productionCountries); // DONE ---------------------
-        setReleaseDate(data.release_date); // DONE ---------------------
-        setRuntime(data.runtime); // DONE ---------------------
-        setSpokenLanguages((spokenLanguages) => data.spoken_languages || spokenLanguages); // DONE ---------------------
-        setStatus(data.status); // DONE ---------------------
-        setTagline(data.tagline); // DONE ---------------------
-        setVoteAverage(data.vote_average); // DONE ---------------------
+        setGenres((genres) => data?.genres ? data.genres.map((genre) => genre.name) : genres);
+        setOriginalLanguage(data.original_language);
+        setOriginalName(data.original_name || data.original_title);
+        setOverview(data.overview);
+        setProductionCompanies((productionCompanies) => data.production_companies || productionCompanies);
+        setProductionCountries((productionCountries) => data.production_countries || productionCountries);
+        setReleaseDate(data.release_date);
+        setRuntime(data.runtime);
+        setSpokenLanguages((spokenLanguages) => data.spoken_languages || spokenLanguages);
+        setStatus(data.status);
+        setTagline(data.tagline);
+        setVoteAverage(data.vote_average);
         setVideos((videos) => data?.videos?.results ? data.videos.results : videos);
         setBackdropImages((backdropImages) => data?.images?.backdrops ? data.images.backdrops : backdropImages);
         setPosterImages((posterImages) => data?.images?.posters ? data.images.posters : posterImages);
@@ -326,13 +312,11 @@ const Single = () => {
         setFirstAirDate(data.first_air_date);
         setLastAirDate(data.last_air_date);
         setInProduction(data.in_production ? 'Yes' : 'No');
-        setLanguages(data.languages);
         setLastEpisodeToAir((lastEpisodeToAir) => data?.last_episode_to_air ? data.last_episode_to_air : lastEpisodeToAir);
         setNextEpisodeToAir((nextEpisodeToAir) => data?.next_episode_to_air ? data.next_episode_to_air : nextEpisodeToAir);
         setNetworks((networks) => data?.networks ? data.networks.map((network) => network.name) : networks);
         setNumberOfSeasons(data.number_of_seasons);
         setNumberOfEpisodes(data.number_of_episodes);
-        setSeasons(data.seasons);
         setType(data.type);
 
         setDataLoaded(true);
