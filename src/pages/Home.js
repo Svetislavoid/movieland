@@ -17,7 +17,7 @@ import { Context } from '@/store/store';
 
 // settings & functions
 import { responseItemHasNeededData, getSetting } from '@/common/functions';
-import { AUTH_URL, MOVIELAND_BASE_URL } from '@/common/settings';
+import { AUTH_URL } from '@/common/settings';
 
 // libraries
 import { take } from 'lodash';
@@ -44,7 +44,7 @@ const Home = () => {
     getRequestToken().then((response) => {
       const { request_token } = response.data;
 
-      window.location.href = `${AUTH_URL}${request_token}?redirect_to=${MOVIELAND_BASE_URL}approve`;
+      window.location.href = `${AUTH_URL}${request_token}?redirect_to=${process.env.REACT_APP_MOVIELAND_BASE_URL}approve`;
     });
   };
 
