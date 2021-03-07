@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import InfoItem from '@/components/InfoItem';
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import Spinner from '@/components/Spinner';
 import ImagesModal from '@/components/ImagesModal';
 
 // services
@@ -78,11 +79,13 @@ const Videos = (props) => {
       <div className='ml-single-videos-items'>
         {
           videos.map((video) => (
-            <div className='ml-single-video'>
+            <div
+              className='ml-single-video'
+              key={video.id}
+            >
               <iframe
                 className='ml-single-video-iframe'
                 title={video.name}
-                key={video.id}
                 allowFullScreen='allowfullscreen'
                 mozallowfullscreen='mozallowfullscreen'
                 msallowfullscreen='msallowfullscreen'
@@ -105,30 +108,30 @@ const Credits = (props) => {
     credits.map((item) => {
       const {
         id,
-        media_type,
+        media_type: mediaType,
         name,
         title,
-        release_date,
-        first_air_date,
-        poster_path
+        release_date: releaseDate,
+        first_air_date: firstAirDate,
+        poster_path: posterPath
       } = item;
 
       return (
         <Link
           className='ml-single-known-for-item'
           key={id}
-          to={`/${media_type}/${id}`}
+          to={`/${mediaType}/${id}`}
         >
           <img
             className='ml-single-known-for-poster'
-            src={poster_path ? `${SECURE_BASE_URL}${POSTER_SIZES.smallest}${poster_path}` : noImageAvailable}
+            src={posterPath ? `${SECURE_BASE_URL}${POSTER_SIZES.smallest}${posterPath}` : noImageAvailable}
             alt={name || title}
           />
           <div>
             <span>{ displayName(title, name) }</span>
             {
-              displayReleaseYear(release_date, first_air_date).showReleaseYear &&
-              <span> ({ displayReleaseYear(release_date, first_air_date).releaseYear })</span>
+              displayReleaseYear(releaseDate, firstAirDate).showReleaseYear &&
+              <span> ({ displayReleaseYear(releaseDate, firstAirDate).releaseYear })</span>
             }
           </div>
         </Link>
@@ -274,6 +277,8 @@ const Single = () => {
   };
 
   useEffect(() => {
+    setDataLoaded(false);
+
     getSingle(mediaType, id)
       .then((response) => {
         const { data } = response;
@@ -352,240 +357,244 @@ const Single = () => {
   }, [pathname]);
 
   return (
-    <div className={`ml-single ${dataLoaded && 'ml-single-loaded'}`}>
-      <div className='ml-single-header'>
-        <img
-          className='ml-single-poster'
-          src={posterImage ? `${SECURE_BASE_URL}${PROFILE_SIZES.original}${posterImage}` : noImageAvailable}
-          alt={name}
-        />
-        <div className='ml-single-info'>
-          <h4 className='ml-single-name'>
-            {name}
-            {
-              displayReleaseYear(releaseDate, firstAirDate).showReleaseYear &&
-              <span className='ml-single-release-year'> ({ displayReleaseYear(releaseDate, firstAirDate).releaseYear })</span>
-            }
-          </h4>
-          <div className='ml-single-content'>
-            <InfoItem
-              show={ !isEmpty(tagline) }
-              className='ml-single-tagline'
-              dataToShow={ tagline }
-            />
-            <InfoItem
-              show={ !isEmpty(biography) }
-              className='ml-single-biography'
-              dataToShow={ biography }
-            />
-            <InfoItem
-              show={ !isEmpty(overview) }
-              className='ml-single-biography'
-              dataToShow={ overview }
-            />
-            <InfoItem
-              show={ !isEmpty(originalName) }
-              label='Original name:'
-              dataToShow={ originalName }
-            />
-            <InfoItem
-              show={ !isEmpty(genres) }
-              label='Genres:'
-              dataToShow={ genres.join(', ') }
-            />
-            <InfoItem
-              show={ !isEmpty(createdBy) }
-              label='Created by:'
-              dataToShow={ createdBy.join(', ') }
-            />
-            <InfoItem
-              show={ !isUndefined(adult) }
-              label='Adult content:'
-              dataToShow={ adult ? 'Yes' : 'No' }
-            />
-            <InfoItem
-              show={ !isEmpty(birthday) }
-              label='Birthday:'
-              dataToShow={ moment(birthday).format(DATETIME_FORMAT) }
-            />
-            <InfoItem
-              show={ !isEmpty(deathday) }
-              label='Deathday:'
-              dataToShow={ moment(deathday).format(DATETIME_FORMAT) }
-            />
-            <InfoItem
-              show={ !isUndefined(gender) }
-              label='Gender:'
-              dataToShow={ gender === 1 ? 'female' : 'male' }
-            />
-            <InfoItem
-              show={ !isEmpty(placeOfBirth) }
-              label='Place of birth:'
-              dataToShow={ placeOfBirth }
-            />
-            <InfoItem
-              show={ !isEmpty(releaseDate) }
-              label='Release date:'
-              dataToShow={ moment(releaseDate).format(DATETIME_FORMAT) }
-            />
-            <InfoItem
-              show={ !isEmpty(firstAirDate) }
-              label='First air date:'
-              dataToShow={ moment(firstAirDate).format(DATETIME_FORMAT) }
-            />
-            <InfoItem
-              show={ !isEmpty(lastAirDate) }
-              label='Last air date:'
-              dataToShow={ moment(lastAirDate).format(DATETIME_FORMAT) }
-            />
-            <InfoItem
-              show={ !isEmpty(lastEpisodeToAir) }
-              label='Last episode to air:'
-              dataToShow={ `Season ${lastEpisodeToAir.season_number}, episode ${lastEpisodeToAir.episode_number} on ${moment(lastEpisodeToAir.air_date).format(DATETIME_FORMAT)}` }
-            />
-            <InfoItem
-              show={ !isEmpty(nextEpisodeToAir) }
-              label='Next episode to air:'
-              dataToShow={ `Season ${nextEpisodeToAir.season_number}, episode ${nextEpisodeToAir.episode_number} on ${moment(nextEpisodeToAir.air_date).format(DATETIME_FORMAT)}` }
-            />
-            <InfoItem
-              show={ displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage }
-              label='Original language:'
-              dataToShow={ displayOriginalLanguage(originalLanguage, languagesList).originalLanguage }
-            />
-            <InfoItem
-              show={ !isEmpty(spokenLanguages) }
-              label='Spoken languages:'
-              dataToShow={ spokenLanguages.map((language) => language.english_name).join(', ') }
-            />
-            <InfoItem
-              show={ !isEmpty(networks) }
-              label='Networks:'
-              dataToShow={ productionCompanies.map((company) => company.name).join(', ') }
-            />
-            <InfoItem
-              show={ !isEmpty(productionCompanies) }
-              label='Production companies:'
-              dataToShow={ productionCompanies.map((company) => company.name).join(', ') }
-            />
-            <InfoItem
-              show={ !isEmpty(productionCountries) }
-              label='Production countries:'
-              dataToShow={ productionCountries.map((country) => country.name).join(', ') }
-            />
-            <InfoItem
-              show={ !isUndefined(voteAverage) }
-              label='Average vote:'
-              dataToShow={ voteAverage }
-            />
-            <InfoItem
-              show={ !isUndefined(runtime) }
-              label='Runtime:'
-              dataToShow={ `${runtime} min` }
-            />
-            <InfoItem
-              show={ !isEmpty(episodeRuntime) }
-              label='Episode runtime:'
-              dataToShow={ `${episodeRuntime.join(', ')} min` }
-            />
-            <InfoItem
-              show={ !isUndefined(numberOfSeasons) }
-              label='Number of seasons:'
-              dataToShow={ numberOfSeasons }
-            />
-            <InfoItem
-              show={ !isUndefined(numberOfEpisodes) }
-              label='Number of episodes:'
-              dataToShow={ numberOfEpisodes }
-            />
-            <InfoItem
-              show={ !isEmpty(type) }
-              label='Type:'
-              dataToShow={ type }
-            />
-            <InfoItem
-              show={ !isEmpty(inProduction) }
-              label='In production:'
-              dataToShow={ inProduction }
-            />
-            <InfoItem
-              show={ !isEmpty(status) }
-              label='Status:'
-              dataToShow={ status }
-            />
-            {
-              mediaType !== 'person' && (
-                <div className='ml-single-action-icons'>
-                  <i className={`material-icons ml-single-action-icon ${favorite && 'ml-single-action-icon-active'}`}
-                    onClick={() => toggleFavorite(accountId, sessionId, mediaType, id, !favorite)}
-                  >
-                    favorite
-                  </i>
-                  <i className={`material-icons ml-single-action-icon ${watchLater && 'ml-single-action-icon-active'}`}
-                    onClick={() => toggleWatchLater(accountId, sessionId, mediaType, id, !watchLater)}
-                  >
-                    watch_later
-                  </i>
-                </div>
-              )
-            }
+    dataLoaded ?
+      (<div className={`ml-single ${dataLoaded && 'ml-single-loaded'}`}>
+        <div className='ml-single-header'>
+          <img
+            className='ml-single-poster'
+            src={posterImage ? `${SECURE_BASE_URL}${PROFILE_SIZES.original}${posterImage}` : noImageAvailable}
+            alt={name}
+          />
+          <div className='ml-single-info'>
+            <h4 className='ml-single-name'>
+              {name}
+              {
+                displayReleaseYear(releaseDate, firstAirDate).showReleaseYear &&
+                <span className='ml-single-release-year'> ({ displayReleaseYear(releaseDate, firstAirDate).releaseYear })</span>
+              }
+            </h4>
+            <div className='ml-single-content'>
+              <InfoItem
+                show={ !isEmpty(tagline) }
+                className='ml-single-tagline'
+                dataToShow={ tagline }
+              />
+              <InfoItem
+                show={ !isEmpty(biography) }
+                className='ml-single-biography'
+                dataToShow={ biography }
+              />
+              <InfoItem
+                show={ !isEmpty(overview) }
+                className='ml-single-biography'
+                dataToShow={ overview }
+              />
+              <InfoItem
+                show={ !isEmpty(originalName) }
+                label='Original name:'
+                dataToShow={ originalName }
+              />
+              <InfoItem
+                show={ !isEmpty(genres) }
+                label='Genres:'
+                dataToShow={ genres.join(', ') }
+              />
+              <InfoItem
+                show={ !isEmpty(createdBy) }
+                label='Created by:'
+                dataToShow={ createdBy.join(', ') }
+              />
+              <InfoItem
+                show={ !isUndefined(adult) }
+                label='Adult content:'
+                dataToShow={ adult ? 'Yes' : 'No' }
+              />
+              <InfoItem
+                show={ !isEmpty(birthday) }
+                label='Birthday:'
+                dataToShow={ moment(birthday).format(DATETIME_FORMAT) }
+              />
+              <InfoItem
+                show={ !isEmpty(deathday) }
+                label='Deathday:'
+                dataToShow={ moment(deathday).format(DATETIME_FORMAT) }
+              />
+              <InfoItem
+                show={ !isUndefined(gender) }
+                label='Gender:'
+                dataToShow={ gender === 1 ? 'female' : 'male' }
+              />
+              <InfoItem
+                show={ !isEmpty(placeOfBirth) }
+                label='Place of birth:'
+                dataToShow={ placeOfBirth }
+              />
+              <InfoItem
+                show={ !isEmpty(releaseDate) }
+                label='Release date:'
+                dataToShow={ moment(releaseDate).format(DATETIME_FORMAT) }
+              />
+              <InfoItem
+                show={ !isEmpty(firstAirDate) }
+                label='First air date:'
+                dataToShow={ moment(firstAirDate).format(DATETIME_FORMAT) }
+              />
+              <InfoItem
+                show={ !isEmpty(lastAirDate) }
+                label='Last air date:'
+                dataToShow={ moment(lastAirDate).format(DATETIME_FORMAT) }
+              />
+              <InfoItem
+                show={ !isEmpty(lastEpisodeToAir) }
+                label='Last episode to air:'
+                dataToShow={ `Season ${lastEpisodeToAir.season_number}, episode ${lastEpisodeToAir.episode_number} on ${moment(lastEpisodeToAir.air_date).format(DATETIME_FORMAT)}` }
+              />
+              <InfoItem
+                show={ !isEmpty(nextEpisodeToAir) }
+                label='Next episode to air:'
+                dataToShow={ `Season ${nextEpisodeToAir.season_number}, episode ${nextEpisodeToAir.episode_number} on ${moment(nextEpisodeToAir.air_date).format(DATETIME_FORMAT)}` }
+              />
+              <InfoItem
+                show={ displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage }
+                label='Original language:'
+                dataToShow={ displayOriginalLanguage(originalLanguage, languagesList).originalLanguage }
+              />
+              <InfoItem
+                show={ !isEmpty(spokenLanguages) }
+                label='Spoken languages:'
+                dataToShow={ spokenLanguages.map((language) => language.english_name).join(', ') }
+              />
+              <InfoItem
+                show={ !isEmpty(networks) }
+                label='Networks:'
+                dataToShow={ productionCompanies.map((company) => company.name).join(', ') }
+              />
+              <InfoItem
+                show={ !isEmpty(productionCompanies) }
+                label='Production companies:'
+                dataToShow={ productionCompanies.map((company) => company.name).join(', ') }
+              />
+              <InfoItem
+                show={ !isEmpty(productionCountries) }
+                label='Production countries:'
+                dataToShow={ productionCountries.map((country) => country.name).join(', ') }
+              />
+              <InfoItem
+                show={ !isUndefined(voteAverage) }
+                label='Average vote:'
+                dataToShow={ voteAverage }
+              />
+              <InfoItem
+                show={ !isUndefined(runtime) }
+                label='Runtime:'
+                dataToShow={ `${runtime} min` }
+              />
+              <InfoItem
+                show={ !isEmpty(episodeRuntime) }
+                label='Episode runtime:'
+                dataToShow={ `${episodeRuntime.join(', ')} min` }
+              />
+              <InfoItem
+                show={ !isUndefined(numberOfSeasons) }
+                label='Number of seasons:'
+                dataToShow={ numberOfSeasons }
+              />
+              <InfoItem
+                show={ !isUndefined(numberOfEpisodes) }
+                label='Number of episodes:'
+                dataToShow={ numberOfEpisodes }
+              />
+              <InfoItem
+                show={ !isEmpty(type) }
+                label='Type:'
+                dataToShow={ type }
+              />
+              <InfoItem
+                show={ !isEmpty(inProduction) }
+                label='In production:'
+                dataToShow={ inProduction }
+              />
+              <InfoItem
+                show={ !isEmpty(status) }
+                label='Status:'
+                dataToShow={ status }
+              />
+              {
+                mediaType !== 'person' && (
+                  <div className='ml-single-action-icons'>
+                    <i className={`material-icons ml-single-action-icon ${favorite && 'ml-single-action-icon-active'}`}
+                      onClick={() => toggleFavorite(accountId, sessionId, mediaType, id, !favorite)}
+                    >
+                      favorite
+                    </i>
+                    <i className={`material-icons ml-single-action-icon ${watchLater && 'ml-single-action-icon-active'}`}
+                      onClick={() => toggleWatchLater(accountId, sessionId, mediaType, id, !watchLater)}
+                    >
+                      watch_later
+                    </i>
+                  </div>
+                )
+              }
+            </div>
           </div>
         </div>
-      </div>
-      {
-        (!isEmpty(allCredits)) &&
-        (
-          <>
-            <KnownFor
-              allCredits={allCredits}
-              numberOfItemsToLoad={creditsPage * getSetting('knownForItemsPerPage')}
-            />
-            <div className='ml-single-button-holder'>
-              <Button
-                label='Load more'
-                disabled={creditsPage === creditsTotalPages}
-                clickHandler={() => loadMoreResults()}
+        {
+          (!isEmpty(allCredits)) &&
+          (
+            <>
+              <KnownFor
+                allCredits={allCredits}
+                numberOfItemsToLoad={creditsPage * getSetting('knownForItemsPerPage')}
               />
-            </div>
-          </>
-        )
-      }
-      {
-        (!isEmpty(posterImages)) &&
-        (
-          <PosterImages
-            posterImages={backdropImages}
-            openImagesModal={openImagesModal}
-          />
-        )
-      }
-      {
-        (!isEmpty(videos)) &&
-        (
-          <Videos videos={videos} />
-        )
-      }
-      {
-        (!isEmpty(similar)) &&
-        (
-          <Section
-            title={`Similar ${mediaType === 'movie' ? 'movies' : 'TV shows'}`}
-            dataToShow={similar}
-            mediaType={mediaType}
-          />
-        )
-      }
-      {
-        imagesModalOpened && !isEmpty(backdropImages) &&
-        (
-          <ImagesModal
-            images={backdropImages}
-            openedImageIndex={openedImageIndex}
-            closeImagesModal={closeImagesModal}
-          />
-        )
-      }
-    </div>
+              <div className='ml-single-button-holder'>
+                <Button
+                  label='Load more'
+                  disabled={creditsPage === creditsTotalPages}
+                  clickHandler={() => loadMoreResults()}
+                />
+              </div>
+            </>
+          )
+        }
+        {
+          (!isEmpty(posterImages)) &&
+          (
+            <PosterImages
+              posterImages={backdropImages}
+              openImagesModal={openImagesModal}
+            />
+          )
+        }
+        {
+          (!isEmpty(videos)) &&
+          (
+            <Videos videos={videos} />
+          )
+        }
+        {
+          (!isEmpty(similar)) &&
+          (
+            <Section
+              title={`Similar ${mediaType === 'movie' ? 'movies' : 'TV shows'}`}
+              dataToShow={similar}
+              mediaType={mediaType}
+              loaded={dataLoaded}
+            />
+          )
+        }
+        {
+          imagesModalOpened && !isEmpty(backdropImages) &&
+          (
+            <ImagesModal
+              images={backdropImages}
+              openedImageIndex={openedImageIndex}
+              closeImagesModal={closeImagesModal}
+            />
+          )
+        }
+      </div>) : (
+        <Spinner />
+      )
   );
 };
 

@@ -31,6 +31,10 @@ const Home = () => {
   const [trendingMediaTypes] = useState(getSetting('trendingMediaTypes'));
   const [trendingTimeWindow] = useState(getSetting('trendingTimeWindow'));
   const [numberOfTrendingItemsToShow] = useState(getSetting('numberOfTrendingItemsToShow'));
+  const [trendingAllLoaded, setTrendingAllLoaded] = useState(false);
+  const [trendingMoviesLoaded, setTrendingMoviesLoaded] = useState(false);
+  const [trendingTvShowsLoaded, setTrendingTvShowsLoaded] = useState(false);
+  const [trendingPersonsLoaded, setTrendingPersonsLoaded] = useState(false);
 
   // history
   const history = useHistory();
@@ -42,9 +46,9 @@ const Home = () => {
 
   const login = () => {
     getRequestToken().then((response) => {
-      const { request_token } = response.data;
+      const { request_token: requestToken } = response.data;
 
-      window.location.href = `${AUTH_URL}${request_token}?redirect_to=${MOVIELAND_BASE_URL}approve`;
+      window.location.href = `${AUTH_URL}${requestToken}?redirect_to=${MOVIELAND_BASE_URL}approve`;
     });
   };
 
@@ -119,12 +123,16 @@ const Home = () => {
 
           if (type === 'movie') {
             setTrendingMovies(items);
+            setTrendingMoviesLoaded(true);
           } else if (type === 'tv') {
             setTrendingTvShows(items);
+            setTrendingTvShowsLoaded(true);
           } else if (type === 'person') {
             setTrendingPersons(items);
+            setTrendingPersonsLoaded(true);
           } else if (type === 'all') {
             setTrendingAll(items);
+            setTrendingAllLoaded(true);
           }
 
           return response;
@@ -151,6 +159,7 @@ const Home = () => {
           title='Trending'
           showMoreUrl='/trending'
           dataToShow={trendingAll}
+          loaded={trendingAllLoaded}
         />
       }
       {
@@ -159,6 +168,7 @@ const Home = () => {
           title='Trending movies'
           showMoreUrl='/trending/movie'
           dataToShow={trendingMovies}
+          loaded={trendingMoviesLoaded}
         />
       }
       {
@@ -167,6 +177,7 @@ const Home = () => {
           title='Trending TV shows'
           showMoreUrl='/trending/tv'
           dataToShow={trendingTvShows}
+          loaded={trendingTvShowsLoaded}
         />
       }
       {
@@ -175,6 +186,7 @@ const Home = () => {
           title='Trending persons'
           showMoreUrl='/trending/person'
           dataToShow={trendingPersons}
+          loaded={trendingPersonsLoaded}
         />
       }
     </div>

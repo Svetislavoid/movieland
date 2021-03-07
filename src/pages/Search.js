@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import SearchInput from '@/components/SearchInput';
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import Spinner from '@/components/Spinner';
 
 // styles
 import '@/pages/Search.css';
@@ -21,6 +22,8 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
+  const [showLoadMoreSpinner, setShowLoadMoreSpinner] = useState(false);
+  const [searchResultsLoaded, setSearchResultsLoaded] = useState(false);
 
   // component variables
   const { pathname } = window.location;
@@ -30,6 +33,8 @@ const Search = () => {
   const history = useHistory();
 
   const loadMoreResults = (pageToLoad) => {
+    setShowLoadMoreSpinner(true);
+
     searchMoviesTvShowsPeople(searchTerm, pageToLoad)
       .then((response) => {
         const {
@@ -45,6 +50,7 @@ const Search = () => {
           ...filteredResults
         ]));
         setPage(page);
+        setShowLoadMoreSpinner(false);
 
         return response;
       })
@@ -60,8 +66,8 @@ const Search = () => {
         const {
           results,
           page,
-          total_pages,
-          total_results
+          total_pages: totalPages,
+          total_results: totalResults
         } = response.data;
 
         // Filter result items that do not have all the needed data
@@ -69,8 +75,9 @@ const Search = () => {
 
         setSearchResults(filteredResults);
         setPage(page);
-        setTotalPages(total_pages);
-        setTotalResults(total_results);
+        setTotalPages(totalPages);
+        setTotalResults(totalResults);
+        setSearchResultsLoaded(true);
 
         return response;
       })
@@ -93,7 +100,14 @@ const Search = () => {
       </h6>
       <Section
         dataToShow={searchResults}
+        loaded={searchResultsLoaded}
       />
+      <div className='ml-search-spinner-holder'>
+        {
+          showLoadMoreSpinner && (
+            <Spinner />)
+        }
+      </div>
       {
         totalResults ?
           (<div className='ml-search-button-holder'>

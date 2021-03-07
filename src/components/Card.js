@@ -37,29 +37,29 @@ import { isUndefined, isEmpty } from 'lodash';
 
 const Card = ({ item, mediaType }) => {
   const {
-    genre_ids,
+    genre_ids: genreIds,
     id,
-    media_type,
-    original_language,
-    original_title,
+    media_type: mediaTypeItem,
+    original_language: originalLanguage,
+    original_title: originalTitle,
     overview,
-    poster_path,
-    release_date,
+    poster_path: posterPath,
+    release_date: releaseDate,
     title,
-    vote_average,
-    first_air_date,
+    vote_average: voteAverage,
+    first_air_date: firstAirDate,
     name,
-    origin_country,
-    original_name,
-    known_for,
-    profile_path,
+    origin_country: originCountry,
+    original_name: originalName,
+    known_for: knownFor,
+    profile_path: profilePath,
     adult
   } = item;
 
   // API for getting similar movies/tv shows do not
   // return media_type in the response - that's why
   // it has to be passed explicitly in this case
-  const itemMediaType = media_type || mediaType;
+  const itemMediaType = mediaTypeItem || mediaType;
 
   // Context
   const [state] = useContext(Context);
@@ -83,8 +83,8 @@ const Card = ({ item, mediaType }) => {
   const [favorite, setFavorite] = useState(false);
   const [watchLater, setWatchLater] = useState(false);
 
-  const posterUrl = (poster_path || profile_path) &&
-                    `${SECURE_BASE_URL}${POSTER_SIZES.larger}${poster_path || profile_path}`;
+  const posterUrl = (posterPath || profilePath) &&
+                    `${SECURE_BASE_URL}${POSTER_SIZES.larger}${posterPath || profilePath}`;
 
   const toggleFavorite = (accountId, sessionId, mediaType, id, add) => {
     if (!loggedIn) return;
@@ -115,7 +115,7 @@ const Card = ({ item, mediaType }) => {
       default:
         break;
     }
-  }, []);
+  }, [favoriteMoviesListIds, favoriteTvShowsListIds, moviesWatchlistIds, tvShowsWatchlistIds, id, itemMediaType]);
 
   return (
     <div className='ml-card'>
@@ -129,15 +129,15 @@ const Card = ({ item, mediaType }) => {
       <h4 className='ml-card-title'>
         <span>{ displayName(title, name) }</span>
         {
-          displayReleaseYear(release_date, first_air_date).showReleaseYear &&
-          <span className='ml-card-release-year'> ({ displayReleaseYear(release_date, first_air_date).releaseYear })</span>
+          displayReleaseYear(releaseDate, firstAirDate).showReleaseYear &&
+          <span className='ml-card-release-year'> ({ displayReleaseYear(releaseDate, firstAirDate).releaseYear })</span>
         }
       </h4>
       <div className='ml-card-content'>
         <InfoItem
-          show={ displayOriginalName(title, original_title, name, original_name).showOriginalName }
+          show={ displayOriginalName(title, originalTitle, name, originalName).showOriginalName }
           label='Original name:'
-          dataToShow={ displayOriginalName(title, original_title, name, original_name).originalNameToDisplay }
+          dataToShow={ displayOriginalName(title, originalTitle, name, originalName).originalNameToDisplay }
         />
         <InfoItem
           show={ itemMediaType }
@@ -145,9 +145,9 @@ const Card = ({ item, mediaType }) => {
           dataToShow={ itemMediaType }
         />
         <InfoItem
-          show={ displayGenres(itemMediaType, genre_ids, movieGenresList, tvGenresList).showGenres }
+          show={ displayGenres(itemMediaType, genreIds, movieGenresList, tvGenresList).showGenres }
           label='Genres:'
-          dataToShow={ displayGenres(itemMediaType, genre_ids, movieGenresList, tvGenresList).genres.join(', ') }
+          dataToShow={ displayGenres(itemMediaType, genreIds, movieGenresList, tvGenresList).genres.join(', ') }
         />
         <InfoItem
           show={ !isUndefined(adult) }
@@ -155,19 +155,19 @@ const Card = ({ item, mediaType }) => {
           dataToShow={ adult ? 'Yes' : 'No' }
         />
         <InfoItem
-          show={ displayOriginalLanguage(original_language, languagesList).showOriginalLanguage }
+          show={ displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage }
           label='Original language:'
-          dataToShow={ displayOriginalLanguage(original_language, languagesList).originalLanguage }
+          dataToShow={ displayOriginalLanguage(originalLanguage, languagesList).originalLanguage }
         />
         <InfoItem
-          show={ displayOriginCountries(origin_country, countriesList).showOriginCountries }
+          show={ displayOriginCountries(originCountry, countriesList).showOriginCountries }
           label='Origin country:'
-          dataToShow={ displayOriginCountries(origin_country, countriesList).originCountries.join(', ') }
+          dataToShow={ displayOriginCountries(originCountry, countriesList).originCountries.join(', ') }
         />
         <InfoItem
-          show={ !isUndefined(vote_average) }
+          show={ !isUndefined(voteAverage) }
           label='Average rating:'
-          dataToShow={ vote_average }
+          dataToShow={ voteAverage }
         />
         <InfoItem
           show={ !isEmpty(overview) }
@@ -175,12 +175,12 @@ const Card = ({ item, mediaType }) => {
           dataToShow={ overview }
         />
         <InfoItem
-          show={ displayKnownFor(known_for).showKnownFor }
+          show={ displayKnownFor(knownFor).showKnownFor }
           className='ml-card-known-for-items'
           dataToShow={ overview }
         >
           {
-            displayKnownFor(known_for).knownFor.map((item) => {
+            displayKnownFor(knownFor).knownFor.map((item) => {
               return (
                 <div className='ml-card-known-for-item' key={item.id}>
                   <Link to={`/${item.mediaType}/${item.id}`}>

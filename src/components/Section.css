@@ -18,8 +18,10 @@
 }
 
 .ml-section-content {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  min-height: 10rem;
 }
 
 @media (max-width: 600px) {

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 // components
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import Spinner from '@/components/Spinner';
 
 // styles
 import '@/pages/Trending.css';
@@ -23,6 +24,8 @@ const Trending = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [sectionTitle, setSectionTitle] = useState('');
+  const [showLoadMoreSpinner, setShowLoadMoreSpinner] = useState(false);
+  const [resultsLoaded, setResultsLoaded] = useState(false);
 
   // component variables
   const { pathname } = window.location;
@@ -32,6 +35,8 @@ const Trending = () => {
   const history = useHistory();
 
   const loadMoreResults = (pageToLoad) => {
+    setShowLoadMoreSpinner(true);
+
     getTrending(mediaType, trendingTimeWindow, pageToLoad)
       .then((response) => {
         const {
@@ -47,6 +52,7 @@ const Trending = () => {
           ...filteredResults
         ]));
         setPage(page);
+        setShowLoadMoreSpinner(false);
 
         return response;
       })
@@ -55,14 +61,13 @@ const Trending = () => {
       });
   };
 
-  // Search for a movie, tv show or person
   useEffect(() => {
     getTrending(mediaType, trendingTimeWindow)
       .then((response) => {
         const {
           results,
           page,
-          total_pages
+          total_pages: totalPages
         } = response.data;
 
         // Filter result items that do not have all the needed data
@@ -70,7 +75,8 @@ const Trending = () => {
 
         setResults(filteredResults);
         setPage(page);
-        setTotalPages(total_pages);
+        setTotalPages(totalPages);
+        setResultsLoaded(true);
 
         return response;
       })
@@ -96,8 +102,15 @@ const Trending = () => {
       <Section
         title={sectionTitle}
         dataToShow={results}
+        loaded={resultsLoaded}
       />
-      <div className='ml-search-button-holder'>
+      <div className='ml-trending-spinner-holder'>
+        {
+          showLoadMoreSpinner && (
+            <Spinner />)
+        }
+      </div>
+      <div className='ml-trending-button-holder'>
         <Button
           label='Load more'
           disabled={page === totalPages}

@@ -26,11 +26,11 @@ const Auth = () => {
       history.replace('/');
     } else {
       getSessionId(requestToken).then((response) => {
-        const { session_id } = response.data;
+        const { session_id: sessionId } = response.data;
 
-        localStorage.setItem('sessionId', session_id);
+        localStorage.setItem('sessionId', sessionId);
 
-        getAccountDetails(session_id).then((response) => {
+        getAccountDetails(sessionId).then((response) => {
           const { id } = response.data;
 
           localStorage.setItem('accountId', id);

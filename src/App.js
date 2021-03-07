@@ -99,7 +99,7 @@ const App = () => {
         dispatchType: 'SET_TV_SHOWS_WATCHLIST_IDS',
         params: [accountId, sessionId]
       },
-    ], []);
+    ], [accountId, sessionId]);
 
   // Get and store:
   //    - tmdb configuration
@@ -144,14 +144,14 @@ const App = () => {
           });
       });
     }
-  }, [dispatch, history, userApiFunctions]);
+  }, [dispatch, history, userApiFunctions, loggedIn]);
 
   useEffect(() => {
     dispatch({
       type: 'SET_LOGGED_IN',
       payload: loggedIn
     });
-  }, [loggedIn]);
+  }, [loggedIn, dispatch]);
 
   return (
     <div className='ml-app'>

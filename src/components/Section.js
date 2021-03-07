@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 // components
 import Card from '@/components/Card';
+import Spinner from '@/components/Spinner';
 
 // styles
 import '@/components/Section.css';
@@ -12,7 +13,8 @@ const Section = (props) => {
     title,
     showMoreUrl,
     dataToShow,
-    mediaType
+    mediaType,
+    loaded
   } = props;
 
   return (
@@ -31,9 +33,11 @@ const Section = (props) => {
       }
       <div className='ml-section-content'>
         {
-          dataToShow.map((item) => {
-            return (<Card key={item.id} item={item} mediaType={mediaType} />);
-          })
+          loaded ?
+            dataToShow.map((item) => {
+              return (<Card key={item.id} item={item} mediaType={mediaType} />);
+            }) :
+            <Spinner />
         }
       </div>
     </section>

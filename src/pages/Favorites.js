@@ -14,6 +14,8 @@ const Favorites = () => {
   // state variables
   const [favoriteMoviesList, setFavoriteMoviesList] = useState([]);
   const [favoriteTvShowsList, setFavoriteTvShowsList] = useState([]);
+  const [favoriteMoviesListLoaded, setFavoriteMoviesListLoaded] = useState(false);
+  const [favoriteTvShowsListLoaded, setFavoriteTvShowsListLoaded] = useState(false);
 
   // history
   const history = useHistory();
@@ -30,6 +32,7 @@ const Favorites = () => {
           const { results } = response.data;
 
           setFavoriteMoviesList(results);
+          setFavoriteMoviesListLoaded(true);
 
           return response;
         })
@@ -42,6 +45,7 @@ const Favorites = () => {
           const { results } = response.data;
 
           setFavoriteTvShowsList(results);
+          setFavoriteTvShowsListLoaded(true);
 
           return response;
         })
@@ -54,14 +58,16 @@ const Favorites = () => {
   return (
     <div className='ml-favorites'>
       <Section
-        title='Favorite movies'
+        title={`Favorite movies (${favoriteMoviesList.length})`}
         dataToShow={favoriteMoviesList}
         mediaType='movie'
+        loaded={favoriteMoviesListLoaded}
       />
       <Section
-        title='Favorite tv shows'
+        title={`Favorite tv shows (${favoriteTvShowsList.length})`}
         dataToShow={favoriteTvShowsList}
         mediaType='tv'
+        loaded={favoriteTvShowsListLoaded}
       />
     </div>
   );

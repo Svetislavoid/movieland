@@ -14,6 +14,8 @@ const WatchLater = () => {
   // state variables
   const [moviesWatchlist, setMoviesWatchlist] = useState([]);
   const [tvShowsWatchlist, setTvShowsWatchlist] = useState([]);
+  const [moviesWatchlistLoaded, setMoviesWatchlistLoaded] = useState(false);
+  const [tvShowsWatchlistLoaded, setTvShowsWatchlistLoaded] = useState(false);
 
   // history
   const history = useHistory();
@@ -30,6 +32,7 @@ const WatchLater = () => {
           const { results } = response.data;
 
           setMoviesWatchlist(results);
+          setMoviesWatchlistLoaded(true);
 
           return response;
         })
@@ -42,6 +45,7 @@ const WatchLater = () => {
           const { results } = response.data;
 
           setTvShowsWatchlist(results);
+          setTvShowsWatchlistLoaded(true);
 
           return response;
         })
@@ -54,14 +58,16 @@ const WatchLater = () => {
   return (
     <div className='ml-watch-later'>
       <Section
-        title='Movies watchlist'
+        title={`Movies watchlist (${moviesWatchlist.length})`}
         dataToShow={moviesWatchlist}
         mediaType='movie'
+        loaded={moviesWatchlistLoaded}
       />
       <Section
-        title='Tv shows watchlist'
+        title={`Tv shows watchlist (${tvShowsWatchlist.length})`}
         dataToShow={tvShowsWatchlist}
         mediaType='tv'
+        loaded={tvShowsWatchlistLoaded}
       />
     </div>
   );
