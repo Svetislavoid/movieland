@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import InfoItem from '@/components/InfoItem';
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import BackButton from '@/components/BackButton';
 import Spinner from '@/components/Spinner';
 import ImagesModal from '@/components/ImagesModal';
 
@@ -359,6 +360,7 @@ const Single = () => {
   return (
     dataLoaded ?
       (<div className={`ml-single ${dataLoaded && 'ml-single-loaded'}`}>
+        <BackButton />
         <div className='ml-single-header'>
           <img
             className='ml-single-poster'

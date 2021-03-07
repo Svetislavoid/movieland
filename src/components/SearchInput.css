@@ -21,10 +21,14 @@
   top: 0;
   bottom: 0;
   color: var(--text-color);
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   width: 3rem;
   padding: 0 0.5rem;
   cursor: pointer;
+}
+
+.ml-search-input-button:hover {
+  color: var(--light-shadow-color);
 }
 
 @media (max-width: 1000px) {

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 // components
 import Section from '@/components/Section';
+import BackButton from '@/components/BackButton';
 
 // services & store
 import {
@@ -57,6 +58,7 @@ const Favorites = () => {
 
   return (
     <div className='ml-favorites'>
+      <BackButton />
       <Section
         title={`Favorite movies (${favoriteMoviesList.length})`}
         dataToShow={favoriteMoviesList}

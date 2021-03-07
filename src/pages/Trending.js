@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 // components
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import BackButton from '@/components/BackButton';
 import Spinner from '@/components/Spinner';
 
 // styles
@@ -99,6 +100,7 @@ const Trending = () => {
 
   return (
     <div>
+      <BackButton />
       <Section
         title={sectionTitle}
         dataToShow={results}

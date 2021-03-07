@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// components
+import BackButton from '@/components/BackButton';
+
 // functions
 import { getSetting, setSetting } from '@/common/functions';
 
@@ -147,6 +150,7 @@ const Settings = () => {
 
   return (
     <div className='ml-settings'>
+      <BackButton />
       <h1 className='ml-settings-title'>Settings</h1>
       <div className='ml-settings-holder'>
         <div className='ml-settings-section'>

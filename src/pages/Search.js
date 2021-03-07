@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import SearchInput from '@/components/SearchInput';
 import Section from '@/components/Section';
 import Button from '@/components/Button';
+import BackButton from '@/components/BackButton';
 import Spinner from '@/components/Spinner';
 
 // styles
@@ -92,6 +93,7 @@ const Search = () => {
 
   return (
     <div>
+      <BackButton />
       <div className='ml-search-search-input'>
         <SearchInput defaultSearchValue={ searchTerm } />
       </div>

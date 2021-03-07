@@ -1,0 +1,13 @@
+.ml-back-button {
+  display: flex;
+  align-items: center;
+  background-color: unset;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  margin: 2rem 0;
+}
+
+.ml-back-button:hover {
+  color: var(--light-shadow-color);
+}

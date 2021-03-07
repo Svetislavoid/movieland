@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 // components
 import Section from '@/components/Section';
+import BackButton from '@/components/BackButton';
 
 // services & store
 import {
@@ -57,6 +58,7 @@ const WatchLater = () => {
 
   return (
     <div className='ml-watch-later'>
+      <BackButton />
       <Section
         title={`Movies watchlist (${moviesWatchlist.length})`}
         dataToShow={moviesWatchlist}
