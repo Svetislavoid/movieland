@@ -48,9 +48,9 @@ const PosterImages = (props) => {
   } = props;
 
   return (!isEmpty(posterImages)) ? (
-    <div className='ml-single-known-for'>
-      <h3 className='ml-single-known-for-title'>Images</h3>
-      <div className='ml-single-known-for-items'>
+    <div className='ml-single-poster-images'>
+      <h3 className='ml-single-poster-images-title'>Images</h3>
+      <div className='ml-single-poster-images-items'>
         {
           posterImages.map((image, index) => (
             <img
@@ -73,21 +73,25 @@ const Videos = (props) => {
   } = props;
 
   return (!isEmpty(videos)) ? (
-    <div className='ml-single-known-for'>
-      <h3 className='ml-single-known-for-title'>Videos</h3>
-      <div className='ml-single-known-for-items'>
+    <div className='ml-single-videos'>
+      <h3 className='ml-single-videos-title'>Videos</h3>
+      <div className='ml-single-videos-items'>
         {
           videos.map((video) => (
-            <iframe
-              title={video.name}
-              key={video.id}
-              allowFullScreen='allowfullscreen'
-              mozallowfullscreen='mozallowfullscreen'
-              msallowfullscreen='msallowfullscreen'
-              oallowfullscreen='oallowfullscreen'
-              webkitallowfullscreen='webkitallowfullscreen'
-              src={`${VIDEO_SERVICES[video.site]}${video.key}`} >
-            </iframe>))
+            <div className='ml-single-video'>
+              <iframe
+                className='ml-single-video-iframe'
+                title={video.name}
+                key={video.id}
+                allowFullScreen='allowfullscreen'
+                mozallowfullscreen='mozallowfullscreen'
+                msallowfullscreen='msallowfullscreen'
+                oallowfullscreen='oallowfullscreen'
+                webkitallowfullscreen='webkitallowfullscreen'
+                src={`${VIDEO_SERVICES[video.site]}${video.key}`} >
+              </iframe>
+            </div>
+          ))
         }
       </div>
     </div>
