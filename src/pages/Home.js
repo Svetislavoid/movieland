@@ -149,6 +149,9 @@ const Home = () => {
 
   return (
     <div className='ml-home'>
+      <h5 className='ml-home-welcome-message'>
+        Welcome to Movieland! A great place to find all you want to know about latest movies, tv shows and actors!
+      </h5>
       <div className='ml-home-search'>
         <SearchInput />
       </div>

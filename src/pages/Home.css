@@ -1,3 +1,10 @@
+.ml-home-welcome-message {
+  text-align: center;
+  padding: 0 2rem;
+  max-width: 1000px;
+  margin: 0 auto 3rem;
+}
+
 .ml-home-menu {
   text-align: center;
 }
@@ -14,7 +21,7 @@
 }
 .ml-home-search {
   text-align: center;
-  margin: 5rem 0 2rem 0;
+  margin: 2rem 0;
 }
 
 @media (max-width: 1000px) {
