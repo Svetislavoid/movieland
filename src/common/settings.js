@@ -50,6 +50,9 @@ export const STILL_SIZES = {
   original: 'original'
 };
 
+// app base url
+export const MOVIELAND_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://themovieland.herokuapp.com/';
+
 // tmdb auth url
 export const AUTH_URL = 'https://www.themoviedb.org/authenticate/';
 
