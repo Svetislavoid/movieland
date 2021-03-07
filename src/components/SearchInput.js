@@ -36,7 +36,7 @@ const SearchInput = (props) => {
         className='ml-search-input-button'
         onClick={(event) => handleSearch(event, searchTerm)}
       >
-        <i class="material-icons">arrow_forward</i>
+        <i className="material-icons">arrow_forward</i>
       </span>
     </div>
   );

@@ -1,0 +1,21 @@
+.ml-scroll-to-top-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--light-shadow-color);
+  color: var(--text-color);
+  border: none;
+  box-shadow: 0 0 2px 2px var(--light-shadow-color);
+  cursor: pointer;
+}
+
+.ml-scroll-to-top-button:hover {
+  background-color: var(--dark-shadow-color);
+}

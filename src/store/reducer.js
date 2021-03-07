@@ -1,5 +1,10 @@
 const Reducer = (state, action) => {
   switch (action.type) {
+    case 'SHOW_SCROLL_TO_TOP_BUTTON':
+      return {
+        ...state,
+        showScrollToTopButton: action.payload,
+      };
     case 'SET_LOGGED_IN':
       return {
         ...state,

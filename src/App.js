@@ -4,6 +4,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 // components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Trending from '@/pages/Trending';
@@ -101,6 +102,21 @@ const App = () => {
       },
     ], [accountId, sessionId]);
 
+  // Show scroll to top button if scrollTop is greater than 2000px
+  window.onscroll = () => {
+    if (document.documentElement.scrollTop > 2000) {
+      dispatch({
+        type: 'SHOW_SCROLL_TO_TOP_BUTTON',
+        payload: true
+      });
+    } else {
+      dispatch({
+        type: 'SHOW_SCROLL_TO_TOP_BUTTON',
+        payload: false
+      });
+    }
+  };
+
   // Get and store:
   //    - tmdb configuration
   //    - genres
@@ -179,6 +195,9 @@ const App = () => {
         </div>
       }
       <Footer />
+      {
+        state.showScrollToTopButton && (<ScrollToTopButton />)
+      }
     </div>
   );
 };
