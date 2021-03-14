@@ -14,7 +14,8 @@ const initialState = {
   favoriteMoviesListIds: [],
   favoriteTvShowsListIds: [],
   moviesWatchlistIds: [],
-  tvShowsWatchlistIds: []
+  tvShowsWatchlistIds: [],
+  confirmModalData: { show: false }
 };
 
 const Store = ({ children }) => {

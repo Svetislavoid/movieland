@@ -44,11 +44,28 @@ const Home = () => {
 
   const { loggedIn } = state;
 
-  const login = () => {
+  const loginOnTMDB = () => {
     getRequestToken().then((response) => {
       const { request_token: requestToken } = response.data;
 
       window.location.href = `${AUTH_URL}${requestToken}?redirect_to=${MOVIELAND_BASE_URL}approve`;
+    });
+  };
+
+  const login = () => {
+    dispatch({
+      type: 'SHOW_CONFIRM_MODAL',
+      payload: {
+        ...state.confirmModalData,
+        show: true,
+        title: 'Login on TMDB',
+        content: 'You will be redirected to the TMDB website where you can login and approve movieland to use your data',
+        cancelClicked: () => dispatch({
+          type: 'SHOW_CONFIRM_MODAL',
+          payload: { show: false }
+        }),
+        okClicked: () => loginOnTMDB()
+      }
     });
   };
 

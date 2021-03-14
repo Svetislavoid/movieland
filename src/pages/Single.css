@@ -12,10 +12,6 @@
   width: 100%;
 }
 
-.ml-single-info {
-  text-align: justify;
-}
-
 .ml-single-name {
   background-color: var(--contrast-color);
   padding: 0.5rem 1rem;

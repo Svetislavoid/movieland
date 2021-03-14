@@ -5,6 +5,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
+import ConfirmModal from '@/components/ConfirmModal';
 import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Trending from '@/pages/Trending';
@@ -47,6 +48,8 @@ const App = () => {
   const loggedIn = accountId && sessionId;
 
   const {
+    confirmModalData,
+    showScrollToTopButton,
     apiConfiguration,
     countriesList,
     languagesList,
@@ -194,9 +197,19 @@ const App = () => {
           </Switch>
         </div>
       }
+      {
+        confirmModalData.show && (
+          <ConfirmModal
+            title={confirmModalData.title}
+            content={confirmModalData.content}
+            cancelClicked={confirmModalData.cancelClicked}
+            okClicked={confirmModalData.okClicked}
+          />
+        )
+      }
       <Footer />
       {
-        state.showScrollToTopButton && (<ScrollToTopButton />)
+        showScrollToTopButton && (<ScrollToTopButton />)
       }
     </div>
   );

@@ -5,6 +5,11 @@ const Reducer = (state, action) => {
         ...state,
         showScrollToTopButton: action.payload,
       };
+    case 'SHOW_CONFIRM_MODAL':
+      return {
+        ...state,
+        confirmModalData: action.payload,
+      };
     case 'SET_LOGGED_IN':
       return {
         ...state,

@@ -7,12 +7,13 @@ const Button = (props) => {
   const {
     label,
     disabled,
-    clickHandler
+    clickHandler,
+    className
   } = props;
 
   return (
     <button
-      className='waves-effect waves-light ml-button'
+      className={`waves-effect waves-light ${className} ml-button`}
       disabled={disabled}
       onClick={clickHandler}
     >

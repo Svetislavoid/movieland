@@ -1,0 +1,46 @@
+.ml-confirm-modal-wrapper {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(150, 150, 150, 0.8);
+  color: var(--light-shadow-color);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  animation: fadein 0.3s;
+}
+
+.ml-confirm-modal {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: 400px;
+  background-color: var(--main-bg-color);
+  padding: 1rem;
+  justify-content: space-between;
+  border-radius: 0.3rem;
+  margin: 0.5rem;
+}
+
+.ml-confirm-modal-title,
+.ml-confirm-modal-content,
+.ml-confirm-modal-action-buttons {
+  margin: 0.5rem 0;
+}
+
+.ml-confirm-modal-action-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+button.ml-confirm-modal-button {
+  width: 40%;
+  min-width: 5rem;
+  max-width: 9rem;
+  background-color: unset;
+  border: 1px solid var(--dark-shadow-color);
+}
