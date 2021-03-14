@@ -229,6 +229,7 @@ const Single = () => {
   const [state] = useContext(Context);
 
   const {
+    loggedIn,
     languagesList,
     favoriteMoviesListIds,
     favoriteTvShowsListIds,
@@ -266,12 +267,16 @@ const Single = () => {
   };
 
   const toggleFavorite = (accountId, sessionId, mediaType, id, add) => {
+    if (!loggedIn) return;
+
     addToFavorites(accountId, sessionId, mediaType, id, add).then((response) => {
       setFavorite((favorite) => !favorite);
     });
   };
 
   const toggleWatchLater = (accountId, sessionId, mediaType, id, add) => {
+    if (!loggedIn) return;
+
     addToWatchlist(accountId, sessionId, mediaType, id, add).then((response) => {
       setWatchLater((watchLater) => !watchLater);
     });
@@ -522,7 +527,7 @@ const Single = () => {
                 dataToShow={ status }
               />
               {
-                mediaType !== 'person' && (
+                mediaType !== 'person' && loggedIn && (
                   <div className='ml-single-action-icons'>
                     <i className={`material-icons ml-single-action-icon ${favorite && 'ml-single-action-icon-active'}`}
                       onClick={() => toggleFavorite(accountId, sessionId, mediaType, id, !favorite)}
