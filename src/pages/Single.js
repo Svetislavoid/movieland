@@ -173,6 +173,7 @@ const Single = () => {
   const [openedImageIndex, setOpenedImageIndex] = useState(0);
   const [favorite, setFavorite] = useState(false);
   const [watchLater, setWatchLater] = useState(false);
+  const [showSimilarContent] = useState(getSetting('showSimilarContent'));
 
   // common
   const [name, setName] = useState('');
@@ -579,7 +580,7 @@ const Single = () => {
           )
         }
         {
-          (!isEmpty(similar)) &&
+          (showSimilarContent && !isEmpty(similar)) &&
           (
             <Section
               title={`Similar ${mediaType === 'movie' ? 'movies' : 'TV shows'}`}

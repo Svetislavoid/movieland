@@ -6,7 +6,8 @@ export const SETTINGS = {
   trendingTimeWindow: 'week',
   numberOfTrendingItemsToShow: 6,
   includeAdultContent: false,
-  knownForItemsPerPage: 12
+  knownForItemsPerPage: 12,
+  showSimilarContent: true
 };
 
 export const BACKDROP_SIZES = {

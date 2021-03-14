@@ -16,6 +16,7 @@ const Settings = () => {
   const [mediaTypes, setMediaTypes] = useState(getSetting('trendingMediaTypes'));
   const [timeWindow, setTimeWindow] = useState(getSetting('trendingTimeWindow'));
   const [numberOfItemsToShow, setNumberOfItemsToShow] = useState(getSetting('numberOfTrendingItemsToShow'));
+  const [showSimilarContent, setShowSimilarContent] = useState(getSetting('showSimilarContent'));
   const [includeAdultContent, setIncludeAdultContent] = useState(getSetting('includeAdultContent'));
 
   const handleMediaTypeSetting = (e) => {
@@ -45,6 +46,13 @@ const Settings = () => {
     const numberOfItems = e.target.value;
 
     setSetting('numberOfTrendingItemsToShow', numberOfItems);
+  };
+
+  const handleSimilarContentSetting = (e) => {
+    const shouldShowSimilarContent = e.target.checked;
+
+    setShowSimilarContent(shouldShowSimilarContent);
+    setSetting('showSimilarContent', shouldShowSimilarContent);
   };
 
   const handleAdultContentSetting = (e) => {
@@ -128,7 +136,9 @@ const Settings = () => {
     const {
       falseLabel,
       trueLabel,
-      includeAdultContent
+      defaultValue,
+      defaultChecked,
+      handleSwitchChange
     } = props;
 
     return (
@@ -137,9 +147,9 @@ const Settings = () => {
           { falseLabel }
           <input
             type='checkbox'
-            defaultValue={includeAdultContent}
-            defaultChecked={includeAdultContent}
-            onChange={(e) => handleAdultContentSetting(e)}
+            defaultValue={defaultValue}
+            defaultChecked={defaultChecked}
+            onChange={(e) => handleSwitchChange(e)}
           />
           <span className='lever'></span>
           { trueLabel }
@@ -200,12 +210,26 @@ const Settings = () => {
         </div>
         <div className='ml-settings-section switch'>
           <p className='ml-settings-label'>
+            Show similar movies and tv shows:
+          </p>
+          <Switch
+            falseLabel='No'
+            trueLabel='Yes'
+            defaultValue={showSimilarContent}
+            defaultChecked={showSimilarContent}
+            handleSwitchChange={handleSimilarContentSetting}
+          />
+        </div>
+        <div className='ml-settings-section switch'>
+          <p className='ml-settings-label'>
             Show adult content:
           </p>
           <Switch
             falseLabel='No'
             trueLabel='Yes'
-            includeAdultContent={includeAdultContent}
+            defaultValue={includeAdultContent}
+            defaultChecked={includeAdultContent}
+            handleSwitchChange={handleAdultContentSetting}
           />
         </div>
       </div>
