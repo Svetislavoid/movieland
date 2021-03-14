@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom';
 import Section from '@/components/Section';
 import BackButton from '@/components/BackButton';
 
+// styles
+import '@/pages/WatchLater.css';
+
 // services & store
 import {
   getMoviesWatchlist,
@@ -17,6 +20,8 @@ const WatchLater = () => {
   const [tvShowsWatchlist, setTvShowsWatchlist] = useState([]);
   const [moviesWatchlistLoaded, setMoviesWatchlistLoaded] = useState(false);
   const [tvShowsWatchlistLoaded, setTvShowsWatchlistLoaded] = useState(false);
+  const [moviesWatchlistActive, setMoviesWatchlistActive] = useState(true);
+  const [tvShowsWatchlistActive, setTvShowsWatchlistActive] = useState(false);
 
   // history
   const history = useHistory();
@@ -53,24 +58,50 @@ const WatchLater = () => {
         .catch((error) => {
           history.push('/error');
         });
+    } else {
+      history.push('/');
     }
   }, [history]);
 
   return (
     <div className='ml-watch-later'>
       <BackButton />
-      <Section
-        title={`Movies watchlist (${moviesWatchlist.length})`}
-        dataToShow={moviesWatchlist}
-        mediaType='movie'
-        loaded={moviesWatchlistLoaded}
-      />
-      <Section
-        title={`Tv shows watchlist (${tvShowsWatchlist.length})`}
-        dataToShow={tvShowsWatchlist}
-        mediaType='tv'
-        loaded={tvShowsWatchlistLoaded}
-      />
+      <div className='ml-watch-later-tabs'>
+        <div
+          className={`ml-watch-later-tab ${ moviesWatchlistActive && 'ml-watch-later-tab-active' }`}
+          onClick={() => {
+            setMoviesWatchlistActive(true);
+            setTvShowsWatchlistActive(false);
+          }}
+        >
+          {`Movies watchlist (${moviesWatchlist.length})`}
+        </div>
+        <div
+          className={`ml-watch-later-tab ${ tvShowsWatchlistActive && 'ml-watch-later-tab-active' }`}
+          onClick={() => {
+            setMoviesWatchlistActive(false);
+            setTvShowsWatchlistActive(true);
+          }}
+        >
+          {`Tv shows watchlist (${tvShowsWatchlist.length})`}
+        </div>
+      </div>
+      {
+        moviesWatchlistActive &&
+        (<Section
+          dataToShow={moviesWatchlist}
+          mediaType='movie'
+          loaded={moviesWatchlistLoaded}
+        />)
+      }
+      {
+        tvShowsWatchlistActive &&
+        (<Section
+          dataToShow={tvShowsWatchlist}
+          mediaType='tv'
+          loaded={tvShowsWatchlistLoaded}
+        />)
+      }
     </div>
   );
 };

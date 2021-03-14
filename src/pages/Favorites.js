@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom';
 import Section from '@/components/Section';
 import BackButton from '@/components/BackButton';
 
+// styles
+import '@/pages/Favorites.css';
+
 // services & store
 import {
   getFavoriteMovies,
@@ -17,6 +20,8 @@ const Favorites = () => {
   const [favoriteTvShowsList, setFavoriteTvShowsList] = useState([]);
   const [favoriteMoviesListLoaded, setFavoriteMoviesListLoaded] = useState(false);
   const [favoriteTvShowsListLoaded, setFavoriteTvShowsListLoaded] = useState(false);
+  const [favoriteMoviesActive, setFavoriteMoviesActive] = useState(true);
+  const [favoriteTvShowsActive, setFavoriteTvShowsActive] = useState(false);
 
   // history
   const history = useHistory();
@@ -53,24 +58,50 @@ const Favorites = () => {
         .catch((error) => {
           history.push('/error');
         });
+    } else {
+      history.push('/');
     }
   }, [history]);
 
   return (
     <div className='ml-favorites'>
       <BackButton />
-      <Section
-        title={`Favorite movies (${favoriteMoviesList.length})`}
-        dataToShow={favoriteMoviesList}
-        mediaType='movie'
-        loaded={favoriteMoviesListLoaded}
-      />
-      <Section
-        title={`Favorite tv shows (${favoriteTvShowsList.length})`}
-        dataToShow={favoriteTvShowsList}
-        mediaType='tv'
-        loaded={favoriteTvShowsListLoaded}
-      />
+      <div className='ml-favorites-tabs'>
+        <div
+          className={`ml-favorites-tab ${ favoriteMoviesActive && 'ml-favorites-tab-active' }`}
+          onClick={() => {
+            setFavoriteMoviesActive(true);
+            setFavoriteTvShowsActive(false);
+          }}
+        >
+          {`Favorite movies (${favoriteMoviesList.length})`}
+        </div>
+        <div
+          className={`ml-favorites-tab ${ favoriteTvShowsActive && 'ml-favorites-tab-active' }`}
+          onClick={() => {
+            setFavoriteMoviesActive(false);
+            setFavoriteTvShowsActive(true);
+          }}
+        >
+          {`Favorite tv shows (${favoriteTvShowsList.length})`}
+        </div>
+      </div>
+      {
+        favoriteMoviesActive &&
+          (<Section
+            dataToShow={favoriteMoviesList}
+            mediaType='movie'
+            loaded={favoriteMoviesListLoaded}
+          />)
+      }
+      {
+        favoriteTvShowsActive &&
+        (<Section
+          dataToShow={favoriteTvShowsList}
+          mediaType='tv'
+          loaded={favoriteTvShowsListLoaded}
+        />)
+      }
     </div>
   );
 };

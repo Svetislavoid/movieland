@@ -1,0 +1,27 @@
+.ml-favorites-tabs {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.ml-favorites-tab {
+  margin: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  color: var(--dark-shadow-color);
+}
+
+.ml-favorites-tab:hover {
+  color: var(--text-color);
+}
+
+.ml-favorites-tab-active {
+  color: var(--text-color);
+}
+
+@media (max-width: 600px) {
+  .ml-favorites-tabs {
+    font-size: 1rem;
+  }
+}
