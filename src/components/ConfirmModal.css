@@ -32,13 +32,17 @@
   margin: 0.5rem 0;
 }
 
+.ml-confirm-modal-content {
+  font-size: 0.8rem;
+}
+
 .ml-confirm-modal-action-buttons {
   display: flex;
   justify-content: space-around;
 }
 
 button.ml-confirm-modal-button {
-  width: 40%;
+  width: 30%;
   min-width: 5rem;
   max-width: 9rem;
   background-color: unset;

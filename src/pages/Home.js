@@ -59,7 +59,7 @@ const Home = () => {
         ...state.confirmModalData,
         show: true,
         title: 'Login on TMDB',
-        content: 'You will be redirected to the TMDB website where you can login and approve movieland to use your data',
+        content: 'Movieland needs your permission to read and write data on your behalf on TMDb. This is necessary if you want to see and maintain your favorites and watch later lists outside of TMDb. You will be redirected to the TMDb website where you can login and approve Movieland to use your data.',
         cancelClicked: () => dispatch({
           type: 'SHOW_CONFIRM_MODAL',
           payload: { show: false }
