@@ -58,8 +58,8 @@ const Home = () => {
       payload: {
         ...state.confirmModalData,
         show: true,
-        title: 'Login on TMDB',
-        content: 'Movieland needs your permission to read and write data on your behalf on TMDb. This is necessary if you want to see and maintain your favorites and watch later lists outside of TMDb. You will be redirected to the TMDb website where you can login and approve Movieland to use your data.',
+        title: 'Login on TMDb',
+        content: 'Movieland needs your permission to read and write data on your behalf on TMDb. This is necessary if you want to see and maintain your favorites and watch later lists. You will be redirected to the TMDb website where you can login and approve Movieland to use your data.',
         cancelClicked: () => dispatch({
           type: 'SHOW_CONFIRM_MODAL',
           payload: { show: false }
@@ -70,12 +70,30 @@ const Home = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem('accountId');
-    localStorage.removeItem('sessionId');
-
     dispatch({
-      type: 'SET_LOGGED_IN',
-      payload: false
+      type: 'SHOW_CONFIRM_MODAL',
+      payload: {
+        ...state.confirmModalData,
+        show: true,
+        title: 'Logout',
+        content: 'If you logout you will no longer be able to view your favorites and watch later lists, or add/remove new movies or tv shows from within Movieland. Logout anyway?',
+        cancelClicked: () => dispatch({
+          type: 'SHOW_CONFIRM_MODAL',
+          payload: { show: false }
+        }),
+        okClicked: () => {
+          localStorage.removeItem('accountId');
+          localStorage.removeItem('sessionId');
+          dispatch({
+            type: 'SET_LOGGED_IN',
+            payload: false
+          });
+          dispatch({
+            type: 'SHOW_CONFIRM_MODAL',
+            payload: { show: false }
+          });
+        }
+      }
     });
   };
 
