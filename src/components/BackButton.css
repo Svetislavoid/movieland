@@ -1,9 +1,7 @@
 .ml-back-button {
   display: flex;
   align-items: center;
-  background-color: unset;
   color: var(--text-color);
-  border: none;
   cursor: pointer;
   margin-bottom: 2rem;
 }

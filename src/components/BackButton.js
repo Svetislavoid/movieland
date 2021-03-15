@@ -9,12 +9,12 @@ const BackButton = () => {
   const history = useHistory();
 
   return (
-    <button
+    <div
       className='ml-back-button'
       onClick={() => history.goBack()}
     >
       <h5><i className='material-icons'>arrow_back</i> Go back</h5>
-    </button>
+    </div>
   );
 };
 
