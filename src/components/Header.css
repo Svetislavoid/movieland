@@ -55,7 +55,9 @@
 
   .ml-header-logo-small-screen {
     display: block;
-    margin: 1rem auto 2rem;
+    margin: 0 auto 1rem;
+    width: 20%;
+    min-width: 3rem;
   }
 
   .ml-header-app-logo {
@@ -69,5 +71,6 @@
     margin-left: 1.2rem;
     letter-spacing: 1rem;
     line-height: 1.2;
+    font-size: 1.2rem;
   }
 }
