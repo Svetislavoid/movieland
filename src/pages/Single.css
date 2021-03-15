@@ -123,14 +123,22 @@
 }
 
 .ml-single-toast {
-  margin: 1rem;
   padding: 0.5rem 1rem;
   min-height: 2.2rem;
-  max-width: 95%;
   font-size: 1rem;
   font-weight: normal;
   background-color: var(--dark-shadow-color);
   box-shadow: 0px 0px 3px 1px var(--light-shadow-color);
+  bottom: 1rem;
+  left: 1rem;
+}
+
+/* Needed to overwrite materialize css and reposition Toast */
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 5%;
+  left: 0;
 }
 
 @media (max-width: 1000px) {
