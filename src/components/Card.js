@@ -34,6 +34,7 @@ import noImageAvailable from '@/assets/no_image_available.png';
 
 // libraries
 import { isUndefined, isEmpty } from 'lodash';
+import M from 'materialize-css';
 
 const Card = ({ item, mediaType }) => {
   const {
@@ -94,6 +95,11 @@ const Card = ({ item, mediaType }) => {
       dispatch({
         type: 'USER_LISTS_CHANGED'
       });
+
+      M.toast({
+        html: `"${ name || title }" ${ add ? 'added to' : 'removed from'} favorites list`,
+        classes: 'ml-card-toast'
+      });
     });
   };
 
@@ -104,6 +110,11 @@ const Card = ({ item, mediaType }) => {
       setWatchLater((watchLater) => !watchLater);
       dispatch({
         type: 'USER_LISTS_CHANGED'
+      });
+
+      M.toast({
+        html: `"${ name || title }" ${ add ? 'added to' : 'removed from'} watch later list`,
+        classes: 'ml-card-toast'
       });
     });
   };

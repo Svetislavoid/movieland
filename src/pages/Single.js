@@ -39,9 +39,9 @@ import {
 import noImageAvailable from '@/assets/no_image_available.png';
 
 // libraries
-// import moment from 'moment';
 import { isUndefined, isEmpty, take, uniqBy } from 'lodash';
 import moment from 'moment';
+import M from 'materialize-css';
 
 const PosterImages = (props) => {
   const {
@@ -275,6 +275,11 @@ const Single = () => {
       dispatch({
         type: 'USER_LISTS_CHANGED'
       });
+
+      M.toast({
+        html: `"${ name }" ${ add ? 'added to' : 'removed from'} favorites list`,
+        classes: 'ml-single-toast'
+      });
     });
   };
 
@@ -285,6 +290,11 @@ const Single = () => {
       setWatchLater((watchLater) => !watchLater);
       dispatch({
         type: 'USER_LISTS_CHANGED'
+      });
+
+      M.toast({
+        html: `"${ name }" ${ add ? 'added to' : 'removed from'} watch later list`,
+        classes: 'ml-single-toast'
       });
     });
   };
