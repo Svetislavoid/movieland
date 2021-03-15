@@ -227,7 +227,7 @@ const Single = () => {
   const id = parseInt(decodeURIComponent(pathname.split('/')[2]));
 
   // Context
-  const [state] = useContext(Context);
+  const [state, dispatch] = useContext(Context);
 
   const {
     loggedIn,
@@ -272,6 +272,9 @@ const Single = () => {
 
     addToFavorites(accountId, sessionId, mediaType, id, add).then((response) => {
       setFavorite((favorite) => !favorite);
+      dispatch({
+        type: 'USER_LISTS_CHANGED'
+      });
     });
   };
 
@@ -280,6 +283,9 @@ const Single = () => {
 
     addToWatchlist(accountId, sessionId, mediaType, id, add).then((response) => {
       setWatchLater((watchLater) => !watchLater);
+      dispatch({
+        type: 'USER_LISTS_CHANGED'
+      });
     });
   };
 

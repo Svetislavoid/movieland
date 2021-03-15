@@ -45,9 +45,11 @@ const App = () => {
 
   const accountId = localStorage.getItem('accountId');
   const sessionId = localStorage.getItem('sessionId');
-  const loggedIn = accountId && sessionId;
+  const userLoggedIn = accountId && sessionId;
 
   const {
+    loggedIn,
+    listsChanged,
     confirmModalData,
     showScrollToTopButton,
     apiConfiguration,
@@ -163,14 +165,15 @@ const App = () => {
           });
       });
     }
-  }, [dispatch, history, userApiFunctions, loggedIn]);
+  }, [dispatch, history, userApiFunctions, loggedIn, listsChanged]);
 
+  // Store logged in info
   useEffect(() => {
     dispatch({
       type: 'SET_LOGGED_IN',
-      payload: loggedIn
+      payload: userLoggedIn
     });
-  }, [loggedIn, dispatch]);
+  }, [userLoggedIn, dispatch]);
 
   return (
     <div className='ml-app'>
@@ -197,6 +200,7 @@ const App = () => {
           </Switch>
         </div>
       }
+      <Footer />
       {
         confirmModalData.show && (
           <ConfirmModal
@@ -207,7 +211,6 @@ const App = () => {
           />
         )
       }
-      <Footer />
       {
         showScrollToTopButton && (<ScrollToTopButton />)
       }

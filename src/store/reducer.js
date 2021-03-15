@@ -15,6 +15,11 @@ const Reducer = (state, action) => {
         ...state,
         loggedIn: action.payload,
       };
+    case 'USER_LISTS_CHANGED':
+      return {
+        ...state,
+        listsChanged: ++state.listsChanged,
+      };
     case 'SET_API_CONFIGURATION':
       return {
         ...state,

@@ -62,7 +62,7 @@ const Card = ({ item, mediaType }) => {
   const itemMediaType = mediaTypeItem || mediaType;
 
   // Context
-  const [state] = useContext(Context);
+  const [state, dispatch] = useContext(Context);
 
   const {
     loggedIn,
@@ -91,6 +91,9 @@ const Card = ({ item, mediaType }) => {
 
     addToFavorites(accountId, sessionId, mediaType, id, add).then((response) => {
       setFavorite((favorite) => !favorite);
+      dispatch({
+        type: 'USER_LISTS_CHANGED'
+      });
     });
   };
 
@@ -99,6 +102,9 @@ const Card = ({ item, mediaType }) => {
 
     addToWatchlist(accountId, sessionId, mediaType, id, add).then((response) => {
       setWatchLater((watchLater) => !watchLater);
+      dispatch({
+        type: 'USER_LISTS_CHANGED'
+      });
     });
   };
 

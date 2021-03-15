@@ -6,6 +6,7 @@ import Reducer from '@/store/reducer';
 const initialState = {
   showScrollToTopButton: false,
   loggedIn: false,
+  listsChanged: 0,
   apiConfiguration: {},
   countriesList: {},
   languagesList: {},
