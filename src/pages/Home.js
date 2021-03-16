@@ -109,12 +109,18 @@ const Home = () => {
                 className='ml-home-menu-link'
                 to='/favorites'
               >
+                <i className='material-icons ml-home-menu-icons'>
+                  favorite
+                </i>
                 Favorites
               </Link>
               <Link
                 className='ml-home-menu-link'
                 to='/watch-later'
               >
+                <i className='material-icons ml-home-menu-icons'>
+                  watch_later
+                </i>
                 Watch later
               </Link>
             </>
@@ -124,6 +130,9 @@ const Home = () => {
           className='ml-home-menu-link'
           to='/settings'
         >
+          <i className='material-icons ml-home-menu-icons'>
+            settings
+          </i>
           Settings
         </Link>
         {
@@ -132,12 +141,18 @@ const Home = () => {
               className='ml-home-menu-link'
               onClick={logout}
             >
+              <i className='material-icons ml-home-menu-icons'>
+                person
+              </i>
               Logout
             </div>) :
             (<div
               className='ml-home-menu-link'
               onClick={login}
             >
+              <i className='material-icons ml-home-menu-icons'>
+                person
+              </i>
               Login
             </div>)
         }

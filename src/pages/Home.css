@@ -10,15 +10,21 @@
 }
 
 .ml-home-menu-link {
-  display: inline-block;
+  display: inline-flex;
   color: var(--light-shadow-color);
   cursor: pointer;
-  margin: 0 1rem;
+  margin: 0.3rem 1rem;
+  align-items: center;
 }
 
 .ml-home-menu-link:hover {
   color: var(--text-color);
 }
+
+.ml-home-menu-icons {
+  margin-right: 0.3rem;
+}
+
 .ml-home-search {
   text-align: center;
   margin: 2rem 0;
