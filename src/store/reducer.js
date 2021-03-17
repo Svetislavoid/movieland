@@ -1,5 +1,10 @@
 const Reducer = (state, action) => {
   switch (action.type) {
+    case 'PREVENT_PAGE_SCROLL':
+      return {
+        ...state,
+        pageScroll: action.payload,
+      };
     case 'SHOW_SCROLL_TO_TOP_BUTTON':
       return {
         ...state,

@@ -79,11 +79,30 @@ const Home = () => {
         show: true,
         title: loginTitle,
         content: loginContent,
-        cancelClicked: () => dispatch({
-          type: 'SHOW_CONFIRM_MODAL',
-          payload: { show: false }
-        }),
-        okClicked: () => loginOnTMDB()
+        cancelClicked: () => {
+          dispatch({
+            type: 'SHOW_CONFIRM_MODAL',
+            payload: { show: false }
+          });
+          dispatch({
+            type: 'PREVENT_PAGE_SCROLL',
+            payload: { preventPageScroll: false }
+          });
+        },
+        okClicked: () => {
+          loginOnTMDB();
+          dispatch({
+            type: 'PREVENT_PAGE_SCROLL',
+            payload: { preventPageScroll: false }
+          });
+        }
+      }
+    });
+    dispatch({
+      type: 'PREVENT_PAGE_SCROLL',
+      payload: {
+        preventPageScroll: true,
+        pageScrollTop: document.documentElement.scrollTop
       }
     });
   };
@@ -96,10 +115,17 @@ const Home = () => {
         show: true,
         title: logoutTitle,
         content: logoutContent,
-        cancelClicked: () => dispatch({
-          type: 'SHOW_CONFIRM_MODAL',
-          payload: { show: false }
-        }),
+        scrollTop: document.documentElement.scrollTop,
+        cancelClicked: () => {
+          dispatch({
+            type: 'SHOW_CONFIRM_MODAL',
+            payload: { show: false }
+          });
+          dispatch({
+            type: 'PREVENT_PAGE_SCROLL',
+            payload: { preventPageScroll: false }
+          });
+        },
         okClicked: () => {
           localStorage.removeItem('accountId');
           localStorage.removeItem('sessionId');
@@ -111,7 +137,18 @@ const Home = () => {
             type: 'SHOW_CONFIRM_MODAL',
             payload: { show: false }
           });
+          dispatch({
+            type: 'PREVENT_PAGE_SCROLL',
+            payload: { preventPageScroll: false }
+          });
         }
+      }
+    });
+    dispatch({
+      type: 'PREVENT_PAGE_SCROLL',
+      payload: {
+        preventPageScroll: true,
+        pageScrollTop: document.documentElement.scrollTop
       }
     });
   };

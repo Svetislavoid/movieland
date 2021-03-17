@@ -48,6 +48,10 @@ const App = () => {
   const userLoggedIn = Boolean(accountId && sessionId);
 
   const {
+    pageScroll: {
+      preventPageScroll,
+      pageScrollTop
+    },
     loggedIn,
     listsChanged,
     confirmModalData,
@@ -115,6 +119,11 @@ const App = () => {
         type: 'SHOW_SCROLL_TO_TOP_BUTTON',
         payload: document.documentElement.scrollTop > 2000
       });
+    }
+
+    // prevent page scroll if modal is opened
+    if (preventPageScroll) {
+      document.documentElement.scrollTop = pageScrollTop;
     }
   };
 

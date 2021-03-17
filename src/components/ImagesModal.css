@@ -52,3 +52,27 @@
 .ml-images-modal-close-button:hover {
   background-color: #45433E99; /* --dark-shadow-color */
 }
+
+@media (max-width: 600px) {
+  .ml-images-modal-button {
+    padding: 0.5vh;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  i.ml-images-modal-button-icon {
+    font-size: 1rem;
+  }
+
+  .ml-images-modal-left-button {
+    left: 1rem;
+  }
+
+  .ml-images-modal-right-button {
+    right: 1rem;
+  }
+
+  .ml-images-modal-close-button {
+    right: 1rem;
+  }
+}

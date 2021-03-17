@@ -261,10 +261,23 @@ const Single = () => {
   const openImagesModal = (index) => {
     setOpenedImageIndex(index);
     setImagesModalOpened(true);
+
+    dispatch({
+      type: 'PREVENT_PAGE_SCROLL',
+      payload: {
+        preventPageScroll: true,
+        pageScrollTop: document.documentElement.scrollTop
+      }
+    });
   };
 
   const closeImagesModal = () => {
     setImagesModalOpened(false);
+
+    dispatch({
+      type: 'PREVENT_PAGE_SCROLL',
+      payload: { preventPageScroll: false }
+    });
   };
 
   const toggleFavorite = (accountId, sessionId, mediaType, id, add) => {
