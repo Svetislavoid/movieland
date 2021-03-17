@@ -10,7 +10,7 @@ import {
 } from '@/common/settings';
 
 export const displayName = (title, name) => {
-  return title ? title : name;
+  return title || name;
 };
 
 export const displayReleaseYear = (releaseDate, firstAirDate) => {

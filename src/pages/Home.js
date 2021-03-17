@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // components
+import Menu from '@/components/Menu';
 import Section from '@/components/Section';
 import SearchInput from '@/components/SearchInput';
 
@@ -18,6 +19,9 @@ import { Context } from '@/store/store';
 // settings & functions
 import { responseItemHasNeededData, getSetting } from '@/common/functions';
 import { AUTH_URL, MOVIELAND_BASE_URL } from '@/common/settings';
+
+// texts
+import texts from '@/common/texts.json';
 
 // libraries
 import { take } from 'lodash';
@@ -42,7 +46,22 @@ const Home = () => {
   // Context
   const [state, dispatch] = useContext(Context);
 
-  const { loggedIn } = state;
+  const {
+    loggedIn,
+    confirmModalData
+  } = state;
+
+  const {
+    homepage: {
+      welcomeMessage
+    },
+    loginModal: {
+      loginTitle,
+      loginContent,
+      logoutTitle,
+      logoutContent
+    }
+  } = texts;
 
   const loginOnTMDB = () => {
     getRequestToken().then((response) => {
@@ -56,10 +75,10 @@ const Home = () => {
     dispatch({
       type: 'SHOW_CONFIRM_MODAL',
       payload: {
-        ...state.confirmModalData,
+        ...confirmModalData,
         show: true,
-        title: 'Login on TMDb',
-        content: 'Movieland needs your permission to read and write data on your behalf on TMDb. This is necessary if you want to see and maintain your favorites and watch later lists. You will be redirected to the TMDb website where you can login and approve Movieland to use your data.',
+        title: loginTitle,
+        content: loginContent,
         cancelClicked: () => dispatch({
           type: 'SHOW_CONFIRM_MODAL',
           payload: { show: false }
@@ -73,10 +92,10 @@ const Home = () => {
     dispatch({
       type: 'SHOW_CONFIRM_MODAL',
       payload: {
-        ...state.confirmModalData,
+        ...confirmModalData,
         show: true,
-        title: 'Logout',
-        content: 'If you logout you will no longer be able to view your favorites and watch later lists, or add/remove new movies or tv shows from within Movieland. Logout anyway?',
+        title: logoutTitle,
+        content: logoutContent,
         cancelClicked: () => dispatch({
           type: 'SHOW_CONFIRM_MODAL',
           payload: { show: false }
@@ -95,69 +114,6 @@ const Home = () => {
         }
       }
     });
-  };
-
-  const Menu = (props) => {
-    const { loggedIn } = props;
-
-    return (
-      <div className='ml-home-menu'>
-        {
-          loggedIn && (
-            <>
-              <Link
-                className='ml-home-menu-link'
-                to='/favorites'
-              >
-                <i className='material-icons ml-home-menu-icons'>
-                  favorite
-                </i>
-                Favorites
-              </Link>
-              <Link
-                className='ml-home-menu-link'
-                to='/watch-later'
-              >
-                <i className='material-icons ml-home-menu-icons'>
-                  watch_later
-                </i>
-                Watch later
-              </Link>
-            </>
-          )
-        }
-        <Link
-          className='ml-home-menu-link'
-          to='/settings'
-        >
-          <i className='material-icons ml-home-menu-icons'>
-            settings
-          </i>
-          Settings
-        </Link>
-        {
-          loggedIn ?
-            (<div
-              className='ml-home-menu-link'
-              onClick={logout}
-            >
-              <i className='material-icons ml-home-menu-icons'>
-                person
-              </i>
-              Logout
-            </div>) :
-            (<div
-              className='ml-home-menu-link'
-              onClick={login}
-            >
-              <i className='material-icons ml-home-menu-icons'>
-                person
-              </i>
-              Login
-            </div>)
-        }
-      </div>
-    );
   };
 
   // Get data for each trending type defined in settings
@@ -200,12 +156,16 @@ const Home = () => {
   return (
     <div className='ml-home'>
       <h5 className='ml-home-welcome-message'>
-        Welcome to Movieland! A great place to find all you want to know about latest movies, tv shows and actors!
+        { welcomeMessage }
       </h5>
       <div className='ml-home-search'>
         <SearchInput />
       </div>
-      <Menu loggedIn={loggedIn} />
+      <Menu
+        loggedIn={loggedIn}
+        login={login}
+        logout={logout}
+      />
       {
         trendingMediaTypes.includes('all') &&
         <Section

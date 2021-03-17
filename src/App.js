@@ -45,7 +45,7 @@ const App = () => {
 
   const accountId = localStorage.getItem('accountId');
   const sessionId = localStorage.getItem('sessionId');
-  const userLoggedIn = accountId && sessionId;
+  const userLoggedIn = Boolean(accountId && sessionId);
 
   const {
     loggedIn,
@@ -109,15 +109,11 @@ const App = () => {
 
   // Show scroll to top button if scrollTop is greater than 2000px
   window.onscroll = () => {
-    if (document.documentElement.scrollTop > 2000) {
+    // dispatch action only when scrollTop boundary is crossed (from either side)
+    if (showScrollToTopButton !== (document.documentElement.scrollTop > 2000)) {
       dispatch({
         type: 'SHOW_SCROLL_TO_TOP_BUTTON',
-        payload: true
-      });
-    } else {
-      dispatch({
-        type: 'SHOW_SCROLL_TO_TOP_BUTTON',
-        payload: false
+        payload: document.documentElement.scrollTop > 2000
       });
     }
   };

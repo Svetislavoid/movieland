@@ -47,6 +47,7 @@
   .ml-header {
     height: unset;
     flex-direction: column;
+    margin-top: 1rem;
   }
 
   .ml-header-logo {
@@ -54,23 +55,22 @@
   }
 
   .ml-header-logo-small-screen {
-    display: block;
-    margin: 0 auto 1rem;
-    width: 20%;
-    min-width: 3rem;
+    display: inline;
+    margin: 0 1rem;
+    width: 15%;
+    min-width: 1rem;
   }
 
   .ml-header-app-logo {
-    display: block;
-    text-align: center;
+    margin: 0 auto;
+    justify-content: center;
   }
 
   .ml-header-app-name {
-    display: inline-block;
+    display: inline;
     margin-right: 0;
-    margin-left: 1.2rem;
-    letter-spacing: 1rem;
+    letter-spacing: 0.5rem;
     line-height: 1.2;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 }

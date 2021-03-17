@@ -1,0 +1,14 @@
+{
+  "homepage": {
+    "welcomeMessage": "Welcome to Movieland! A great place to find all you want to know about latest movies, tv shows and actors!"
+  },
+  "loginModal": {
+    "loginTitle": "Login on TMDb",
+    "loginContent": "Movieland needs your permission to read and write data on your behalf on TMDb. This is necessary if you want to see and maintain your favorites and watch later lists. You will be redirected to the TMDb website where you can login and approve Movieland to use your data.",
+    "logoutTitle": "Logout",
+    "logoutContent": "If you logout you will no longer be able to view your favorites and watch later lists, or add/remove new movies or tv shows from within Movieland. Logout anyway?"
+  },
+  "searchInput": {
+    "placeholder": "Search Movieland..."
+  }
+}

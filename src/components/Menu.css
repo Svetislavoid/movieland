@@ -1,0 +1,19 @@
+.ml-menu {
+  text-align: center;
+}
+
+.ml-menu-link {
+  display: inline-flex;
+  color: var(--light-shadow-color);
+  cursor: pointer;
+  margin: 0.3rem 1rem;
+  align-items: center;
+}
+
+.ml-menu-link:hover {
+  color: var(--text-color);
+}
+
+.ml-menu-icons {
+  margin-right: 0.3rem;
+}

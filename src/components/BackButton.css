@@ -9,3 +9,9 @@
 .ml-back-button:hover {
   color: var(--light-shadow-color);
 }
+
+@media (max-width: 600px) {
+  .ml-back-button {
+    margin-bottom: 1rem;
+  }
+}

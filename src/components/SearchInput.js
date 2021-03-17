@@ -4,15 +4,26 @@ import { useHistory } from 'react-router-dom';
 // styles
 import '@/components/SearchInput.css';
 
+// texts
+import texts from '@/common/texts.json';
+
 // libraries
 import { isEmpty } from 'lodash';
 
 const SearchInput = (props) => {
   const { defaultSearchValue } = props;
 
+  // state variables
   const [searchTerm, setSearchTerm] = useState(defaultSearchValue || '');
 
+  // history
   const history = useHistory();
+
+  const {
+    searchInput: {
+      placeholder
+    }
+  } = texts;
 
   const handleSearch = (event, searchTerm) => {
     if (isEmpty(searchTerm)) return;
@@ -27,7 +38,7 @@ const SearchInput = (props) => {
       <input
         className='browser-default ml-search-input-input'
         type='search'
-        placeholder='Search for movies, tv shows and people'
+        placeholder={placeholder}
         value={searchTerm}
         onInput={(event) => setSearchTerm(event.target.value)}
         onKeyPress={(event) => handleSearch(event, searchTerm)}
