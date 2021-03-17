@@ -113,6 +113,8 @@ const Settings = () => {
       numberOfItemsToShow
     } = props;
 
+    const [itemsToShow, setItemsToShow] = useState(numberOfItemsToShow);
+
     return (
       <p className='range-field ml-settings-trending-items-no'>
         <input
@@ -120,13 +122,16 @@ const Settings = () => {
           type='range'
           min={min}
           max={max}
-          defaultValue={numberOfItemsToShow}
-          onChange={(e) => handleNumberOfItemsSetting(e)}
+          defaultValue={itemsToShow}
+          onChange={(e) => {
+            handleNumberOfItemsSetting(e);
+            setItemsToShow(e.target.value);
+          }}
           onMouseUp={(e) => setNumberOfItemsToShow(e.target.value)}
           onTouchEnd={(e) => setNumberOfItemsToShow(e.target.value)}
         />
         <span className='ml-settings-trending-items-no-counter'>
-          { numberOfItemsToShow }
+          { itemsToShow }
         </span>
       </p>
     );

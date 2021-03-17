@@ -25,6 +25,7 @@
 
 input.ml-settings-trending-items-no-input {
   border: none;
+  outline: none;
   margin: 0 1rem 0 0;
 }
 
