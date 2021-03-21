@@ -50,7 +50,7 @@ export const displayGenres = (mediaType, genreIds, movieGenresList, tvGenresList
   let showGenres = false;
   let genres = [];
 
-  const genresList = movieGenresList || tvGenresList;
+  const genresList = mediaType === 'movie' ? movieGenresList : tvGenresList;
 
   if (mediaType === 'movie') {
     genres = genreIds.map((id) => {
