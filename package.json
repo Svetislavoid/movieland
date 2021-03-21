@@ -24,8 +24,8 @@
     "start-dev": "craco start",
     "build": "craco build",
     "eslint": "eslint src",
-    "test": "craco test",
-    "test-commit": "craco test --watchAll=false",
+    "test": "craco test --verbose",
+    "test-no-watch": "craco test --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },

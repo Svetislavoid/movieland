@@ -24,11 +24,17 @@ const Footer = () => {
         imageSrc={tmdbLogo}
         imageAlt='tmdb logo'
       />
-      <div className='ml-footer-app-author'>
+      <div
+        data-testid='ml-footer-app-author'
+        className='ml-footer-app-author'
+      >
         <div>
           <small><em>Created by</em></small> Svetislav Grujić
         </div>
-        <div className='ml-footer-services'>
+        <div
+          data-testid='ml-footer-service-links'
+          className='ml-footer-services'
+        >
           <ServiceLink
             linkClassName='ml-footer-service-logo-link'
             linkHref='https://www.linkedin.com/in/svetislav-grujic-637537178'

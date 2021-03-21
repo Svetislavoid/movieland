@@ -12,6 +12,7 @@ const ServiceLink = (props) => {
 
   return (
     <a
+      data-testid={linkClassName}
       className={linkClassName}
       href={linkHref}
       target={linkTarget}
