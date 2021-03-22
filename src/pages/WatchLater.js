@@ -32,12 +32,6 @@ const WatchLater = () => {
   // history
   const history = useHistory();
 
-  window.onscroll = () => {
-    addInfoToHistoryState(history, {
-      scrollTop: document.documentElement.scrollTop
-    });
-  };
-
   useEffect(() => {
     addInfoToHistoryState(history, {
       moviesWatchlist: moviesWatchlist,

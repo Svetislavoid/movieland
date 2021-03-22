@@ -17,7 +17,11 @@ import {
 import { Context } from '@/store/store';
 
 // settings & functions
-import { responseItemHasNeededData, getSetting } from '@/common/functions';
+import {
+  responseItemHasNeededData,
+  getSetting,
+  addInfoToHistoryState
+} from '@/common/functions';
 import { AUTH_URL, MOVIELAND_BASE_URL } from '@/common/settings';
 
 // texts
@@ -28,17 +32,17 @@ import { take } from 'lodash';
 
 const Home = () => {
   // state variables
-  const [trendingAll, setTrendingAll] = useState([]);
-  const [trendingMovies, setTrendingMovies] = useState([]);
-  const [trendingTvShows, setTrendingTvShows] = useState([]);
-  const [trendingPersons, setTrendingPersons] = useState([]);
+  const [trendingAll, setTrendingAll] = useState(window.history.state?.state?.trendingAll || []);
+  const [trendingMovies, setTrendingMovies] = useState(window.history.state?.state?.trendingMovies || []);
+  const [trendingTvShows, setTrendingTvShows] = useState(window.history.state?.state?.trendingTvShows || []);
+  const [trendingPersons, setTrendingPersons] = useState(window.history.state?.state?.trendingPersons || []);
   const [trendingMediaTypes] = useState(getSetting('trendingMediaTypes'));
   const [trendingTimeWindow] = useState(getSetting('trendingTimeWindow'));
   const [numberOfTrendingItemsToShow] = useState(getSetting('numberOfTrendingItemsToShow'));
-  const [trendingAllLoaded, setTrendingAllLoaded] = useState(false);
-  const [trendingMoviesLoaded, setTrendingMoviesLoaded] = useState(false);
-  const [trendingTvShowsLoaded, setTrendingTvShowsLoaded] = useState(false);
-  const [trendingPersonsLoaded, setTrendingPersonsLoaded] = useState(false);
+  const [trendingAllLoaded, setTrendingAllLoaded] = useState(window.history.state?.state?.trendingAllLoaded);
+  const [trendingMoviesLoaded, setTrendingMoviesLoaded] = useState(window.history.state?.state?.trendingMoviesLoaded);
+  const [trendingTvShowsLoaded, setTrendingTvShowsLoaded] = useState(window.history.state?.state?.trendingTvShowsLoaded);
+  const [trendingPersonsLoaded, setTrendingPersonsLoaded] = useState(window.history.state?.state?.trendingPersonsLoaded);
 
   // history
   const history = useHistory();
@@ -155,6 +159,30 @@ const Home = () => {
 
   // Get data for each trending type defined in settings
   useEffect(() => {
+    // const allDataLoaded = trendingMediaTypes.reduce((acc, type) => {
+    //   let trendingDataLoaded = false;
+
+    //   switch(type) {
+    //     case 'all':
+    //       trendingDataLoaded = trendingAllLoaded;
+    //       break;
+    //     case 'movie':
+    //       trendingDataLoaded = trendingMoviesLoaded;
+    //       break;
+    //     case 'tv':
+    //       trendingDataLoaded = trendingTvShowsLoaded;
+    //       break;
+    //     case 'person':
+    //       trendingDataLoaded = trendingPersonsLoaded;
+    //       break;
+    //     default:
+    //   }
+
+    //   return acc && trendingDataLoaded;
+    // }, true);
+
+    // if (allDataLoaded) return;
+
     trendingMediaTypes.forEach((type) => {
       getTrending(type, trendingTimeWindow)
         .then((response) => {
@@ -184,10 +212,25 @@ const Home = () => {
           history.push('/error');
         });
     });
-  }, [history, trendingMediaTypes, trendingTimeWindow, numberOfTrendingItemsToShow]);
+  }, [history, trendingMediaTypes, trendingTimeWindow, numberOfTrendingItemsToShow, trendingAllLoaded, trendingMoviesLoaded, trendingTvShowsLoaded, trendingPersonsLoaded]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    addInfoToHistoryState(history, {
+      trendingAll: trendingAll,
+      trendingMovies: trendingMovies,
+      trendingTvShows: trendingTvShows,
+      trendingPersons: trendingPersons,
+      trendingAllLoaded: trendingAllLoaded,
+      trendingMoviesLoaded: trendingMoviesLoaded,
+      trendingTvShowsLoaded: trendingTvShowsLoaded,
+      trendingPersonsLoaded: trendingPersonsLoaded
+    });
+  }, [history, trendingAll, trendingMovies, trendingTvShows, trendingPersons, trendingAllLoaded, trendingMoviesLoaded, trendingTvShowsLoaded, trendingPersonsLoaded]);
+
+  useEffect(() => {
+    const scrollTop = window.history.state?.state?.scrollTop || 0;
+
+    window.scrollTo(0, scrollTop);
   }, []);
 
   return (

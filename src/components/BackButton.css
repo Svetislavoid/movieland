@@ -4,6 +4,7 @@
   color: var(--text-color);
   cursor: pointer;
   margin-bottom: 2rem;
+  width: max-content;
 }
 
 .ml-back-button:hover {

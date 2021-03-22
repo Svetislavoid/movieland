@@ -33,6 +33,9 @@ import {
 } from '@/services';
 import { Context } from '@/store/store';
 
+// functions
+import { addInfoToHistoryState } from '@/common/functions';
+
 // libraries
 import { isEmpty } from 'lodash';
 
@@ -113,6 +116,10 @@ const App = () => {
 
   // Show scroll to top button if scrollTop is greater than 2000px
   window.onscroll = () => {
+    addInfoToHistoryState(history, {
+      scrollTop: document.documentElement.scrollTop
+    });
+
     // dispatch action only when scrollTop boundary is crossed (from either side)
     if (showScrollToTopButton !== (document.documentElement.scrollTop > 2000)) {
       dispatch({
