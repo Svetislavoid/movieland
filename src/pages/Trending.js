@@ -14,19 +14,22 @@ import '@/pages/Trending.css';
 import { getTrending } from '@/services';
 
 // settings && functions
-import { responseItemHasNeededData } from '@/common/functions';
+import { responseItemHasNeededData, addInfoToHistoryState } from '@/common/functions';
 import { SETTINGS } from '@/common/settings';
+
+// libraries
+import { isEmpty } from 'lodash';
 
 const { trendingTimeWindow } = SETTINGS;
 
 const Trending = () => {
   // state variables
-  const [results, setResults] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [results, setResults] = useState(window.history.state?.state?.results || []);
+  const [page, setPage] = useState(window.history.state?.state?.page || 1);
+  const [totalPages, setTotalPages] = useState(window.history.state?.state?.totalPages || 0);
   const [sectionTitle, setSectionTitle] = useState('');
   const [showLoadMoreSpinner, setShowLoadMoreSpinner] = useState(false);
-  const [resultsLoaded, setResultsLoaded] = useState(false);
+  const [resultsLoaded, setResultsLoaded] = useState(window.history.state?.state?.resultsLoaded || false);
 
   // component variables
   const { pathname } = window.location;
@@ -62,7 +65,24 @@ const Trending = () => {
       });
   };
 
+  window.onscroll = () => {
+    addInfoToHistoryState(history, {
+      scrollTop: document.documentElement.scrollTop
+    });
+  };
+
   useEffect(() => {
+    addInfoToHistoryState(history, {
+      results: results,
+      page: page,
+      totalPages: totalPages,
+      resultsLoaded: resultsLoaded
+    });
+  }, [history, results, page, totalPages, showLoadMoreSpinner, resultsLoaded]);
+
+  useEffect(() => {
+    if (!isEmpty(results)) return;
+
     getTrending(mediaType, trendingTimeWindow)
       .then((response) => {
         const {
@@ -92,10 +112,12 @@ const Trending = () => {
     } else if (mediaType === 'person') {
       setSectionTitle('Trending persons');
     }
-  }, [mediaType, history]);
+  }, [mediaType, history, results]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollTop = window.history.state?.state?.scrollTop || 0;
+
+    window.scrollTo(0, scrollTop);
   }, [pathname]);
 
   return (

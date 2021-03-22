@@ -1,3 +1,4 @@
+// This components is the same as Favorites, consider merging them
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -14,23 +15,48 @@ import {
   getTvShowsWatchlist
 } from '@/services';
 
+// functions
+import { addInfoToHistoryState } from '@/common/functions';
+
+// libraries
+import { isEmpty } from 'lodash';
+
 const WatchLater = () => {
   // state variables
-  const [moviesWatchlist, setMoviesWatchlist] = useState([]);
-  const [tvShowsWatchlist, setTvShowsWatchlist] = useState([]);
-  const [moviesWatchlistLoaded, setMoviesWatchlistLoaded] = useState(false);
-  const [tvShowsWatchlistLoaded, setTvShowsWatchlistLoaded] = useState(false);
-  const [moviesWatchlistActive, setMoviesWatchlistActive] = useState(true);
-  const [tvShowsWatchlistActive, setTvShowsWatchlistActive] = useState(false);
+  const [moviesWatchlist, setMoviesWatchlist] = useState(window.history.state?.state?.moviesWatchlist || []);
+  const [tvShowsWatchlist, setTvShowsWatchlist] = useState(window.history.state?.state?.tvShowsWatchlist || []);
+  const [moviesWatchlistLoaded, setMoviesWatchlistLoaded] = useState(window.history.state?.state?.moviesWatchlistLoaded);
+  const [tvShowsWatchlistLoaded, setTvShowsWatchlistLoaded] = useState(window.history.state?.state?.tvShowsWatchlistLoaded);
+  const [tabActive, setTabActive] = useState(window.history.state?.state?.tabActive || 'movies');
 
   // history
   const history = useHistory();
 
+  window.onscroll = () => {
+    addInfoToHistoryState(history, {
+      scrollTop: document.documentElement.scrollTop
+    });
+  };
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    addInfoToHistoryState(history, {
+      moviesWatchlist: moviesWatchlist,
+      tvShowsWatchlist: tvShowsWatchlist,
+      moviesWatchlistLoaded: moviesWatchlistLoaded,
+      tvShowsWatchlistLoaded: tvShowsWatchlistLoaded,
+      tabActive: tabActive
+    });
+  }, [history, moviesWatchlist, tvShowsWatchlist, moviesWatchlistLoaded, tvShowsWatchlistLoaded, tabActive]);
+
+  useEffect(() => {
+    const scrollTop = window.history.state?.state?.scrollTop || 0;
+
+    window.scrollTo(0, scrollTop);
 
     const accountId = localStorage.getItem('accountId');
     const sessionId = localStorage.getItem('sessionId');
+
+    if (!isEmpty(moviesWatchlist) || !isEmpty(tvShowsWatchlist)) return;
 
     if (accountId && sessionId) {
       getMoviesWatchlist(accountId, sessionId)
@@ -61,33 +87,27 @@ const WatchLater = () => {
     } else {
       history.push('/');
     }
-  }, [history]);
+  }, [history, moviesWatchlist, tvShowsWatchlist]);
 
   return (
     <div className='ml-watch-later'>
       <BackButton />
       <div className='ml-watch-later-tabs'>
         <div
-          className={`ml-watch-later-tab ${ moviesWatchlistActive && 'ml-watch-later-tab-active' }`}
-          onClick={() => {
-            setMoviesWatchlistActive(true);
-            setTvShowsWatchlistActive(false);
-          }}
+          className={`ml-watch-later-tab ${ tabActive === 'movies' && 'ml-watch-later-tab-active' }`}
+          onClick={() => setTabActive('movies')}
         >
           {`Movies watchlist (${moviesWatchlist.length})`}
         </div>
         <div
-          className={`ml-watch-later-tab ${ tvShowsWatchlistActive && 'ml-watch-later-tab-active' }`}
-          onClick={() => {
-            setMoviesWatchlistActive(false);
-            setTvShowsWatchlistActive(true);
-          }}
+          className={`ml-watch-later-tab ${ tabActive === 'tvShows' && 'ml-watch-later-tab-active' }`}
+          onClick={() => setTabActive('tvShows')}
         >
           {`Tv shows watchlist (${tvShowsWatchlist.length})`}
         </div>
       </div>
       {
-        moviesWatchlistActive &&
+        tabActive === 'movies' &&
         (<Section
           dataToShow={moviesWatchlist}
           mediaType='movie'
@@ -95,7 +115,7 @@ const WatchLater = () => {
         />)
       }
       {
-        tvShowsWatchlistActive &&
+        tabActive === 'tvShows' &&
         (<Section
           dataToShow={tvShowsWatchlist}
           mediaType='tv'

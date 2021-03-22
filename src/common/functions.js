@@ -167,3 +167,12 @@ export const setSetting = (setting, value) => {
     }));
   }
 };
+
+export const addInfoToHistoryState = (history, info) => {
+  history.replace({
+    state: {
+      ...window.history.state?.state,
+      ...info
+    },
+  });
+};
