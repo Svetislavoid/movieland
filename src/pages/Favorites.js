@@ -102,11 +102,11 @@ const Favorites = () => {
       </div>
       {
         tabActive === 'movies' &&
-          (<Section
-            dataToShow={favoriteMoviesList}
-            mediaType='movie'
-            loaded={favoriteMoviesListLoaded}
-          />)
+        (<Section
+          dataToShow={favoriteMoviesList}
+          mediaType='movie'
+          loaded={favoriteMoviesListLoaded}
+        />)
       }
       {
         tabActive === 'tvShows' &&

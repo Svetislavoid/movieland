@@ -125,7 +125,9 @@ const Credits = (props) => {
         >
           <img
             className='ml-single-known-for-poster'
-            src={posterPath ? `${SECURE_BASE_URL}${POSTER_SIZES.smallest}${posterPath}` : noImageAvailable}
+            src={posterPath
+                 ? `${SECURE_BASE_URL}${POSTER_SIZES.smallest}${posterPath}`
+                 : noImageAvailable}
             alt={name || title}
           />
           <div>
@@ -334,7 +336,9 @@ const Single = () => {
         setCreditsTotalPages(() => Math.ceil(getCombinedCredits(data).length / getSetting('knownForItemsPerPage')));
 
         // movie specific
-        setGenres((genres) => data?.genres ? data.genres.map((genre) => genre.name) : genres);
+        setGenres((genres) => data?.genres
+                              ? data.genres.map((genre) => genre.name)
+                              : genres);
         setOriginalLanguage(data.original_language);
         setOriginalName(data.original_name || data.original_title);
         setOverview(data.overview);
@@ -346,20 +350,26 @@ const Single = () => {
         setStatus(data.status);
         setTagline(data.tagline);
         setVoteAverage(data.vote_average);
-        setVideos((videos) => data?.videos?.results ? data.videos.results : videos);
-        setBackdropImages((backdropImages) => data?.images?.backdrops ? data.images.backdrops : backdropImages);
-        setPosterImages((posterImages) => data?.images?.posters ? data.images.posters : posterImages);
-        setSimilar((similar) => data?.similar?.results ? data.similar.results : similar);
+        setVideos((videos) => data?.videos?.results || videos);
+        setBackdropImages((backdropImages) => data?.images?.backdrops || backdropImages);
+        setPosterImages((posterImages) => data?.images?.posters || posterImages);
+        setSimilar((similar) => data?.similar?.results || similar);
 
         // tv show specific
-        setCreatedBy((createdBy) => data?.created_by ? data.created_by.map((creator) => creator.name) : createdBy);
-        setEpisodeRuntime((episodeRuntime) => data?.episode_run_time ? data?.episode_run_time : episodeRuntime);
+        setCreatedBy((createdBy) => data?.created_by
+                                    ? data.created_by.map((creator) => creator.name)
+                                    : createdBy);
+        setEpisodeRuntime((episodeRuntime) => data?.episode_run_time
+                                              ? data?.episode_run_time.sort()
+                                              : episodeRuntime);
         setFirstAirDate(data.first_air_date);
         setLastAirDate(data.last_air_date);
         setInProduction(data.in_production ? 'Yes' : 'No');
-        setLastEpisodeToAir((lastEpisodeToAir) => data?.last_episode_to_air ? data.last_episode_to_air : lastEpisodeToAir);
-        setNextEpisodeToAir((nextEpisodeToAir) => data?.next_episode_to_air ? data.next_episode_to_air : nextEpisodeToAir);
-        setNetworks((networks) => data?.networks ? data.networks.map((network) => network.name) : networks);
+        setLastEpisodeToAir((lastEpisodeToAir) => data?.last_episode_to_air || lastEpisodeToAir);
+        setNextEpisodeToAir((nextEpisodeToAir) => data?.next_episode_to_air || nextEpisodeToAir);
+        setNetworks((networks) => data?.networks
+                                  ? data.networks.map((network) => network.name)
+                                  : networks);
         setNumberOfSeasons(data.number_of_seasons);
         setNumberOfEpisodes(data.number_of_episodes);
         setType(data.type);

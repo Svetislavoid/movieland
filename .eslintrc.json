@@ -40,7 +40,7 @@
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
     "no-mixed-operators": "error",
     "no-lonely-if": "error",
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": ["error", 2, { "SwitchCase": 1, "ignoredNodes": ["ConditionalExpression"] }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "camelcase": "warn",
     "no-unused-vars": "warn",

@@ -72,7 +72,7 @@ const Trending = () => {
       totalPages: totalPages,
       resultsLoaded: resultsLoaded
     });
-  }, [history, results, page, totalPages, showLoadMoreSpinner, resultsLoaded]);
+  }, [history, results, page, totalPages, resultsLoaded]);
 
   useEffect(() => {
     if (!isEmpty(results)) return;

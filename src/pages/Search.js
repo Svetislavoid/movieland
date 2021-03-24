@@ -15,16 +15,19 @@ import '@/pages/Search.css';
 import { searchMoviesTvShowsPeople } from '@/services';
 
 // functions
-import { responseItemHasNeededData } from '@/common/functions';
+import { responseItemHasNeededData, addInfoToHistoryState } from '@/common/functions';
+
+// libraries
+import { isEmpty } from 'lodash';
 
 const Search = () => {
   // state variables
-  const [searchResults, setSearchResults] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalResults, setTotalResults] = useState(0);
+  const [searchResults, setSearchResults] = useState(window.history.state?.state?.searchResults || []);
+  const [page, setPage] = useState(window.history.state?.state?.page || 1);
+  const [totalPages, setTotalPages] = useState(window.history.state?.state?.totalPages || 0);
+  const [totalResults, setTotalResults] = useState(window.history.state?.state?.totalResults ||0);
   const [showLoadMoreSpinner, setShowLoadMoreSpinner] = useState(false);
-  const [searchResultsLoaded, setSearchResultsLoaded] = useState(false);
+  const [searchResultsLoaded, setSearchResultsLoaded] = useState(window.history.state?.state?.searchResultsLoaded || false);
 
   // component variables
   const { pathname } = window.location;
@@ -60,8 +63,20 @@ const Search = () => {
       });
   };
 
+  useEffect(() => {
+    addInfoToHistoryState(history, {
+      searchResults: searchResults,
+      page: page,
+      totalPages: totalPages,
+      totalResults: totalResults,
+      searchResultsLoaded: searchResultsLoaded
+    });
+  }, [history, searchResults, page, totalPages, totalResults, searchResultsLoaded]);
+
   // Search for a movie, tv show or person
   useEffect(() => {
+    if (!isEmpty(searchResults)) return;
+
     searchMoviesTvShowsPeople(searchTerm)
       .then((response) => {
         const {
@@ -85,10 +100,12 @@ const Search = () => {
       .catch((error) => {
         history.push('/error');
       });
-  }, [searchTerm, history]);
+  }, [history, searchTerm, searchResults]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollTop = window.history.state?.state?.scrollTop || 0;
+
+    window.scrollTo(0, scrollTop);
   }, [pathname]);
 
   return (

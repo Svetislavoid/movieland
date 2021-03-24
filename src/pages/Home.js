@@ -159,30 +159,6 @@ const Home = () => {
 
   // Get data for each trending type defined in settings
   useEffect(() => {
-    // const allDataLoaded = trendingMediaTypes.reduce((acc, type) => {
-    //   let trendingDataLoaded = false;
-
-    //   switch(type) {
-    //     case 'all':
-    //       trendingDataLoaded = trendingAllLoaded;
-    //       break;
-    //     case 'movie':
-    //       trendingDataLoaded = trendingMoviesLoaded;
-    //       break;
-    //     case 'tv':
-    //       trendingDataLoaded = trendingTvShowsLoaded;
-    //       break;
-    //     case 'person':
-    //       trendingDataLoaded = trendingPersonsLoaded;
-    //       break;
-    //     default:
-    //   }
-
-    //   return acc && trendingDataLoaded;
-    // }, true);
-
-    // if (allDataLoaded) return;
-
     trendingMediaTypes.forEach((type) => {
       getTrending(type, trendingTimeWindow)
         .then((response) => {
@@ -212,7 +188,7 @@ const Home = () => {
           history.push('/error');
         });
     });
-  }, [history, trendingMediaTypes, trendingTimeWindow, numberOfTrendingItemsToShow, trendingAllLoaded, trendingMoviesLoaded, trendingTvShowsLoaded, trendingPersonsLoaded]);
+  }, [history, trendingMediaTypes, trendingTimeWindow, numberOfTrendingItemsToShow]);
 
   useEffect(() => {
     addInfoToHistoryState(history, {
