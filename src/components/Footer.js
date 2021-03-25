@@ -17,6 +17,7 @@ const Footer = () => {
   return (
     <footer className='ml-footer'>
       <ServiceLink
+        dataTestId='ml-footer-tmdb-link'
         linkClassName='ml-footer-tmdb-logo'
         linkHref='https://www.themoviedb.org/'
         linkTarget='_blank'
@@ -36,6 +37,7 @@ const Footer = () => {
           className='ml-footer-services'
         >
           <ServiceLink
+            dataTestId='ml-footer-linkedin-link'
             linkClassName='ml-footer-service-logo-link'
             linkHref='https://www.linkedin.com/in/svetislav-grujic-637537178'
             linkTarget='_blank'
@@ -44,6 +46,7 @@ const Footer = () => {
             imageAlt='linkedin logo'
           />
           <ServiceLink
+            dataTestId='ml-footer-gitlab-link'
             linkClassName='ml-footer-service-logo-link'
             linkHref='https://gitlab.com/Svetislavoid'
             linkTarget='_blank'
@@ -52,6 +55,7 @@ const Footer = () => {
             imageAlt='gitlab logo'
           />
           <ServiceLink
+            dataTestId='ml-footer-github-link'
             linkClassName='ml-footer-service-logo-link'
             linkHref='https://github.com/Svetislavoid'
             linkTarget='_blank'
@@ -60,6 +64,7 @@ const Footer = () => {
             imageAlt='github logo'
           />
           <ServiceLink
+            dataTestId='ml-footer-bitbucket-link'
             linkClassName='ml-footer-service-logo-link'
             linkHref='https://bitbucket.org/Svetislav'
             linkTarget='_blank'

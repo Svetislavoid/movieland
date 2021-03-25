@@ -49,4 +49,74 @@ describe('Test Footer component', () => {
 
     unmount(container);
   });
+
+  test('renders tmdb link correctly', () => {
+    const {
+      container,
+      unmount,
+      getByTestId,
+      getByAltText,
+    } = render(<Footer />);
+
+    getByAltText('tmdb logo');
+    expect(getByTestId('ml-footer-tmdb-link')).toHaveProperty('href', 'https://www.themoviedb.org/');
+
+    unmount(container);
+  });
+
+  test('renders linkedin link correctly', () => {
+    const {
+      container,
+      unmount,
+      getByTestId,
+      getByAltText,
+    } = render(<Footer />);
+
+    getByAltText('linkedin logo');
+    expect(getByTestId('ml-footer-linkedin-link')).toHaveProperty('href', 'https://www.linkedin.com/in/svetislav-grujic-637537178');
+
+    unmount(container);
+  });
+
+  test('renders gitlab link correctly', () => {
+    const {
+      container,
+      unmount,
+      getByTestId,
+      getByAltText,
+    } = render(<Footer />);
+
+    getByAltText('gitlab logo');
+    expect(getByTestId('ml-footer-gitlab-link')).toHaveProperty('href', 'https://gitlab.com/Svetislavoid');
+
+    unmount(container);
+  });
+
+  test('renders github link correctly', () => {
+    const {
+      container,
+      unmount,
+      getByTestId,
+      getByAltText,
+    } = render(<Footer />);
+
+    getByAltText('github logo');
+    expect(getByTestId('ml-footer-github-link')).toHaveProperty('href', 'https://github.com/Svetislavoid');
+
+    unmount(container);
+  });
+
+  test('renders bitbucket link correctly', () => {
+    const {
+      container,
+      unmount,
+      getByTestId,
+      getByAltText,
+    } = render(<Footer />);
+
+    getByAltText('bitbucket logo');
+    expect(getByTestId('ml-footer-bitbucket-link')).toHaveProperty('href', 'https://bitbucket.org/Svetislav');
+
+    unmount(container);
+  });
 });
