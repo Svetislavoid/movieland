@@ -12,3 +12,4 @@ const localStorageMock = {
 };
 
 global.localStorage = localStorageMock;
+global.scrollTo = jest.fn();

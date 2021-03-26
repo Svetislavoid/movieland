@@ -10,6 +10,7 @@ const BackButton = () => {
 
   return (
     <div
+      data-testid='ml-back-button'
       className='ml-back-button'
       onClick={() => history.goBack()}
     >

@@ -17,15 +17,12 @@ import { searchMoviesTvShowsPeople } from '@/services';
 // functions
 import { responseItemHasNeededData, addInfoToHistoryState } from '@/common/functions';
 
-// libraries
-import { isEmpty } from 'lodash';
-
 const Search = () => {
   // state variables
   const [searchResults, setSearchResults] = useState(window.history.state?.state?.searchResults || []);
   const [page, setPage] = useState(window.history.state?.state?.page || 1);
   const [totalPages, setTotalPages] = useState(window.history.state?.state?.totalPages || 0);
-  const [totalResults, setTotalResults] = useState(window.history.state?.state?.totalResults ||0);
+  const [totalResults, setTotalResults] = useState(window.history.state?.state?.totalResults || 0);
   const [showLoadMoreSpinner, setShowLoadMoreSpinner] = useState(false);
   const [searchResultsLoaded, setSearchResultsLoaded] = useState(window.history.state?.state?.searchResultsLoaded || false);
 
@@ -63,7 +60,7 @@ const Search = () => {
       });
   };
 
-  useEffect(() => {
+  const cardClicked = () => {
     addInfoToHistoryState(history, {
       searchResults: searchResults,
       page: page,
@@ -71,12 +68,10 @@ const Search = () => {
       totalResults: totalResults,
       searchResultsLoaded: searchResultsLoaded
     });
-  }, [history, searchResults, page, totalPages, totalResults, searchResultsLoaded]);
+  };
 
   // Search for a movie, tv show or person
   useEffect(() => {
-    if (!isEmpty(searchResults)) return;
-
     searchMoviesTvShowsPeople(searchTerm)
       .then((response) => {
         const {
@@ -89,6 +84,18 @@ const Search = () => {
         // Filter result items that do not have all the needed data
         const filteredResults = results.filter((item) => responseItemHasNeededData(item));
 
+        if (window.history.state?.state?.searchResults) {
+          addInfoToHistoryState(history, {
+            searchResults: undefined,
+            page: undefined,
+            totalPages: undefined,
+            totalResults: undefined,
+            searchResultsLoaded: undefined
+          });
+
+          return response;
+        }
+
         setSearchResults(filteredResults);
         setPage(page);
         setTotalPages(totalPages);
@@ -100,7 +107,7 @@ const Search = () => {
       .catch((error) => {
         history.push('/error');
       });
-  }, [history, searchTerm, searchResults]);
+  }, [history, searchTerm]);
 
   useEffect(() => {
     const scrollTop = window.history.state?.state?.scrollTop || 0;
@@ -120,6 +127,7 @@ const Search = () => {
       <Section
         dataToShow={searchResults}
         loaded={searchResultsLoaded}
+        cardClicked={cardClicked}
       />
       <div className='ml-search-spinner-holder'>
         {

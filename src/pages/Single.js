@@ -314,6 +314,41 @@ const Single = () => {
     });
   };
 
+  const infoItems = [
+    { show: !isEmpty(tagline), className: 'ml-single-tagline', dataToShow: tagline },
+    { show: !isEmpty(biography), className: 'ml-single-biography', dataToShow: biography },
+    { show: !isEmpty(overview), className: 'ml-single-biography', dataToShow: overview },
+    { show: !isEmpty(originalName), label: 'Original name:', dataToShow: originalName },
+    { show: !isEmpty(genres), label: 'Genres:', dataToShow: genres.join(', ') },
+    { show: !isEmpty(createdBy), label: 'Created by:', dataToShow: createdBy.join(', ') },
+    { show: !isUndefined(adult), label: 'Adult content:', dataToShow: adult ? 'Yes' : 'No' },
+    { show: !isEmpty(birthday), label: 'Birthday:', dataToShow: moment(birthday).format(DATETIME_FORMAT) },
+    { show: !isEmpty(deathday), label: 'Deathday:', dataToShow: moment(deathday).format(DATETIME_FORMAT) },
+    { show: !isUndefined(gender), label: 'Gender:', dataToShow: gender === 1 ? 'female' : 'male' },
+    { show: !isEmpty(placeOfBirth), label: 'Place of birth:', dataToShow: placeOfBirth },
+    { show: !isEmpty(releaseDate), label: 'Release date:', dataToShow: moment(releaseDate).format(DATETIME_FORMAT) },
+    { show: !isEmpty(firstAirDate), label: 'First air date:', dataToShow: moment(firstAirDate).format(DATETIME_FORMAT) },
+    { show: !isEmpty(lastAirDate), label: 'Last air date:', dataToShow: moment(lastAirDate).format(DATETIME_FORMAT) },
+    { show: !isEmpty(lastEpisodeToAir), label: 'Last episode to air:',
+      dataToShow: `Season ${lastEpisodeToAir.season_number}, episode ${lastEpisodeToAir.episode_number} on ${moment(lastEpisodeToAir.air_date).format(DATETIME_FORMAT)}` },
+    { show: !isEmpty(nextEpisodeToAir), label: 'Next episode to air:',
+      dataToShow: `Season ${nextEpisodeToAir.season_number}, episode ${nextEpisodeToAir.episode_number} on ${moment(nextEpisodeToAir.air_date).format(DATETIME_FORMAT)}` },
+    { show: displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage, label: 'Original language:',
+      dataToShow: displayOriginalLanguage(originalLanguage, languagesList).originalLanguage },
+    { show: !isEmpty(spokenLanguages), label: 'Spoken languages:', dataToShow: spokenLanguages.map((language) => language.english_name).join(', ') },
+    { show: !isEmpty(networks), label: 'Networks:', dataToShow: productionCompanies.map((company) => company.name).join(', ') },
+    { show: !isEmpty(productionCompanies), label: 'Production companies:', dataToShow: productionCompanies.map((company) => company.name).join(', ') },
+    { show: !isEmpty(productionCountries), label: 'Production countries:', dataToShow: productionCountries.map((country) => country.name).join(', ') },
+    { show: !isUndefined(voteAverage), label: 'Average vote:', dataToShow: voteAverage },
+    { show: !isUndefined(runtime), label: 'Runtime:', dataToShow: `${runtime} min` },
+    { show: !isEmpty(episodeRuntime), label: 'Episode runtime:', dataToShow: `${episodeRuntime.join(', ')} min` },
+    { show: !isUndefined(numberOfSeasons), label: 'Number of seasons:', dataToShow: numberOfSeasons },
+    { show: !isUndefined(numberOfEpisodes), label: 'Number of episodes:', dataToShow: numberOfEpisodes },
+    { show: !isEmpty(type), label: 'Type:', dataToShow: type },
+    { show: !isEmpty(inProduction), label: 'In production:', dataToShow: inProduction },
+    { show: !isEmpty(status), label: 'Status:', dataToShow: status },
+  ];
+
   useEffect(() => {
     setDataLoaded(false);
 
@@ -404,7 +439,7 @@ const Single = () => {
 
   return (
     dataLoaded ?
-      (<div className={`ml-single ${dataLoaded && 'ml-single-loaded'}`}>
+      (<div className='ml-single ml-single-loaded'>
         <BackButton />
         <div className='ml-single-header'>
           <img
@@ -421,151 +456,21 @@ const Single = () => {
               }
             </h4>
             <div className='ml-single-content'>
-              <InfoItem
-                show={ !isEmpty(tagline) }
-                className='ml-single-tagline'
-                dataToShow={ tagline }
-              />
-              <InfoItem
-                show={ !isEmpty(biography) }
-                className='ml-single-biography'
-                dataToShow={ biography }
-              />
-              <InfoItem
-                show={ !isEmpty(overview) }
-                className='ml-single-biography'
-                dataToShow={ overview }
-              />
-              <InfoItem
-                show={ !isEmpty(originalName) }
-                label='Original name:'
-                dataToShow={ originalName }
-              />
-              <InfoItem
-                show={ !isEmpty(genres) }
-                label='Genres:'
-                dataToShow={ genres.join(', ') }
-              />
-              <InfoItem
-                show={ !isEmpty(createdBy) }
-                label='Created by:'
-                dataToShow={ createdBy.join(', ') }
-              />
-              <InfoItem
-                show={ !isUndefined(adult) }
-                label='Adult content:'
-                dataToShow={ adult ? 'Yes' : 'No' }
-              />
-              <InfoItem
-                show={ !isEmpty(birthday) }
-                label='Birthday:'
-                dataToShow={ moment(birthday).format(DATETIME_FORMAT) }
-              />
-              <InfoItem
-                show={ !isEmpty(deathday) }
-                label='Deathday:'
-                dataToShow={ moment(deathday).format(DATETIME_FORMAT) }
-              />
-              <InfoItem
-                show={ !isUndefined(gender) }
-                label='Gender:'
-                dataToShow={ gender === 1 ? 'female' : 'male' }
-              />
-              <InfoItem
-                show={ !isEmpty(placeOfBirth) }
-                label='Place of birth:'
-                dataToShow={ placeOfBirth }
-              />
-              <InfoItem
-                show={ !isEmpty(releaseDate) }
-                label='Release date:'
-                dataToShow={ moment(releaseDate).format(DATETIME_FORMAT) }
-              />
-              <InfoItem
-                show={ !isEmpty(firstAirDate) }
-                label='First air date:'
-                dataToShow={ moment(firstAirDate).format(DATETIME_FORMAT) }
-              />
-              <InfoItem
-                show={ !isEmpty(lastAirDate) }
-                label='Last air date:'
-                dataToShow={ moment(lastAirDate).format(DATETIME_FORMAT) }
-              />
-              <InfoItem
-                show={ !isEmpty(lastEpisodeToAir) }
-                label='Last episode to air:'
-                dataToShow={ `Season ${lastEpisodeToAir.season_number}, episode ${lastEpisodeToAir.episode_number} on ${moment(lastEpisodeToAir.air_date).format(DATETIME_FORMAT)}` }
-              />
-              <InfoItem
-                show={ !isEmpty(nextEpisodeToAir) }
-                label='Next episode to air:'
-                dataToShow={ `Season ${nextEpisodeToAir.season_number}, episode ${nextEpisodeToAir.episode_number} on ${moment(nextEpisodeToAir.air_date).format(DATETIME_FORMAT)}` }
-              />
-              <InfoItem
-                show={ displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage }
-                label='Original language:'
-                dataToShow={ displayOriginalLanguage(originalLanguage, languagesList).originalLanguage }
-              />
-              <InfoItem
-                show={ !isEmpty(spokenLanguages) }
-                label='Spoken languages:'
-                dataToShow={ spokenLanguages.map((language) => language.english_name).join(', ') }
-              />
-              <InfoItem
-                show={ !isEmpty(networks) }
-                label='Networks:'
-                dataToShow={ productionCompanies.map((company) => company.name).join(', ') }
-              />
-              <InfoItem
-                show={ !isEmpty(productionCompanies) }
-                label='Production companies:'
-                dataToShow={ productionCompanies.map((company) => company.name).join(', ') }
-              />
-              <InfoItem
-                show={ !isEmpty(productionCountries) }
-                label='Production countries:'
-                dataToShow={ productionCountries.map((country) => country.name).join(', ') }
-              />
-              <InfoItem
-                show={ !isUndefined(voteAverage) }
-                label='Average vote:'
-                dataToShow={ voteAverage }
-              />
-              <InfoItem
-                show={ !isUndefined(runtime) }
-                label='Runtime:'
-                dataToShow={ `${runtime} min` }
-              />
-              <InfoItem
-                show={ !isEmpty(episodeRuntime) }
-                label='Episode runtime:'
-                dataToShow={ `${episodeRuntime.join(', ')} min` }
-              />
-              <InfoItem
-                show={ !isUndefined(numberOfSeasons) }
-                label='Number of seasons:'
-                dataToShow={ numberOfSeasons }
-              />
-              <InfoItem
-                show={ !isUndefined(numberOfEpisodes) }
-                label='Number of episodes:'
-                dataToShow={ numberOfEpisodes }
-              />
-              <InfoItem
-                show={ !isEmpty(type) }
-                label='Type:'
-                dataToShow={ type }
-              />
-              <InfoItem
-                show={ !isEmpty(inProduction) }
-                label='In production:'
-                dataToShow={ inProduction }
-              />
-              <InfoItem
-                show={ !isEmpty(status) }
-                label='Status:'
-                dataToShow={ status }
-              />
+              {
+                infoItems.map((infoItem, i) => {
+                  const { show, className, label, dataToShow } = infoItem;
+
+                  return (
+                    <InfoItem
+                      key={i}
+                      show={ show }
+                      className={ className }
+                      label={ label }
+                      dataToShow={ dataToShow }
+                    />
+                  );
+                })
+              }
               {
                 mediaType !== 'person' && loggedIn && (
                   <div className='ml-single-action-icons'>
@@ -640,7 +545,10 @@ const Single = () => {
           )
         }
       </div>) : (
-        <Spinner />
+        <div className='ml-single'>
+          <BackButton />
+          <Spinner />
+        </div>
       )
   );
 };

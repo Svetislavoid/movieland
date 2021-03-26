@@ -14,7 +14,8 @@ const Section = (props) => {
     showMoreUrl,
     dataToShow,
     mediaType,
-    loaded
+    loaded,
+    cardClicked
   } = props;
 
   return (
@@ -35,7 +36,7 @@ const Section = (props) => {
         {
           loaded ?
             dataToShow.map((item) => {
-              return (<Card key={item.id} item={item} mediaType={mediaType} />);
+              return (<Card key={item.id} item={item} mediaType={mediaType} cardClicked={cardClicked} />);
             }) :
             <Spinner />
         }

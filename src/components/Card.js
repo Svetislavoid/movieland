@@ -36,7 +36,7 @@ import noImageAvailable from '@/assets/no_image_available.png';
 import { isUndefined, isEmpty } from 'lodash';
 import M from 'materialize-css';
 
-const Card = ({ item, mediaType }) => {
+const Card = ({ item, mediaType, cardClicked }) => {
   const {
     genre_ids: genreIds,
     id,
@@ -136,7 +136,10 @@ const Card = ({ item, mediaType }) => {
 
   return (
     <div className='ml-card'>
-      <Link to={`/${itemMediaType}/${id}`}>
+      <Link
+        to={`/${itemMediaType}/${id}`}
+        onClick={cardClicked}
+      >
         <img
           className='ml-card-poster'
           src={posterUrl || noImageAvailable}
@@ -217,6 +220,7 @@ const Card = ({ item, mediaType }) => {
       <Link
         className='ml-card-read-more-link'
         to={`/${itemMediaType}/${id}`}
+        onClick={cardClicked}
       >
         Show more...
       </Link>
