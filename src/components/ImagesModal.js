@@ -29,6 +29,7 @@ const ImagesModal = (props) => {
   return (
     <div className='ml-images-modal-wrapper'>
       <img
+        data-testid='ml-images-modal-image'
         className='ml-images-modal-image'
         src={`${SECURE_BASE_URL}${POSTER_SIZES.original}${images[currentImageIndex].file_path}`}
         alt='poster'
@@ -36,6 +37,7 @@ const ImagesModal = (props) => {
       {
         currentImageIndex !== 0 &&
         (<div
+          data-testid='ml-images-modal-prev-button'
           className='ml-images-modal-button ml-images-modal-left-button'
           onClick={goToPreviousImage}
         >
@@ -45,6 +47,7 @@ const ImagesModal = (props) => {
       {
         currentImageIndex !== images.length - 1 &&
         (<div
+          data-testid='ml-images-modal-next-button'
           className='ml-images-modal-button ml-images-modal-right-button'
           onClick={goToNextImage}
         >
@@ -52,6 +55,7 @@ const ImagesModal = (props) => {
         </div>)
       }
       <div
+        data-testid='ml-images-modal-close-button'
         className='ml-images-modal-button ml-images-modal-close-button'
         onClick={closeImagesModal}
       >

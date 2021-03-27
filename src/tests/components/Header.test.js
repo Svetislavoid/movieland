@@ -31,9 +31,7 @@ describe('Test Header component', () => {
       getAllByAltText
     } = render(<BrowserRouter><Header /></BrowserRouter>);
 
-    const appIcons = getAllByAltText('movieland logo');
-
-    expect(appIcons.length).toBe(2);
+    expect(getAllByAltText('movieland logo').length).toBe(2);
     unmount(container);
   });
 });

@@ -13,6 +13,7 @@ const Button = (props) => {
 
   return (
     <button
+      data-testid='ml-button'
       className={`waves-effect waves-light ${className} ml-button`}
       disabled={disabled}
       onClick={clickHandler}
