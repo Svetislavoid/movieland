@@ -8,6 +8,9 @@ import Spinner from '@/components/Spinner';
 // styles
 import '@/components/Section.css';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const Section = (props) => {
   const {
     title,
@@ -43,6 +46,15 @@ const Section = (props) => {
       </div>
     </section>
   );
+};
+
+Section.propTypes = {
+  title: PropTypes.string,
+  showMoreUrl: PropTypes.string,
+  dataToShow: PropTypes.array,
+  mediaType: PropTypes.string,
+  loaded: PropTypes.bool,
+  cardClicked: PropTypes.func,
 };
 
 export default Section;

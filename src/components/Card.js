@@ -36,6 +36,9 @@ import noImageAvailable from '@/assets/no_image_available.png';
 import { isUndefined, isEmpty } from 'lodash';
 import M from 'materialize-css';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const Card = ({ item, mediaType, cardClicked }) => {
   const {
     genre_ids: genreIds,
@@ -242,6 +245,12 @@ const Card = ({ item, mediaType, cardClicked }) => {
       }
     </div>
   );
+};
+
+Card.propTypes = {
+  item: PropTypes.object.isRequired,
+  mediaType: PropTypes.string,
+  cardClicked: PropTypes.func,
 };
 
 export default Card;

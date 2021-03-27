@@ -43,6 +43,9 @@ import { isUndefined, isEmpty, take, uniqBy } from 'lodash';
 import moment from 'moment';
 import M from 'materialize-css';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const PosterImages = (props) => {
   const {
     posterImages,
@@ -551,6 +554,24 @@ const Single = () => {
         </div>
       )
   );
+};
+
+PosterImages.propTypes = {
+  posterImages: PropTypes.array,
+  openImagesModal: PropTypes.bool,
+};
+
+Videos.propTypes = {
+  videos: PropTypes.array,
+};
+
+Credits.propTypes = {
+  credits: PropTypes.array,
+};
+
+KnownFor.propTypes = {
+  allCredits: PropTypes.array,
+  numberOfItemsToLoad: PropTypes.number,
 };
 
 export default Single;

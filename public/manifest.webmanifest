@@ -46,5 +46,5 @@
   ],
   "name": "Movieland - search for movies, tv shows and people",
   "short_name": "Movieland",
-  "start_url": "index.html"
+  "start_url": "."
 }

@@ -9,6 +9,9 @@ import {
   SECURE_BASE_URL,
 } from '@/common/settings';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const ImagesModal = (props) => {
   const {
     images,
@@ -63,6 +66,12 @@ const ImagesModal = (props) => {
       </div>
     </div>
   );
+};
+
+ImagesModal.propTypes = {
+  images: PropTypes.array.isRequired,
+  openedImageIndex: PropTypes.number.isRequired,
+  closeImagesModal: PropTypes.func.isRequired,
 };
 
 export default ImagesModal;

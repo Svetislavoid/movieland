@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 // styles
 import '@/components/Menu.css';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const Menu = (props) => {
   const {
     loggedIn,
@@ -60,6 +63,12 @@ const Menu = (props) => {
       </div>
     </div>
   );
+};
+
+Menu.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 export default Menu;

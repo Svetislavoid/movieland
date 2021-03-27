@@ -10,6 +10,9 @@ import texts from '@/common/texts.json';
 // libraries
 import { isEmpty } from 'lodash';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const SearchInput = (props) => {
   const { defaultSearchValue } = props;
 
@@ -51,6 +54,10 @@ const SearchInput = (props) => {
       </span>
     </div>
   );
+};
+
+SearchInput.propTypes = {
+  defaultSearchValue: PropTypes.string,
 };
 
 export default SearchInput;

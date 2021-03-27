@@ -3,6 +3,9 @@ import React from 'react';
 // styles
 import '@/components/Button.css';
 
+// prop types
+import PropTypes from 'prop-types';
+
 const Button = (props) => {
   const {
     label,
@@ -21,6 +24,13 @@ const Button = (props) => {
       { label }
     </button>
   );
+};
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  clickHandler: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default Button;
