@@ -21,11 +21,11 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "start-dev": "craco start",
+    "start:dev": "craco start",
     "build": "craco build",
     "eslint": "eslint src",
     "test": "craco test --verbose",
-    "test-no-watch": "craco test --watchAll=false",
+    "test:no-watch": "craco test --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },

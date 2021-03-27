@@ -1,0 +1,50 @@
+{
+  "background_color": "#ffffff",
+  "description": "An app to search for movies, tv shows and people",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo_16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "logo_22x22.png",
+      "type": "image/png",
+      "sizes": "22x22"
+    },
+    {
+      "src": "logo_32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "logo_48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "logo_64x64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "logo_128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "logo_256x256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "name": "Movieland - search for movies, tv shows and people",
+  "short_name": "Movieland",
+  "start_url": "index.html"
+}
