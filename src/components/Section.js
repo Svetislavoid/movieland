@@ -25,13 +25,16 @@ const Section = (props) => {
     <section className='ml-section'>
       {
         title &&
-        <h2 className='ml-section-title'>
+        <h2
+          data-testid='ml-section-title'
+          className='ml-section-title'>
           { title }
         </h2>
       }
       {
         showMoreUrl &&
         <Link
+          data-testid='ml-section-show-more'
           className='ml-section-show-more'
           to={showMoreUrl}>show more</Link>
       }

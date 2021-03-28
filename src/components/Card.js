@@ -122,6 +122,67 @@ const Card = ({ item, mediaType, cardClicked }) => {
     });
   };
 
+  const infoItems = [
+    {
+      show: displayOriginalName(title, originalTitle, name, originalName).showOriginalName,
+      label: 'Original name:',
+      dataToShow: displayOriginalName(title, originalTitle, name, originalName).originalNameToDisplay
+    },
+    {
+      show: itemMediaType,
+      label: 'Type:',
+      dataToShow: itemMediaType
+    },
+    {
+      show: displayGenres(itemMediaType, genreIds, movieGenresList, tvGenresList).showGenres,
+      label: 'Genres:',
+      dataToShow: displayGenres(itemMediaType, genreIds, movieGenresList, tvGenresList).genres.join(', ')
+    },
+    {
+      show: !isUndefined(adult),
+      label: 'Adult content:',
+      dataToShow: adult ? 'Yes' : 'No'
+    },
+    {
+      show: displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage,
+      label: 'Original language:',
+      dataToShow: displayOriginalLanguage(originalLanguage, languagesList).originalLanguage
+    },
+    {
+      show: displayOriginCountries(originCountry, countriesList).showOriginCountries,
+      label: 'Origin country:',
+      dataToShow: displayOriginCountries(originCountry, countriesList).originCountries.join(', ')
+    },
+    {
+      show: !isUndefined(voteAverage),
+      label: 'Average rating:',
+      dataToShow: voteAverage
+    },
+    {
+      show: !isEmpty(overview),
+      className: 'ml-card-overview',
+      dataToShow: overview
+    },
+    {
+      show: displayKnownFor(knownFor).showKnownFor,
+      className: 'ml-card-known-for-items',
+      children: displayKnownFor(knownFor).knownFor.map((item) => {
+        return (
+          <div className='ml-card-known-for-item' key={item.id}>
+            <Link to={`/${item.mediaType}/${item.id}`}>
+              <img
+                className='ml-card-poster'
+                src={item.posterUrl || noImageAvailable}
+                alt={item.title}
+              />
+            </Link>
+            <p>{item.title} ({item.releaseYear})</p>
+          </div>
+        );
+      })
+    },
+  ];
+
   useEffect(() => {
     switch (itemMediaType) {
       case 'movie':
@@ -138,7 +199,10 @@ const Card = ({ item, mediaType, cardClicked }) => {
   }, [favoriteMoviesListIds, favoriteTvShowsListIds, moviesWatchlistIds, tvShowsWatchlistIds, id, itemMediaType]);
 
   return (
-    <div className='ml-card'>
+    <div
+      data-testid='ml-card'
+      className='ml-card'
+    >
       <Link
         to={`/${itemMediaType}/${id}`}
         onClick={cardClicked}
@@ -157,68 +221,23 @@ const Card = ({ item, mediaType, cardClicked }) => {
         }
       </h4>
       <div className='ml-card-content'>
-        <InfoItem
-          show={ displayOriginalName(title, originalTitle, name, originalName).showOriginalName }
-          label='Original name:'
-          dataToShow={ displayOriginalName(title, originalTitle, name, originalName).originalNameToDisplay }
-        />
-        <InfoItem
-          show={ itemMediaType }
-          label='Type:'
-          dataToShow={ itemMediaType }
-        />
-        <InfoItem
-          show={ displayGenres(itemMediaType, genreIds, movieGenresList, tvGenresList).showGenres }
-          label='Genres:'
-          dataToShow={ displayGenres(itemMediaType, genreIds, movieGenresList, tvGenresList).genres.join(', ') }
-        />
-        <InfoItem
-          show={ !isUndefined(adult) }
-          label='Adult content:'
-          dataToShow={ adult ? 'Yes' : 'No' }
-        />
-        <InfoItem
-          show={ displayOriginalLanguage(originalLanguage, languagesList).showOriginalLanguage }
-          label='Original language:'
-          dataToShow={ displayOriginalLanguage(originalLanguage, languagesList).originalLanguage }
-        />
-        <InfoItem
-          show={ displayOriginCountries(originCountry, countriesList).showOriginCountries }
-          label='Origin country:'
-          dataToShow={ displayOriginCountries(originCountry, countriesList).originCountries.join(', ') }
-        />
-        <InfoItem
-          show={ !isUndefined(voteAverage) }
-          label='Average rating:'
-          dataToShow={ voteAverage }
-        />
-        <InfoItem
-          show={ !isEmpty(overview) }
-          className='ml-card-overview'
-          dataToShow={ overview }
-        />
-        <InfoItem
-          show={ displayKnownFor(knownFor).showKnownFor }
-          className='ml-card-known-for-items'
-          dataToShow={ overview }
-        >
-          {
-            displayKnownFor(knownFor).knownFor.map((item) => {
-              return (
-                <div className='ml-card-known-for-item' key={item.id}>
-                  <Link to={`/${item.mediaType}/${item.id}`}>
-                    <img
-                      className='ml-card-poster'
-                      src={item.posterUrl || noImageAvailable}
-                      alt={item.title}
-                    />
-                  </Link>
-                  <p>{item.title} ({item.releaseYear})</p>
-                </div>
-              );
-            })
-          }
-        </InfoItem>
+        {
+          infoItems.map((infoItem, i) => {
+            const { show, className, label, dataToShow, children } = infoItem;
+
+            return (
+              <InfoItem
+                key={ i }
+                show={ show }
+                className={ className }
+                label={ label }
+                dataToShow={ dataToShow }
+              >
+                { children }
+              </InfoItem>
+            );
+          })
+        }
       </div>
       <Link
         className='ml-card-read-more-link'

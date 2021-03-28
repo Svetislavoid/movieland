@@ -16,7 +16,9 @@ const InfoItem = (props) => {
   } = props;
 
   return show ? (
-    <div className={className}>
+    <div
+      data-testid='ml-info-item'
+      className={className}>
       {
         label &&
         (<span className='ml-label'>{ label }</span>)

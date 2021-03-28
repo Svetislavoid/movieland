@@ -7,6 +7,7 @@ const ScrollToTopButton = () => {
 
   return (
     <button
+      data-testid='ml-scroll-to-top-button'
       className='ml-scroll-to-top-button'
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >

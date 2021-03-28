@@ -465,7 +465,7 @@ const Single = () => {
 
                   return (
                     <InfoItem
-                      key={i}
+                      key={ i }
                       show={ show }
                       className={ className }
                       label={ label }
