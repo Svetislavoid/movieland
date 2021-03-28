@@ -25,6 +25,7 @@
     "build-sw": "node ./src/sw-build.js",
     "build": "craco build && npm run build-sw",
     "eslint": "eslint src",
+    "eslint:fix": "eslint --fix src",
     "test": "craco test --verbose",
     "test:no-watch": "craco test --watchAll=false",
     "eject": "react-scripts eject",

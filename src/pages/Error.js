@@ -7,7 +7,18 @@ import '@/pages/Error.css';
 // components
 import Button from '@/components/Button';
 
+// texts
+import texts from '@/common/texts.json';
+
 const ErrorPage = () => {
+  const {
+    errorPage: {
+      title,
+      subtitle,
+      message
+    }
+  } = texts;
+
   // history
   const history = useHistory();
 
@@ -19,10 +30,10 @@ const ErrorPage = () => {
     <div className='ml-error'>
       <div className='ml-error-heading'>
         <p className='ml-error-404'>404</p>
-        <h1>Oops!</h1>
-        <h4>Something went wrong!</h4>
+        <h1>{ title }</h1>
+        <h4>{ subtitle }</h4>
       </div>
-      <p className='ml-error-explanation'>The page you are looking for doesn't exist or another error occurred</p>
+      <p className='ml-error-explanation'>{ message }</p>
       <Button
         label='Return Home'
         clickHandler={goHome}

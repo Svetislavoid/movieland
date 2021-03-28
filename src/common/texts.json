@@ -10,5 +10,10 @@
   },
   "searchInput": {
     "placeholder": "Search Movieland..."
+  },
+  "errorPage": {
+    "title": "Oops!",
+    "subtitle": "Something went wrong!",
+    "message": "The page you are looking for doesn't exist or another error occurred"
   }
 }
