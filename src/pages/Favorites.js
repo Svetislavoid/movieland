@@ -1,5 +1,5 @@
 // This components is the same as WatchLater, consider merging them
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 // components
@@ -18,9 +18,6 @@ import {
 // functions
 import { addInfoToHistoryState } from '@/common/functions';
 
-// libraries
-import { isEmpty } from 'lodash';
-
 const Favorites = () => {
   // state variables
   const [favoriteMoviesList, setFavoriteMoviesList] = useState(window.history.state?.state?.favoriteMoviesList || []);
@@ -31,6 +28,34 @@ const Favorites = () => {
 
   // history
   const history = useHistory();
+
+  const accountId = localStorage.getItem('accountId');
+  const sessionId = localStorage.getItem('sessionId');
+
+  const getListItems = useCallback(({ service, resultSetter, loadingStateSetter, page = 1 }) => {
+    service(accountId, sessionId, page)
+      .then((response) => {
+        const { results, page, total_pages: totalPages } = response.data;
+
+        resultSetter((items) => [...items, ...results]);
+
+        if (page < totalPages) {
+          getListItems({
+            service: service,
+            resultSetter: resultSetter,
+            loadingStateSetter: loadingStateSetter,
+            page: page + 1
+          });
+        } else {
+          loadingStateSetter(true);
+        }
+
+        return response;
+      })
+      .catch((error) => {
+        history.push('/error');
+      });
+  }, [history, accountId, sessionId]);
 
   useEffect(() => {
     addInfoToHistoryState(history, {
@@ -43,45 +68,38 @@ const Favorites = () => {
   }, [history, favoriteMoviesList, favoriteTvShowsList, favoriteMoviesListLoaded, favoriteTvShowsListLoaded, tabActive]);
 
   useEffect(() => {
-    const scrollTop = window.history.state?.state?.scrollTop || 0;
-
-    window.scrollTo(0, scrollTop);
-
-    const accountId = localStorage.getItem('accountId');
-    const sessionId = localStorage.getItem('sessionId');
-
-    if (!isEmpty(favoriteMoviesList) || !isEmpty(favoriteTvShowsList)) return;
+    if (favoriteMoviesListLoaded) return;
 
     if (accountId && sessionId) {
-      getFavoriteMovies(accountId, sessionId)
-        .then((response) => {
-          const { results } = response.data;
-
-          setFavoriteMoviesList(results);
-          setFavoriteMoviesListLoaded(true);
-
-          return response;
-        })
-        .catch((error) => {
-          history.push('/error');
-        });
-
-      getFavoriteTvShows(accountId, sessionId)
-        .then((response) => {
-          const { results } = response.data;
-
-          setFavoriteTvShowsList(results);
-          setFavoriteTvShowsListLoaded(true);
-
-          return response;
-        })
-        .catch((error) => {
-          history.push('/error');
-        });
+      getListItems({
+        service: getFavoriteMovies,
+        resultSetter: setFavoriteMoviesList,
+        loadingStateSetter: setFavoriteMoviesListLoaded,
+      });
     } else {
       history.push('/');
     }
-  }, [history, favoriteMoviesList, favoriteTvShowsList]);
+  }, [history, favoriteMoviesListLoaded, accountId, sessionId, getListItems]);
+
+  useEffect(() => {
+    if (favoriteTvShowsListLoaded) return;
+
+    if (accountId && sessionId) {
+      getListItems({
+        service: getFavoriteTvShows,
+        resultSetter: setFavoriteTvShowsList,
+        loadingStateSetter: setFavoriteTvShowsListLoaded,
+      });
+    } else {
+      history.push('/');
+    }
+  }, [history, favoriteTvShowsListLoaded, accountId, sessionId, getListItems]);
+
+  useEffect(() => {
+    const scrollTop = window.history.state?.state?.scrollTop || 0;
+
+    window.scrollTo(0, scrollTop);
+  }, [history]);
 
   return (
     <div className='ml-favorites'>

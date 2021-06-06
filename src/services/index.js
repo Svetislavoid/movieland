@@ -46,33 +46,37 @@ export const getAccountDetails = (sessionId) => {
   return Api().get(GET_ACCOUNT, { params });
 };
 
-export const getFavoriteMovies = (accountId, sessionId) => {
+export const getFavoriteMovies = (accountId, sessionId, page) => {
   const params = {
-    session_id: sessionId
+    session_id: sessionId,
+    page: page
   };
 
   return Api().get(`${GET_ACCOUNT}/${accountId}${GET_FAVORITE_MOVIES}`, { params });
 };
 
-export const getFavoriteTvShows = (accountId, sessionId) => {
+export const getFavoriteTvShows = (accountId, sessionId, page) => {
   const params = {
-    session_id: sessionId
+    session_id: sessionId,
+    page: page
   };
 
   return Api().get(`${GET_ACCOUNT}/${accountId}${GET_FAVORITE_TV_SHOWS}`, { params });
 };
 
-export const getMoviesWatchlist = (accountId, sessionId) => {
+export const getMoviesWatchlist = (accountId, sessionId, page) => {
   const params = {
-    session_id: sessionId
+    session_id: sessionId,
+    page: page
   };
 
   return Api().get(`${GET_ACCOUNT}/${accountId}${GET_MOVIES_WATCHLIST}`, { params });
 };
 
-export const getTvShowsWatchlist = (accountId, sessionId) => {
+export const getTvShowsWatchlist = (accountId, sessionId, page) => {
   const params = {
-    session_id: sessionId
+    session_id: sessionId,
+    page: page
   };
 
   return Api().get(`${GET_ACCOUNT}/${accountId}${GET_TV_SHOWS_WATCHLIST}`, { params });

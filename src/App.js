@@ -160,21 +160,31 @@ const App = () => {
   useEffect(() => {
     if (loggedIn) {
       userApiFunctions.forEach((apiFunction) => {
-        apiFunction.route(...apiFunction.params)
+        const getListItems = ({ currentIds, page = 1 }) => apiFunction.route(...apiFunction.params, page)
           .then((response) => {
-            const { results } = response.data;
-            const ids = results.map((result) => result.id);
+            const { results, page, total_pages: totalPages } = response.data;
+            let ids = results.map((result) => result.id);
+            ids = [...currentIds, ...ids];
 
-            dispatch({
-              type: apiFunction.dispatchType,
-              payload: ids
-            });
+            if (page < totalPages) {
+              getListItems({
+                currentIds: ids,
+                page: page + 1
+              });
+            } else {
+              dispatch({
+                type: apiFunction.dispatchType,
+                payload: ids
+              });
+            }
 
             return response;
           })
           .catch((error) => {
             history.push('/error');
           });
+
+        getListItems({ currentIds: [] });
       });
     }
   }, [dispatch, history, userApiFunctions, loggedIn, listsChanged]);
