@@ -29,7 +29,9 @@
     "test": "craco test --verbose",
     "test:no-watch": "craco test --watchAll=false",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
