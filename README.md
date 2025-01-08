@@ -1,4 +1,4 @@
-# The Movieland - search for movies, tv shows and people
+# [The Movieland](https://svetislavoid.github.io/movieland/) - search for movies, tv shows and people
 
 The Movieland is a simple React app that gives you an easy access to information about movies, tv shows and actors. It can:
 
